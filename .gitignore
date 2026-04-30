@@ -1,0 +1,5 @@
+node_modules/
+.next/
+tmp-homepage.png
+tmp-homepage-restored.png
+converted_preview.txt
