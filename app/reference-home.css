@@ -2558,6 +2558,36 @@
   max-width: 100%;
   height: auto;
 }
+
+/* Programs card content: stack naturally, no absolute overlap */
+.content3 {
+  isolation: auto;
+  gap: 18px;
+  position: relative;
+}
+.rating,
+.rating3,
+.rating5 {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  margin: 0 !important;
+}
+.h2,
+.carddesktop2,
+.h22 {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  margin: 0 !important;
+  align-self: flex-end;
+}
 .heading-and-supporting-text2 {
   width: 100%;
   max-width: 1200px;
@@ -2589,6 +2619,8 @@
   flex: 1 1 240px;
   min-width: 0;
   max-width: 320px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 .heading-and-supporting-text3 {
   width: 100%;
@@ -2608,7 +2640,13 @@
   }
 }
 
-/* Quote section: keep image and avatar from overflowing */
+/* Quote section: rounded card and keep image/avatar from overflowing */
+.quote-section {
+  width: calc(100% - 40px);
+  max-width: 1280px;
+  margin: 0 auto;
+  border-radius: 20px;
+}
 .image-2-icon {
   max-width: 100%;
   height: auto;
@@ -2628,6 +2666,12 @@
   }
 }
 
+/* Blog section: rounded images */
+.image-icon,
+.image-icon3 {
+  border-radius: 14px;
+}
+
 /* Blog section: tighter padding & flexible images on small screens */
 @media screen and (max-width: 750px) {
   .container11 {
@@ -2644,12 +2688,14 @@
     height: auto;
     aspect-ratio: 16 / 10;
     object-fit: cover;
+    border-radius: 14px;
   }
   .image-icon3 {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 10;
     flex: 0 0 auto;
+    border-radius: 14px;
   }
   .blog-post-card6 {
     min-width: 0;
@@ -3070,6 +3116,8 @@
   /* Re-enable the avatar wrapper, use it as the top image */
   .frame-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     top: auto;
     left: auto;
@@ -3077,10 +3125,43 @@
     width: auto;
     height: auto;
     margin: 0 16px;
-    padding: 0;
+    padding: 0 0 4px;
     pointer-events: auto;
-    justify-content: center;
+    justify-content: flex-start;
     order: 0;
+  }
+
+  /* Decorative dots below the rounded avatar */
+  .frame-container::after {
+    content: "";
+    display: block;
+    width: 240px;
+    height: 44px;
+    margin-top: 14px;
+    background-image:
+      radial-gradient(circle at 8% 70%, var(--color-mediumseagreen-100) 3px, transparent 3.5px),
+      radial-gradient(circle at 24% 28%, #fbcf9a 6px, transparent 6.5px),
+      radial-gradient(circle at 44% 78%, var(--color-mediumseagreen-200) 4px, transparent 4.5px),
+      radial-gradient(circle at 60% 24%, var(--color-mediumseagreen-100) 8px, transparent 8.5px),
+      radial-gradient(circle at 78% 70%, #fbcf9a 5px, transparent 5.5px),
+      radial-gradient(circle at 92% 32%, var(--color-mediumseagreen-200) 3px, transparent 3.5px);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+  }
+
+  /* Small accent dot floating beside the avatar */
+  .frame-container::before {
+    content: "";
+    position: absolute;
+    top: 24px;
+    right: calc(50% - 168px);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #fbcf9a;
+    box-shadow: 0 4px 10px rgba(251, 207, 154, 0.5);
+    pointer-events: none;
   }
 
   /* Hide decorative SVGs/dotted ring */
