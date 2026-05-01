@@ -1,0 +1,114 @@
+@tailwind components;
+@tailwind utilities;
+
+.dashboard-root,
+.dashboard-root *,
+.dashboard-root *::before,
+.dashboard-root *::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+
+.dashboard-root {
+  font-family: "Inter", sans-serif;
+  min-height: 100dvh;
+  background: #f8f9fa;
+  color: #191c1d;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard-root h1,
+.dashboard-root h2,
+.dashboard-root h3,
+.dashboard-root h4,
+.dashboard-root h5,
+.dashboard-root h6,
+.dashboard-root p,
+.dashboard-root figure,
+.dashboard-root blockquote,
+.dashboard-root dl,
+.dashboard-root dd,
+.dashboard-root pre {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.dashboard-root ol,
+.dashboard-root ul,
+.dashboard-root menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-root a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.dashboard-root button,
+.dashboard-root [type="button"],
+.dashboard-root [type="reset"],
+.dashboard-root [type="submit"] {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+
+.dashboard-root button,
+.dashboard-root input,
+.dashboard-root optgroup,
+.dashboard-root select,
+.dashboard-root textarea {
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-root img,
+.dashboard-root svg,
+.dashboard-root video,
+.dashboard-root canvas,
+.dashboard-root audio,
+.dashboard-root iframe,
+.dashboard-root embed,
+.dashboard-root object {
+  display: block;
+  vertical-align: middle;
+}
+
+.dashboard-root img,
+.dashboard-root video {
+  max-width: 100%;
+  height: auto;
+}
+
+.dashboard-root hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+
+.dashboard-root table {
+  text-indent: 0;
+  border-color: inherit;
+  border-collapse: collapse;
+}
+
+.dashboard-root .material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
