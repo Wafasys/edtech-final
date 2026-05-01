@@ -10,6 +10,12 @@ All data is dummy / hard-coded — no real API calls.
 - [x] admin_dashboard            → app/(dashboard)/admin/dashboard/page.tsx
 - [x] student_profile_dashboard  → app/(dashboard)/student/profile/page.tsx
 - [x] leaderboard                → app/(dashboard)/student/leaderboard/page.tsx
+- [x] exam_scheduling_admin      → app/(dashboard)/admin/exams/schedule/page.tsx
+- [x] live_exam_monitoring_admin → app/(dashboard)/admin/exams/monitor/page.tsx
+- [x] result_analysis            → app/(dashboard)/student/results/page.tsx
+- [x] smart_search               → app/(dashboard)/student/search/page.tsx
+
+Shared admin shell (left sidebar + logout) lives in app/(dashboard)/admin/layout.tsx.
 
 ## Pending
 
@@ -18,10 +24,6 @@ All data is dummy / hard-coded — no real API calls.
 - [ ] ask_question_mode_revised
 - [ ] instructor_q_a_panel_revised
 - [ ] pinned_instructor_reply_revised
-- [ ] result_analysis
-- [ ] smart_search
-- [ ] exam_scheduling_admin
-- [ ] live_exam_monitoring_admin
 - [ ] desktop_secure_exam_view
 - [ ] mobile_secure_exam_view
 - [ ] index.html (design index — likely skip; redundant with this tracker)

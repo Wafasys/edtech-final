@@ -245,29 +245,6 @@ export default function StudentProfilePage() {
           </div>
         </section>
       </main>
-
-      <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-2 bg-white border-t border-gray-200 z-50">
-        <Link href="/student/dashboard" className="flex flex-col items-center justify-center text-gray-500 py-1 w-full active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">home</span>
-          <span className="text-[11px] font-medium mt-1">Home</span>
-        </Link>
-        <button className="flex flex-col items-center justify-center text-gray-500 py-1 w-full active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">menu_book</span>
-          <span className="text-[11px] font-medium mt-1">Courses</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-gray-500 py-1 w-full active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">quiz</span>
-          <span className="text-[11px] font-medium mt-1">Exams</span>
-        </button>
-        <Link href="/student/leaderboard" className="flex flex-col items-center justify-center text-gray-500 py-1 w-full active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">leaderboard</span>
-          <span className="text-[11px] font-medium mt-1">Leaderboard</span>
-        </Link>
-        <button className="flex flex-col items-center justify-center text-[#003087] bg-blue-50/50 rounded-lg py-1 w-full active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
-          <span className="text-[11px] font-medium mt-1">Profile</span>
-        </button>
-      </nav>
     </div>
   );
 }

@@ -168,31 +168,6 @@ export default function LeaderboardPage() {
           </button>
         </div>
       </main>
-
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white/95 backdrop-blur-md border-t border-slate-100">
-        <Link href="/student/dashboard" className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">home</span>
-          <span className="text-[11px] font-medium">Home</span>
-        </Link>
-        <button className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">menu_book</span>
-          <span className="text-[11px] font-medium">Courses</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">quiz</span>
-          <span className="text-[11px] font-medium">Exams</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-blue-900 bg-blue-50/50 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
-            leaderboard
-          </span>
-          <span className="text-[11px] font-medium">Leaderboard</span>
-        </button>
-        <Link href="/student/profile" className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">person</span>
-          <span className="text-[11px] font-medium">Profile</span>
-        </Link>
-      </nav>
     </div>
   );
 }
