@@ -14,15 +14,17 @@ All data is dummy / hard-coded — no real API calls.
 - [x] live_exam_monitoring_admin → app/(dashboard)/admin/exams/monitor/page.tsx
 - [x] result_analysis            → app/(dashboard)/student/results/page.tsx
 - [x] smart_search               → app/(dashboard)/student/search/page.tsx
+- [x] video_lesson               → app/(dashboard)/student/lessons/page.tsx
+- [x] video_player_notes_revised → app/(dashboard)/student/lessons/notes/page.tsx
+- [x] ask_question_mode_revised  → app/(dashboard)/student/lessons/ask/page.tsx
+- [x] instructor_q_a_panel_revised → app/(dashboard)/admin/qa/page.tsx
 
-Shared admin shell (left sidebar + logout) lives in app/(dashboard)/admin/layout.tsx.
+Shared shells:
+- Admin sidebar + logout in app/(dashboard)/admin/layout.tsx (now includes Q&A Replies link).
+- Student responsive sidebar/bottom-nav in app/(dashboard)/student/layout.tsx.
 
 ## Pending
 
-- [ ] video_lesson
-- [ ] video_player_notes_revised
-- [ ] ask_question_mode_revised
-- [ ] instructor_q_a_panel_revised
 - [ ] pinned_instructor_reply_revised
 - [ ] desktop_secure_exam_view
 - [ ] mobile_secure_exam_view

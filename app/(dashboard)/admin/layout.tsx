@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: "/admin/dashboard", label: "Dashboard", icon: "dashboard" },
   { href: "/admin/exams/schedule", label: "Exam Management", icon: "quiz" },
   { href: "/admin/exams/monitor", label: "Live Monitoring", icon: "monitoring" },
+  { href: "/admin/qa", label: "Q&A Replies", icon: "forum" },
   { href: "#", label: "Course Management", icon: "menu_book" },
   { href: "#", label: "Student Monitoring", icon: "groups" },
 ];
