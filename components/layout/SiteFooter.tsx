@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SiteFooter() {
   return (
     <footer className="footer" id="footer">
@@ -153,6 +155,13 @@ export default function SiteFooter() {
                         <div className="about-us">Contact</div>
                       </div>
                     </div>
+                  </div>
+                  <div className="footer-link">
+                    <Link href="/admin/login" className="button6">
+                      <div className="button-base6">
+                        <div className="about-us">Admin login</div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
               </div>

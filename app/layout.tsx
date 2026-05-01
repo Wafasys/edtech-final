@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import SiteFooter from "../components/layout/SiteFooter";
-import SiteNavbar from "../components/layout/SiteNavbar";
 import "./globals.css";
 import "./reference-home.css";
 
@@ -17,13 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <div className="site-layout">
-          <SiteNavbar />
-          <main>{children}</main>
-          <SiteFooter />
-        </div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

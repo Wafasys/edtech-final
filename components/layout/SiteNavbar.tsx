@@ -104,14 +104,14 @@ export default function SiteNavbar() {
           </nav>
         </div>
         <div className="tag">
-          <div className="menu">
+          <Link href="/login" className="menu">
             <div className="sign-in">Sign in</div>
-          </div>
-          <div className="button2">
+          </Link>
+          <Link href="/signup" className="button2">
             <div className="button-base2">
               <div className="buttonsecondary2">Create free account</div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 
@@ -167,6 +167,12 @@ export default function SiteNavbar() {
           <Link href="#programs" className="mobile-drawer-link" onClick={closeDrawer}>
             Courses
           </Link>
+          <Link href="/login" className="mobile-drawer-link" onClick={closeDrawer}>
+            Login
+          </Link>
+          <Link href="/signup" className="mobile-drawer-link" onClick={closeDrawer}>
+            Sign up
+          </Link>
           <Link href="#footer" className="mobile-drawer-link" onClick={closeDrawer}>
             Contact us
           </Link>
@@ -176,12 +182,12 @@ export default function SiteNavbar() {
         </nav>
 
         <div className="mobile-drawer-cta">
-          <button type="button" className="mobile-drawer-signin" onClick={closeDrawer}>
+          <Link href="/login" className="mobile-drawer-signin" onClick={closeDrawer} style={{ textAlign: "center" }}>
             Sign in
-          </button>
-          <button type="button" className="mobile-drawer-primary" onClick={closeDrawer}>
+          </Link>
+          <Link href="/signup" className="mobile-drawer-primary" onClick={closeDrawer} style={{ textAlign: "center" }}>
             Create free account
-          </button>
+          </Link>
         </div>
       </aside>
     </header>
