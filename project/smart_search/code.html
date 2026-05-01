@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#99f89e",
+                    "surface-container-high": "#e7e8e9",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "on-background": "#191c1d",
+                    "on-primary-fixed-variant": "#1c4197",
+                    "inverse-surface": "#2e3132",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#0e742c",
+                    "on-tertiary-container": "#ff7675",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "background": "#f8f9fa",
+                    "surface-tint": "#3959b0",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "tertiary-container": "#760013",
+                    "on-tertiary-fixed-variant": "#93001a",
+                    "on-surface-variant": "#444652",
+                    "on-secondary-fixed": "#002106",
+                    "error": "#ba1a1a",
+                    "primary-container": "#003087",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "outline-variant": "#c4c6d4",
+                    "on-primary-container": "#7f9df8",
+                    "secondary-fixed-dim": "#7edb85",
+                    "secondary": "#006e26",
+                    "surface-container-highest": "#e1e3e4",
+                    "primary": "#001d59",
+                    "on-tertiary-fixed": "#410006",
+                    "surface-container-low": "#f3f4f5",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#00531b",
+                    "on-primary-fixed": "#00174b",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "outline": "#747683",
+                    "on-surface": "#191c1d",
+                    "primary-fixed": "#dbe1ff",
+                    "secondary-container": "#99f89e",
+                    "tertiary": "#4d0009",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "tap-target-min": "48px",
+                    "card-padding": "24px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "question-text": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "display-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "question-text": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-slate-950 flex justify-between items-center w-full px-5 py-3 sticky top-0 z-50 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<button class="active:opacity-70 transition-all duration-200">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-400">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-blue-900 dark:text-blue-400 font-inter tracking-tight">Admission Pro</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile" data-alt="professional headshot of a male student with a confident smile in a bright academic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN1wnVWnIw2sURSZhanp9-I5aBkUowzjTQGpoEuSVfBrwu7cQDV5waptE-UUNAuKq-MGIfGndYDYo8u3XkyLW1OPeBH4FuxhHJm4QGFzt9u1JFe4e1StxJV7vY-Xl0K7WtCBgA6RALwBHx_rHLWdsPZps9lg4j2bPPrPSeAiloxHrUfbOUZJWeV3qetPUgq7PMtMBMjvHdflQbWwZL7SkPbzUU33sdmksu-qno6yhIsk5k_Xj_91JA21mJnYldrQN6Aqx_WTd-41Y"/>
+</div>
+</header>
+<main class="px-container-margin pt-6 max-w-4xl mx-auto">
+<!-- Global Search Bar -->
+<div class="relative mb-8">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<input class="w-full h-tap-target-min pl-12 pr-4 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none font-body-md text-on-surface" placeholder="Search physics, organic chemistry, or BUET previous years..." type="text" value="Organic Chemistry"/>
+<div class="absolute inset-y-0 right-4 flex items-center">
+<span class="material-symbols-outlined text-outline cursor-pointer">mic</span>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 mb-8 overflow-x-auto pb-2 no-scrollbar">
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-label-sm whitespace-nowrap active:opacity-70 transition-all">All Results</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm whitespace-nowrap active:opacity-70 transition-all">Videos</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm whitespace-nowrap active:opacity-70 transition-all">MCQs</button>
+<button class="px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm whitespace-nowrap active:opacity-70 transition-all">Class Notes</button>
+</div>
+<!-- Search Results Sections -->
+<div class="space-y-10">
+<!-- Category: MCQ Questions (High Stakes Context) -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">quiz</span>
+                        MCQ Questions
+                    </h2>
+<span class="text-label-sm text-outline">12 matches</span>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-card-padding rounded-xl border border-outline-variant active:opacity-70 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded text-[10px] font-bold uppercase tracking-wider">DU A-Unit 2022</span>
+<span class="material-symbols-outlined text-outline text-sm">bookmark</span>
+</div>
+<p class="font-question-text text-on-surface mb-3">Which of the following is an electrophilic addition reaction?</p>
+<p class="font-body-md text-on-surface-variant line-clamp-2">Search snippet: ...reaction of ethene with bromine is a classic example of <span class="bg-primary-fixed text-on-primary-fixed px-1">electrophilic addition</span>. This happens due to the high electron density of the pi-bond...</p>
+</div>
+<div class="bg-white p-card-padding rounded-xl border border-outline-variant active:opacity-70 transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="px-2 py-1 bg-surface-container-highest text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider">Organic Basics</span>
+<span class="material-symbols-outlined text-outline text-sm">bookmark</span>
+</div>
+<p class="font-question-text text-on-surface mb-3">The hybridization of carbon in benzene is—</p>
+<p class="font-body-md text-on-surface-variant line-clamp-2">Search snippet: ...each carbon atom in the benzene ring is <span class="bg-primary-fixed text-on-primary-fixed px-1">sp2 hybridized</span>, forming a delocalized system of electrons...</p>
+</div>
+</div>
+</section>
+<!-- Category: Videos (Bento Layout Preview) -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                        Video Lectures
+                    </h2>
+<span class="text-label-sm text-outline">4 matches</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="group relative aspect-video rounded-xl overflow-hidden bg-surface-dim active:scale-[0.98] transition-transform">
+<img class="w-full h-full object-cover" data-alt="detailed 3D molecular model of a complex carbon chain with vibrant atoms on a dark educational background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIv3dNSSJ74c-HreT-Zp_vWlrNtGL4puLfJgIvC955jswzVzkC_sNmD8Jgx5hTHXwsDuuf5KCwTqXiyLFCGZgbNe1oFwHv0T2z8vOmxcq2a9wuJEX1Tb2pyJq3ErZRNwPqnmQj6fSYONjGtISFVN0HMJUu3Z_5tBpxJinvE2WMhXiudNTr7bdwjl5zHht5ocaFxiPVc9fUvTEAkxSPdFtGegc6yZLKJtEV-5CEFyZgZraW-0qk0J-TLiN3u0urrOQjlPlxBQ6xC1I"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl">play_circle</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-white font-label-sm truncate">Organic Chemistry: Reaction Mechanisms</p>
+<p class="text-white/70 text-[12px]">24:15 • Dr. Rahman</p>
+</div>
+</div>
+<div class="group relative aspect-video rounded-xl overflow-hidden bg-surface-dim active:scale-[0.98] transition-transform">
+<img class="w-full h-full object-cover" data-alt="scientist in white lab coat working with glowing blue chemical solutions in a clean modern laboratory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD22yEkQKW4SZI-p0hSiu1DudG520ESLmbjESk6BIwJ6vglSlbwjaeddxAgqdALxx_QWUEPsRVqZ4CotzXxGpipdeXFQBPm_MbSAs0wwQje5vmEORH6olhZ5WzCeDSBtR9v0eFFIENOg7oeC4gSCbes2kUDv1F36Pfs5ly3lsjdKtYZlK6ayVvsbhCJrJuNPf3vjXvCwe-U8nsum_4185U4Frxji589kQA6pt2Wdb_D0cnDnK4gvpWO-2uIQZKOXTpxnjEnMgx2Nd8"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl">play_circle</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-white font-label-sm truncate">Isomerism &amp; Stereochemistry Masterclass</p>
+<p class="text-white/70 text-[12px]">42:08 • Prof. Karim</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Class Notes -->
+<section class="pb-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+                        Class Notes
+                    </h2>
+<span class="text-label-sm text-outline">7 matches</span>
+</div>
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden">
+<div class="flex items-center gap-4 p-4 border-b border-outline-variant hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-12 h-12 bg-tertiary-fixed flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">text_snippet</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-sm text-on-surface truncate">Nomenclature of Alkanes &amp; Alkenes</h3>
+<p class="text-on-surface-variant text-[12px] truncate">Contains IUPAC rules and 50+ naming exercises...</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center gap-4 p-4 border-b border-outline-variant hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-12 h-12 bg-secondary-fixed flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant">draw</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-sm text-on-surface truncate">Handwritten Notes: Benzene Derivatives</h3>
+<p class="text-on-surface-variant text-[12px] truncate">Detailed diagrams of resonance structures...</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+<div class="flex items-center gap-4 p-4 hover:bg-surface-container transition-colors cursor-pointer">
+<div class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-primary-fixed-variant">article</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-sm text-on-surface truncate">Quick Revision: Functional Groups</h3>
+<p class="text-on-surface-variant text-[12px] truncate">One-page cheat sheet for quick memorization...</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800">
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[11px] font-medium font-inter">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-[11px] font-medium font-inter">Courses</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-[11px] font-medium font-inter">Exams</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-[11px] font-medium font-inter">Leaderboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[11px] font-medium font-inter">Profile</span>
+</button>
+</nav>
+</body></html>

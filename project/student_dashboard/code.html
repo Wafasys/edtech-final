@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admission Pro - Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#99f89e",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed-variant": "#1c4197",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#0e742c",
+                        "on-tertiary-container": "#ff7675",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "background": "#f8f9fa",
+                        "surface-tint": "#3959b0",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary-container": "#760013",
+                        "on-tertiary-fixed-variant": "#93001a",
+                        "on-surface-variant": "#444652",
+                        "on-secondary-fixed": "#002106",
+                        "error": "#ba1a1a",
+                        "primary-container": "#003087",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "outline-variant": "#c4c6d4",
+                        "on-primary-container": "#7f9df8",
+                        "secondary-fixed-dim": "#7edb85",
+                        "secondary": "#006e26",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary": "#001d59",
+                        "on-tertiary-fixed": "#410006",
+                        "surface-container-low": "#f3f4f5",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-fixed-variant": "#00531b",
+                        "on-primary-fixed": "#00174b",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "outline": "#747683",
+                        "on-surface": "#191c1d",
+                        "primary-fixed": "#dbe1ff",
+                        "secondary-container": "#99f89e",
+                        "tertiary": "#4d0009",
+                        "surface": "#f8f9fa",
+                        "tertiary-fixed": "#ffdad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "tap-target-min": "48px",
+                        "card-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "question-text": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "question-text": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .circular-progress {
+            background: radial-gradient(closest-side, white 79%, transparent 80% 100%),
+                        conic-gradient(#001d59 calc(var(--progress) * 1%), #e1e3e4 0);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-5 py-3 sticky top-0 z-50 bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 transition-all duration-200">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-900 dark:text-blue-400 active:opacity-70 transition-all duration-200 cursor-pointer">arrow_back</span>
+<h1 class="text-lg font-bold text-blue-900 dark:text-blue-400 font-inter tracking-tight">Admission Pro</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="professional portrait of a young adult student with a friendly expression, studio lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7AVCa4cbImZGmJFs9PZrFqrnKiHsrMVbtu_AvNewLKNnd1SYzk4LAGylzk67kVH4NWaatlGp5NVZGyhwPxNVtG-foMlfFChdJjAI8xUo0QMgMqZM7tDCr1m2fVcAY2eKFPD3o8ZfRUEk02shPYJxUE59v9jEE_E6nZY9xCA_0QJ5mRC_OyY9F_ednoy-XwWcvN_dJj00oVywilCOogXpTnOWR_HNK_XlW5DlKA3ZeJROOsiI7tnNKUVkmiNbtZYhtUVCJNUZN_8M"/>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-container-margin py-8 space-y-8">
+<!-- Welcome Message -->
+<section class="space-y-2">
+<h2 class="font-display-lg text-display-lg text-primary">Welcome back, Fahim</h2>
+<p class="font-body-md text-body-md text-outline">You have completed 68% of your weekly study goal. Stay focused!</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Quick Resume Card (Large) -->
+<div class="md:col-span-2 bg-white rounded-xl border border-outline-variant overflow-hidden flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 relative h-48 md:h-auto overflow-hidden">
+<img alt="Last Lesson" class="w-full h-full object-cover" data-alt="Close up of a chalkboard with complex physics equations and diagrams, soft atmospheric lighting in a university setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp56NRgQbpopI4tQGH3I_5nsB3VqqkF4f_mhFEGVePICnKBnusErVhkNg6twm1pW1OCbrej6tRf_W5SYMn1YYBLAX1Xm8mXKZfupRTHhAWq6T_LPej3fMEJ22JNpNZnxDj7mDljE22HQ-rCtKbTSDZ7rFpBzPrrzTyG8DvuxjepJo9gVxnQJxADc5RJlqUUcHMTf1sHk9L3YF5mm03Th3w49yqCTyw12W8CawOXH5z_BqYZ9hXnC2aTo5CbNl65WFruXWwgP-IBFQ"/>
+<div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-5xl opacity-90">play_circle</span>
+</div>
+</div>
+<div class="p-card-padding flex flex-col justify-between flex-1">
+<div>
+<span class="font-label-sm text-label-sm text-primary bg-primary-fixed px-2 py-1 rounded">Physics Unit 4</span>
+<h3 class="font-headline-md text-headline-md mt-3 text-primary">Electromagnetic Induction</h3>
+<p class="font-body-md text-body-md text-outline mt-2">Resume at 14:22</p>
+</div>
+<button class="mt-6 w-full h-tap-target-min bg-primary text-on-primary rounded-xl font-label-sm flex items-center justify-center gap-2 active:opacity-70 transition-all">
+                        Continue Learning
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Overall Progress Summary -->
+<div class="bg-white rounded-xl border border-outline-variant p-card-padding flex flex-col items-center justify-center text-center">
+<div class="relative w-32 h-32 circular-progress rounded-full flex items-center justify-center" style="--progress: 74">
+<div class="bg-white w-24 h-24 rounded-full flex flex-col items-center justify-center">
+<span class="text-2xl font-bold text-primary">74%</span>
+<span class="text-[10px] uppercase font-bold text-outline">Accuracy</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4 w-full">
+<div class="text-center">
+<p class="text-2xl font-bold text-primary">12</p>
+<p class="font-label-sm text-label-sm text-outline">Days Streak</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-secondary">485</p>
+<p class="font-label-sm text-label-sm text-outline">Questions</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Enrolled Courses -->
+<section class="space-y-4">
+<div class="flex justify-between items-end px-1">
+<h3 class="font-headline-md text-headline-md text-primary">Enrolled Courses</h3>
+<button class="text-primary font-label-sm flex items-center gap-1">View all <span class="material-symbols-outlined text-sm">open_in_new</span></button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Course Card 1 -->
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex items-center gap-4 hover:border-primary/30 transition-colors">
+<div class="w-14 h-14 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-sm text-label-sm text-primary">Engineering Math</h4>
+<div class="mt-2 w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 85%;"></div>
+</div>
+<p class="text-[12px] mt-1 text-outline">85% Complete</p>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex items-center gap-4 hover:border-primary/30 transition-colors">
+<div class="w-14 h-14 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">science</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-sm text-label-sm text-primary">Advanced Chemistry</h4>
+<div class="mt-2 w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 42%;"></div>
+</div>
+<p class="text-[12px] mt-1 text-outline">42% Complete</p>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-white border border-outline-variant rounded-xl p-5 flex items-center gap-4 hover:border-primary/30 transition-colors">
+<div class="w-14 h-14 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">language</span>
+</div>
+<div class="flex-1">
+<h4 class="font-label-sm text-label-sm text-primary">English Proficiency</h4>
+<div class="mt-2 w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 15%;"></div>
+</div>
+<p class="text-[12px] mt-1 text-outline">15% Complete</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Exams -->
+<section class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-primary px-1">Upcoming Exams</h3>
+<div class="space-y-3">
+<!-- Exam Row 1 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-center bg-surface-container-low p-2 rounded-lg min-w-[60px]">
+<p class="text-[10px] font-bold text-outline uppercase">Oct</p>
+<p class="text-xl font-black text-primary">12</p>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary">Full Model Test 04</h4>
+<p class="text-sm text-outline">Paper I &amp; II • 10:00 AM</p>
+</div>
+</div>
+<button class="px-4 h-10 border border-primary text-primary rounded-lg font-label-sm text-[12px] hover:bg-primary-fixed transition-colors">Details</button>
+</div>
+<!-- Exam Row 2 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-center bg-surface-container-low p-2 rounded-lg min-w-[60px]">
+<p class="text-[10px] font-bold text-outline uppercase">Oct</p>
+<p class="text-xl font-black text-primary">15</p>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary">Subjective Quiz: Biology</h4>
+<p class="text-sm text-outline">Botany Basics • 03:30 PM</p>
+</div>
+</div>
+<button class="px-4 h-10 border border-primary text-primary rounded-lg font-label-sm text-[12px] hover:bg-primary-fixed transition-colors">Details</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800">
+<!-- Home Active -->
+<a class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-[11px] font-medium font-inter">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-blue-800 dark:hover:text-blue-300 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[11px] font-medium font-inter">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-blue-800 dark:hover:text-blue-300 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-[11px] font-medium font-inter">Exams</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-blue-800 dark:hover:text-blue-300 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-[11px] font-medium font-inter">Leaderboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 hover:text-blue-800 dark:hover:text-blue-300 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[11px] font-medium font-inter">Profile</span>
+</a>
+</nav>
+</body></html>

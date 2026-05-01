@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admission Pro — Design Index</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          background: "#f8f9fa",
+          surface: "#ffffff",
+          "surface-container": "#edeeef",
+          "surface-container-low": "#f3f4f5",
+          "surface-container-high": "#e7e8e9",
+          "on-background": "#191c1d",
+          "on-surface-variant": "#444652",
+          outline: "#747683",
+          "outline-variant": "#c4c6d4",
+          primary: "#001d59",
+          "primary-container": "#003087",
+          "on-primary": "#ffffff",
+          "on-primary-container": "#7f9df8",
+          "primary-fixed": "#dbe1ff",
+          "primary-fixed-dim": "#b4c5ff",
+          secondary: "#006e26",
+          "secondary-container": "#99f89e",
+          tertiary: "#4d0009",
+          "tertiary-container": "#ff7675"
+        },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          card: "0 1px 2px rgba(0,0,0,0.04), 0 8px 24px -12px rgba(0, 29, 89, 0.18)",
+          cardHover: "0 2px 4px rgba(0,0,0,0.06), 0 18px 40px -16px rgba(0, 29, 89, 0.32)"
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html, body { font-family: 'Inter', system-ui, sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+  .grain::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .card-image {
+    transition: transform 600ms cubic-bezier(.2,.7,.2,1);
+  }
+  .card:hover .card-image { transform: scale(1.04); }
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    padding: 0.25rem 0.625rem; border-radius: 9999px;
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .filter-pill[data-active="true"] {
+    background: #001d59; color: #ffffff; border-color: #001d59;
+  }
+  .filter-pill[data-active="true"] .count {
+    background: rgba(255,255,255,0.15); color: #ffffff;
+  }
+  /* Hide cards filtered out */
+  .hidden-card { display: none !important; }
+</style>
+</head>
+<body class="bg-background text-on-background antialiased">
+
+<!-- Header / Hero -->
+<header class="relative overflow-hidden bg-primary text-white">
+  <div class="absolute inset-0 grain"></div>
+  <div class="absolute -top-32 -right-24 w-[480px] h-[480px] rounded-full bg-primary-container/40 blur-3xl"></div>
+  <div class="absolute -bottom-40 -left-20 w-[420px] h-[420px] rounded-full bg-primary-fixed-dim/20 blur-3xl"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pt-12 pb-16">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 flex items-center justify-center">
+          <span class="material-symbols-outlined text-white">school</span>
+        </div>
+        <div class="leading-tight">
+          <div class="text-sm font-semibold tracking-wide text-primary-fixed-dim">ADMISSION PRO</div>
+          <div class="text-xs text-white/60">Stitch · Design Snapshots</div>
+        </div>
+      </div>
+      <div class="hidden sm:flex items-center gap-2 text-xs text-white/70">
+        <span class="material-symbols-outlined text-base">collections_bookmark</span>
+        <span><span id="totalCount">0</span> screens</span>
+      </div>
+    </div>
+
+    <div class="mt-12 max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-medium text-primary-fixed-dim mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+        Design Index · v1
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+        Professional Admission Engine
+      </h1>
+      <p class="mt-5 text-base sm:text-lg text-white/75 max-w-2xl">
+        Every UI screen produced for the platform — student journey, secure exams, instructor tooling and admin operations — collected in one navigable index.
+      </p>
+
+      <!-- Search -->
+      <div class="mt-8 relative max-w-xl">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/60">search</span>
+        <input id="searchInput" type="text" placeholder="Search screens, e.g. dashboard, exam, leaderboard…"
+          class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary-fixed-dim focus:border-transparent transition"/>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Filters -->
+<nav class="sticky top-0 z-20 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center gap-2 overflow-x-auto" id="filterBar">
+    <!-- filter pills injected by JS -->
+  </div>
+</nav>
+
+<!-- Grid -->
+<main class="max-w-7xl mx-auto px-6 lg:px-10 py-12">
+  <div id="cardGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- cards injected by JS -->
+  </div>
+
+  <div id="emptyState" class="hidden text-center py-24">
+    <span class="material-symbols-outlined text-5xl text-outline">search_off</span>
+    <h3 class="mt-3 text-lg font-semibold">No screens match your search</h3>
+    <p class="text-sm text-on-surface-variant">Try a different keyword or clear the filter.</p>
+  </div>
+</main>
+
+<footer class="border-t border-outline-variant">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant">
+    <div>Designed in Google Stitch · indexed locally</div>
+    <div class="flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-sm">bolt</span>
+      Open any card to inspect the generated HTML
+    </div>
+  </div>
+</footer>
+
+<script>
+  const screens = [
+    // Student Experience
+    { folder: "student_dashboard", title: "Student Dashboard", desc: "Personalized landing surface with courses, progress and upcoming exams.", category: "Student", icon: "dashboard" },
+    { folder: "student_profile_dashboard", title: "Student Profile", desc: "Profile, achievements and academic stats for an enrolled student.", category: "Student", icon: "account_circle" },
+    { folder: "video_lesson", title: "Video Lesson", desc: "Lecture playback view with chapters and lesson context.", category: "Student", icon: "smart_display" },
+    { folder: "video_player_notes_revised", title: "Video Player + Notes", desc: "Side-by-side video and timestamped note taking.", category: "Student", icon: "edit_note" },
+    { folder: "smart_search", title: "Smart Search", desc: "Unified search across courses, lessons, questions and resources.", category: "Student", icon: "search" },
+    { folder: "leaderboard", title: "Leaderboard", desc: "Ranked performance board with cohort and topic filters.", category: "Student", icon: "leaderboard" },
+    { folder: "result_analysis", title: "Result Analysis", desc: "Post-exam breakdown of strengths, weaknesses and time spent.", category: "Student", icon: "analytics" },
+
+    // Q&A
+    { folder: "ask_question_mode_revised", title: "Ask a Question", desc: "Student-facing flow to post a question to instructors.", category: "Q&A", icon: "live_help" },
+    { folder: "pinned_instructor_reply_revised", title: "Pinned Instructor Reply", desc: "Highlighted authoritative answer thread.", category: "Q&A", icon: "push_pin" },
+    { folder: "instructor_q_a_panel_revised", title: "Instructor Q&A Panel", desc: "Triage queue for instructors to answer questions.", category: "Q&A", icon: "forum" },
+
+    // Exam
+    { folder: "desktop_secure_exam_view", title: "Secure Exam — Desktop", desc: "Locked-down desktop view for proctored examinations.", category: "Exam", icon: "desktop_windows" },
+    { folder: "mobile_secure_exam_view", title: "Secure Exam — Mobile", desc: "Mobile counterpart of the secure exam runtime.", category: "Exam", icon: "smartphone" },
+
+    // Admin
+    { folder: "admin_dashboard", title: "Admin Dashboard", desc: "Operational overview of students, exams and platform health.", category: "Admin", icon: "admin_panel_settings" },
+    { folder: "exam_scheduling_admin", title: "Exam Scheduling", desc: "Create, schedule and assign exams across cohorts.", category: "Admin", icon: "event" },
+    { folder: "live_exam_monitoring_admin", title: "Live Exam Monitoring", desc: "Real-time invigilation grid with candidate streams.", category: "Admin", icon: "monitor_heart" },
+
+    // Spec
+    { folder: "admission_lms", title: "Design System Spec", desc: "Tokens, palette and typography reference for the platform.", category: "Spec", file: "DESIGN.md", icon: "palette" },
+  ];
+
+  const categoryStyles = {
+    "Student":  { bg: "bg-primary-fixed",      text: "text-on-primary-fixed-variant", solid: "#001d59" },
+    "Q&A":      { bg: "bg-secondary-container",text: "text-on-secondary-container",   solid: "#006e26" },
+    "Exam":     { bg: "bg-tertiary-container/30", text: "text-tertiary",              solid: "#4d0009" },
+    "Admin":    { bg: "bg-primary/10",         text: "text-primary",                  solid: "#001d59" },
+    "Spec":     { bg: "bg-surface-container-high", text: "text-on-surface-variant",   solid: "#444652" }
+  };
+  // Tailwind doesn't know on-primary-fixed-variant by default — fall back via inline style.
+  const fallbackChipStyle = (cat) => {
+    const map = {
+      "Student":  { background: "#dbe1ff", color: "#1c4197" },
+      "Q&A":      { background: "#99f89e", color: "#0e742c" },
+      "Exam":     { background: "#ffdad6", color: "#93000a" },
+      "Admin":    { background: "rgba(0,29,89,0.08)", color: "#001d59" },
+      "Spec":     { background: "#e7e8e9", color: "#444652" }
+    };
+    return map[cat] || map["Spec"];
+  };
+
+  const grid = document.getElementById("cardGrid");
+  const filterBar = document.getElementById("filterBar");
+  const searchInput = document.getElementById("searchInput");
+  const emptyState = document.getElementById("emptyState");
+  document.getElementById("totalCount").textContent = screens.length;
+
+  // Build category filters
+  const categories = ["All", ...Array.from(new Set(screens.map(s => s.category)))];
+  let activeCategory = "All";
+
+  function renderFilters() {
+    filterBar.innerHTML = "";
+    categories.forEach(cat => {
+      const count = cat === "All" ? screens.length : screens.filter(s => s.category === cat).length;
+      const btn = document.createElement("button");
+      btn.className = "filter-pill flex items-center gap-2 px-4 py-2 rounded-full border border-outline-variant bg-surface text-sm font-medium text-on-background hover:border-primary transition whitespace-nowrap";
+      btn.dataset.active = (cat === activeCategory).toString();
+      btn.dataset.category = cat;
+      btn.innerHTML = `<span>${cat}</span><span class="count text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant">${count}</span>`;
+      btn.addEventListener("click", () => {
+        activeCategory = cat;
+        renderFilters();
+        applyFilter();
+      });
+      filterBar.appendChild(btn);
+    });
+  }
+
+  function renderCards() {
+    grid.innerHTML = "";
+    screens.forEach((s, idx) => {
+      const file = s.file || "code.html";
+      const href = `${s.folder}/${file}`;
+      const isMd = file.endsWith(".md");
+      const chipStyle = fallbackChipStyle(s.category);
+
+      const card = document.createElement("a");
+      card.className = "card group relative flex flex-col rounded-2xl bg-surface border border-outline-variant overflow-hidden shadow-card hover:shadow-cardHover hover:-translate-y-0.5 transition-all duration-300";
+      card.href = href;
+      card.target = isMd ? "_self" : "_blank";
+      card.rel = "noopener";
+      card.dataset.search = (s.title + " " + s.desc + " " + s.category + " " + s.folder).toLowerCase();
+      card.dataset.category = s.category;
+
+      const previewSrc = `${s.folder}/screen.png`;
+      const previewHTML = isMd
+        ? `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-primary-container text-white">
+              <div class="text-center">
+                <span class="material-symbols-outlined text-5xl">description</span>
+                <div class="mt-2 text-xs font-semibold tracking-wider uppercase">Markdown Spec</div>
+              </div>
+           </div>`
+        : `<img src="${previewSrc}" alt="${s.title} preview"
+              class="card-image w-full h-full object-cover object-top"
+              onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-full h-full flex items-center justify-center bg-surface-container-high text-outline',innerHTML:'<span class=\\'material-symbols-outlined text-5xl\\'>image</span>'}))"/>`;
+
+      card.innerHTML = `
+        <div class="relative aspect-[16/10] overflow-hidden bg-surface-container">
+          ${previewHTML}
+          <div class="absolute top-3 left-3">
+            <span class="chip" style="background:${chipStyle.background};color:${chipStyle.color}">
+              ${s.category}
+            </span>
+          </div>
+          <div class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/85 backdrop-blur-sm border border-white/60 flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition">
+            <span class="material-symbols-outlined text-base">open_in_new</span>
+          </div>
+        </div>
+        <div class="flex-1 p-5 flex flex-col">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 shrink-0 rounded-lg bg-primary/8 text-primary flex items-center justify-center" style="background:rgba(0,29,89,0.08)">
+              <span class="material-symbols-outlined text-[20px]">${s.icon}</span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-base font-semibold leading-snug truncate">${s.title}</h3>
+              <p class="mt-1 text-[13px] leading-relaxed text-on-surface-variant line-clamp-2">${s.desc}</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-4 border-t border-outline-variant/60 flex items-center justify-between text-xs text-on-surface-variant">
+            <span class="font-mono truncate">${s.folder}/${file}</span>
+            <span class="inline-flex items-center gap-1 font-semibold text-primary group-hover:translate-x-0.5 transition">
+              Open
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </span>
+          </div>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+  }
+
+  function applyFilter() {
+    const query = (searchInput.value || "").trim().toLowerCase();
+    let visible = 0;
+    grid.querySelectorAll(".card").forEach(card => {
+      const matchesCat = activeCategory === "All" || card.dataset.category === activeCategory;
+      const matchesQuery = !query || card.dataset.search.includes(query);
+      const show = matchesCat && matchesQuery;
+      card.classList.toggle("hidden-card", !show);
+      if (show) visible++;
+    });
+    emptyState.classList.toggle("hidden", visible !== 0);
+  }
+
+  searchInput.addEventListener("input", applyFilter);
+
+  renderFilters();
+  renderCards();
+  applyFilter();
+</script>
+</body>
+</html>

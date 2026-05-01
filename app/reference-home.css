@@ -91,7 +91,7 @@
 }
 .explorer-mopingo {
   position: absolute;
-  top: 28px;
+  top: 12px;
   left: 120px;
   gap: 50px;
 }
@@ -2497,3 +2497,676 @@
   }
 }
 
+/* ============================================================
+   Section-level responsive enhancements
+   ============================================================ */
+
+/* Services section: make 3 cards stack & contents fluid */
+.heading-and-supporting-text-parent {
+  width: 100%;
+  max-width: 1239px;
+}
+.heading-and-supporting-text {
+  width: 100%;
+  max-width: 768px;
+}
+.tag5 {
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.actions,
+.frame-parent2 {
+  flex: 1 1 320px;
+  min-width: 0;
+  max-width: 100%;
+}
+.lessons-on-design,
+.classes-in-development,
+.user-interface-design2 {
+  width: 100%;
+  max-width: 320px;
+}
+
+@media screen and (max-width: 900px) {
+  .tag5 {
+    gap: var(--gap-24);
+  }
+  .actions,
+  .frame-parent2 {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: var(--padding-24);
+  }
+  .lessons-on-design,
+  .classes-in-development,
+  .user-interface-design2 {
+    max-width: 100%;
+  }
+}
+
+/* Programs section: cards become flexible */
+.carddesktop {
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.blog-post-card {
+  flex: 1 1 300px;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+}
+.heading-and-supporting-text2 {
+  width: 100%;
+  max-width: 1200px;
+  align-self: center;
+}
+
+@media screen and (max-width: 1050px) {
+  .blog-post-card {
+    flex-basis: calc(50% - var(--gap-24));
+  }
+}
+@media screen and (max-width: 750px) {
+  .blog-post-card {
+    flex-basis: 100%;
+  }
+  .image,
+  .image2,
+  .image3 {
+    padding-bottom: 160px;
+  }
+}
+
+/* Tutors section: make team grid wrap nicely */
+.content6 {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.team-member-wrap {
+  flex: 1 1 240px;
+  min-width: 0;
+  max-width: 320px;
+}
+.heading-and-supporting-text3 {
+  width: 100%;
+  max-width: 768px;
+}
+
+@media screen and (max-width: 900px) {
+  .team-member-wrap {
+    flex: 1 1 calc(50% - var(--gap-32));
+    max-width: calc(50% - var(--gap-16));
+  }
+}
+@media screen and (max-width: 560px) {
+  .team-member-wrap {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* Quote section: keep image and avatar from overflowing */
+.image-2-icon {
+  max-width: 100%;
+  height: auto;
+}
+@media screen and (max-width: 750px) {
+  .quote-section {
+    padding-left: var(--padding-20);
+    padding-right: var(--padding-20);
+  }
+  .container10 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .image-2-icon {
+    width: 64px;
+    height: auto;
+  }
+}
+
+/* Blog section: tighter padding & flexible images on small screens */
+@media screen and (max-width: 750px) {
+  .container11 {
+    padding-left: var(--padding-20);
+    padding-right: var(--padding-20);
+    padding-bottom: 48px;
+  }
+  .blog-post-card4 {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .image-icon {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  .image-icon3 {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    flex: 0 0 auto;
+  }
+  .blog-post-card6 {
+    min-width: 0;
+  }
+}
+
+/* Section spacing on phones */
+@media screen and (max-width: 750px) {
+  .frame-main {
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+  .heading-and-supporting-text-parent,
+  .inspirezvous-dupliquez-voyagez,
+  .headings {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Extra-small phones: avoid horizontal overflow on hero stat chips */
+@media screen and (max-width: 380px) {
+  .container2,
+  .div,
+  .container3 {
+    margin-left: 12px;
+    margin-right: 12px;
+    width: calc(100% - 24px);
+    padding: 12px 14px;
+    gap: 12px;
+  }
+  .favorite {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .up-your-skills-container {
+    font-size: 34px;
+    line-height: 44px;
+  }
+}
+
+/* ============================================================
+   Mobile navbar: hamburger + left side drawer
+   ============================================================ */
+
+.navbar-mobile-bar {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  padding: 12px 16px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-white);
+  border-bottom: 1px solid rgba(16, 24, 40, 0.06);
+  z-index: 6;
+  box-sizing: border-box;
+}
+
+.navbar-mobile-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar-hamburger {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: transparent;
+  border: 0;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.navbar-hamburger:hover {
+  background-color: rgba(32, 180, 134, 0.08);
+}
+
+.navbar-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-gray-100);
+  border-radius: 2px;
+}
+
+.mobile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(16, 24, 40, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 240ms ease, visibility 240ms ease;
+  z-index: 50;
+}
+
+.mobile-drawer-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(86vw, 340px);
+  background-color: var(--color-white);
+  z-index: 51;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px 22px 28px;
+  box-shadow: 12px 0 32px rgba(16, 24, 40, 0.14);
+  transform: translateX(-100%);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+}
+
+.mobile-drawer.is-open {
+  transform: translateX(0);
+}
+
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-drawer-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+
+.mobile-drawer-close {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.mobile-drawer-close:hover {
+  background-color: rgba(16, 24, 40, 0.06);
+}
+
+.mobile-drawer-close span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background-color: var(--color-gray-100);
+  border-radius: 2px;
+}
+
+.mobile-drawer-close span:first-child {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mobile-drawer-close span:last-child {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.mobile-drawer-search .input.navbar-search-shell {
+  padding: 6px 12px;
+}
+
+.mobile-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-drawer-link {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  font-weight: 500;
+  color: var(--color-gray-100);
+  font-family: var(--font-inter);
+  text-decoration: none;
+}
+
+.mobile-drawer-link:hover {
+  background-color: rgba(32, 180, 134, 0.08);
+}
+
+.mobile-drawer-link.is-active {
+  background-color: rgba(32, 180, 134, 0.1);
+  color: var(--color-seagreen);
+  font-weight: 600;
+}
+
+.mobile-drawer-cta {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-drawer-signin {
+  width: 100%;
+  padding: 12px 18px;
+  background-color: transparent;
+  color: var(--color-gray-100);
+  font-size: var(--fs-16);
+  font-weight: 600;
+  border: 1px solid var(--color-lightgray);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-inter);
+}
+
+.mobile-drawer-primary {
+  width: 100%;
+  padding: 12px 18px;
+  background-color: var(--color-mediumseagreen-100);
+  color: var(--color-white);
+  font-size: var(--fs-16);
+  font-weight: 600;
+  border: 1px solid var(--color-mediumseagreen-100);
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-inter);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+@media screen and (max-width: 1050px) {
+  .navbar-mobile-bar {
+    display: flex;
+  }
+
+  .explorer-mopingo {
+    display: none;
+  }
+
+  .buttonsecondary-parent {
+    height: 64px;
+  }
+}
+
+/* ============================================================
+   Hero section: mobile fine-tuning (overrides earlier rules)
+   ============================================================ */
+
+@media screen and (max-width: 1050px) {
+  .frame-parent {
+    min-height: 0;
+  }
+  .rectangle-parent {
+    height: auto;
+    min-height: 0;
+  }
+  .mask-group {
+    height: auto;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .mask-group {
+    padding: 88px 0 36px;
+    gap: 20px;
+  }
+
+  .favorite {
+    margin: 0 16px;
+    gap: 20px;
+  }
+
+  .buttonsecondary-group {
+    gap: 24px;
+  }
+
+  .buttonsecondary3 {
+    gap: 14px;
+  }
+
+  .up-your-skills-container {
+    font-size: 38px;
+    line-height: 48px;
+    letter-spacing: -0.3px;
+  }
+
+  .learn-ui-ux-design {
+    font-size: 15px;
+    line-height: 26px;
+  }
+
+  .buttons-container {
+    width: 100%;
+  }
+
+  .button-base3,
+  .button-base4 {
+    padding: 12px 22px;
+    font-size: var(--fs-16);
+  }
+
+  .japon-essentiel-en-jours {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 12px 18px;
+  }
+
+  .public-speaking {
+    line-height: 28px;
+    font-size: var(--fs-14);
+  }
+
+  .frame-inner {
+    width: 26px;
+    height: 26px;
+  }
+
+  .placeholder-parent {
+    max-width: 320px;
+    margin-top: 8px;
+  }
+
+  .container2,
+  .div,
+  .container3 {
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
+    background-color: var(--color-white);
+  }
+
+  .collaboration-parent {
+    margin-top: 16px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .collaboration {
+    font-size: 24px;
+    line-height: 1.2;
+    width: auto;
+  }
+
+  .card {
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .group-icon,
+  .codecov-logo-black,
+  .usertesting-logo-black,
+  .magic-leap-logo-black {
+    height: 28px;
+    width: auto;
+    max-width: 45%;
+    object-fit: contain;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mask-group {
+    padding-top: 80px;
+  }
+  .up-your-skills-container {
+    font-size: 32px;
+    line-height: 42px;
+  }
+  .learn-ui-ux-design {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .button-base3,
+  .button-base4 {
+    padding: 11px 18px;
+    font-size: 15px;
+  }
+  .group-icon,
+  .codecov-logo-black,
+  .usertesting-logo-black,
+  .magic-leap-logo-black {
+    height: 24px;
+  }
+  .card {
+    gap: 16px 22px;
+  }
+}
+
+/* ============================================================
+   Mobile hero redesign:
+   1) Avatar image on top with whitish background (no green circle)
+   2) Headline + paragraph + buttons + tag chips
+   3) Hide the 3 stat cards (5K+, 2K+, Tutors)
+   4) "250+ Collaboration" block presented as a clean card
+   ============================================================ */
+
+@media screen and (max-width: 750px) {
+  /* Hide the three stat cards */
+  .container2,
+  .div,
+  .container3 {
+    display: none !important;
+  }
+
+  /* Re-enable the avatar wrapper, use it as the top image */
+  .frame-container {
+    display: flex;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: auto;
+    height: auto;
+    margin: 0 16px;
+    padding: 0;
+    pointer-events: auto;
+    justify-content: center;
+    order: 0;
+  }
+
+  /* Hide decorative SVGs/dotted ring */
+  .frame-item,
+  .placeholder {
+    display: none !important;
+  }
+
+  /* Whitish avatar pill (replaces the green circle) */
+  .placeholder-parent {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: #f3faf7;
+    border: 1px solid rgba(32, 180, 134, 0.2);
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  }
+
+  .placeholder2 {
+    display: none;
+  }
+
+  .mask-group-icon {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Order: avatar (0) → favorite block (1) */
+  .favorite {
+    order: 1;
+  }
+
+  /* Hide the collaboration block (250+ + partner logos) on mobile */
+  .collaboration-parent {
+    display: none !important;
+  }
+
+  /* Tag chips: 2 on first row, 1 centered on second row */
+  .japon-essentiel-en-jours {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    width: 100%;
+    padding: 0;
+    justify-items: center;
+  }
+
+  .japon-essentiel-en-jours > .frame-div,
+  .japon-essentiel-en-jours > .tag3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: auto;
+  }
+
+  .japon-essentiel-en-jours > *:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Tighten the favorite block flow on mobile */
+  .mask-group {
+    padding: 88px 0 36px;
+    gap: 28px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .placeholder-parent {
+    max-width: 280px;
+    border-radius: 50%;
+  }
+  .japon-essentiel-en-jours {
+    gap: 10px 12px;
+  }
+  .public-speaking {
+    font-size: 14px;
+  }
+}

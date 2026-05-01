@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Student Profile - Admission Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "on-tertiary-fixed-variant": "#93001a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "outline": "#747683",
+                        "surface": "#f8f9fa",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-tertiary-fixed": "#410006",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#760013",
+                        "on-error-container": "#93000a",
+                        "secondary": "#006e26",
+                        "secondary-fixed": "#99f89e",
+                        "on-secondary-fixed-variant": "#00531b",
+                        "secondary-fixed-dim": "#7edb85",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ff7675",
+                        "on-secondary-container": "#0e742c",
+                        "inverse-surface": "#2e3132",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-fixed": "#002106",
+                        "surface-variant": "#e1e3e4",
+                        "primary-container": "#003087",
+                        "outline-variant": "#c4c6d4",
+                        "on-primary-fixed": "#00174b",
+                        "on-primary-container": "#7f9df8",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-surface": "#191c1d",
+                        "tertiary": "#4d0009",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#444652",
+                        "primary": "#001d59",
+                        "secondary-container": "#99f89e",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#1c4197",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-primary": "#b4c5ff",
+                        "background": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "surface-dim": "#d9dadb",
+                        "surface-tint": "#3959b0",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-low": "#f3f4f5",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "tap-target-min": "48px",
+                        "container-margin": "20px",
+                        "card-padding": "24px",
+                        "gutter": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "question-text": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "question-text": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24">
+<!-- Top AppBar -->
+<header class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-800 fixed top-0 w-full z-50 shadow-none">
+<div class="flex items-center justify-between px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="active:opacity-70 transition-opacity text-[#003087] dark:text-blue-400">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-inter text-lg font-semibold tracking-tight text-[#003087] dark:text-blue-400">My Profile</h1>
+</div>
+<button class="material-symbols-outlined text-gray-500" data-icon="settings">settings</button>
+</div>
+</header>
+<main class="mt-16 max-w-7xl mx-auto space-y-8">
+<!-- 1. Header/Edit Profile Section -->
+<section class="bg-white px-container-margin py-8 border-b border-outline-variant/30">
+<div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+<div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Rahim Khan" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional South Asian young man with a friendly expression in a clean studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS0aQGDpbu6dcqSa9qLdxsALV-pUIZpbB4dfPlhm_DJYnFo7pB402Y5T0f17hkZtU-S_J4DRnJ5vksQVp8TcT5g0UbenXUaUsDzIZqgWPBBU36zMYYcmhKb2Qv9LbJH7Lw6Vqpc3upffZ-N-ePIGUKcOrRrHqRekGO_Ws9l3U_XszlJVZK3619cguLAiYEwGR3AUyAqSuP77TWlLdBEnZstoA4lK25iokl80r8HGdtzWnhPYfuig8dE0qaKOE888-CgPwxlk_sZlA"/>
+</div>
+<div class="flex-1 text-center md:text-left space-y-1">
+<h2 class="text-display-lg font-display-lg text-primary">Rahim Khan</h2>
+<p class="text-body-md text-on-surface-variant">01712345678</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-2 mt-2">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant text-label-sm rounded-full">Medical Batch B</span>
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-label-sm rounded-full">Target: Medical Admission 2027</span>
+</div>
+</div>
+<button class="mt-4 md:mt-0 px-6 h-tap-target-min border border-primary-container text-primary-container font-semibold rounded-lg hover:bg-primary-container/5 transition-colors">
+                    Edit Profile
+                </button>
+</div>
+</section>
+<!-- 2. Continue Learning Section -->
+<section class="px-container-margin">
+<h3 class="text-headline-md font-headline-md mb-4">Continue Watching</h3>
+<div class="flex overflow-x-auto gap-4 pb-4 hide-scrollbar -mx-5 px-5 md:mx-0 md:px-0">
+<!-- Video Card 1 -->
+<div class="min-w-[280px] md:min-w-[340px] bg-white rounded-xl border border-outline-variant/30 overflow-hidden flex-shrink-0">
+<div class="relative h-40">
+<img alt="Organic Chemistry" class="w-full h-full object-cover" data-alt="Scientific laboratory glassware filled with colored liquids on a dark background with blue glowing highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6J49e7Xs0kY4_jKtR20PtiPfgmWz5Gknd0Y88ItaukF7hOcBpHTNnCXFU3PemQIeA8K2_p7ZTJOOlC7Kaewt3uGsLUogA5nOycxNQNUIIiHsRrtNZPekNArW_JMw6Vrmzx8ZesvmDJD2-iwrCleSbQk4KwthWNRn8KLDcGFdqtZ_mzlns4TWiKXioL1ZMqRimb0xmz3fr8MskuJAt7nAtkbxEG4oWIFTmaMKMCCLHFQB-jmkYTc9frfO9vIbNoGL2YJNWjoDRjx4"/>
+<div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-[10px] rounded">18:45</div>
+</div>
+<div class="p-card-padding space-y-3">
+<div>
+<p class="text-label-sm text-primary uppercase tracking-wider mb-1">Module: Chemistry 02</p>
+<h4 class="text-body-lg font-semibold leading-tight">Organic Chemistry Basics</h4>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[12px] font-medium">
+<span>Progress</span>
+<span>65%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary-container h-full" style="width: 65%"></div>
+</div>
+</div>
+<button class="w-full h-tap-target-min bg-primary-container text-white font-semibold rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_circle">play_circle</span>
+                            Resume at 12:45
+                        </button>
+</div>
+</div>
+<!-- Video Card 2 -->
+<div class="min-w-[280px] md:min-w-[340px] bg-white rounded-xl border border-outline-variant/30 overflow-hidden flex-shrink-0">
+<div class="relative h-40">
+<img alt="Genetics" class="w-full h-full object-cover" data-alt="Digital illustration of a DNA double helix with blue and white glowing particles on a dark blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNns9L7czKkwBA1BGCdsENJXQ9iL5akuMFilcFdPKihyFDGGcJ1q61Uq2rwSG0HG0SSaTiPPyCq2QvKd2p9U1jGgv1TdmH_4kvPUwR5eYAgO8KWaWJvOSlZFGiE_4U-mgQ3kN9855gh3AHqrwEqbNHsYP9gHTvLMUXQI5Ovljw1Yfh1xfAGLbs1HtEmtj_VXyjpWt0df1XAqY-kl2xPUJtfjctssD3qK4D-8UwmwusOCpDkciqx-5HUzVmj99XaC4KLuRGYVvMicU"/>
+<div class="absolute bottom-2 right-2 px-2 py-1 bg-black/70 text-white text-[10px] rounded">24:10</div>
+</div>
+<div class="p-card-padding space-y-3">
+<div>
+<p class="text-label-sm text-primary uppercase tracking-wider mb-1">Module: Biology 04</p>
+<h4 class="text-body-lg font-semibold leading-tight">Molecular Genetics</h4>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[12px] font-medium">
+<span>Progress</span>
+<span>30%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary-container h-full" style="width: 30%"></div>
+</div>
+</div>
+<button class="w-full h-tap-target-min bg-primary-container text-white font-semibold rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_circle">play_circle</span>
+                            Resume at 08:20
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Overall Progress Stats -->
+<section class="px-container-margin">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-white p-6 border border-outline-variant/30 rounded-xl flex items-center gap-5">
+<div class="w-12 h-12 bg-blue-50 text-primary-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant">Exams Attempted</p>
+<p class="text-headline-md">09</p>
+</div>
+</div>
+<div class="bg-white p-6 border border-outline-variant/30 rounded-xl flex items-center gap-5">
+<div class="w-12 h-12 bg-green-50 text-secondary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined" data-icon="video_library">video_library</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant">Videos Completed</p>
+<p class="text-headline-md">42/68</p>
+</div>
+</div>
+<div class="bg-white p-6 border border-outline-variant/30 rounded-xl flex items-center gap-5">
+<div class="w-12 h-12 bg-orange-50 text-orange-600 flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span>
+</div>
+<div>
+<p class="text-label-sm text-on-surface-variant">Current Streak</p>
+<p class="text-headline-md">7 days</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. My Q&A Section -->
+<section class="px-container-margin">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-headline-md font-headline-md">My Q&amp;A</h3>
+<button class="text-primary-container font-semibold text-label-sm flex items-center">
+                    View All <span class="material-symbols-outlined ml-1 text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Q&A Item 1 -->
+<div class="bg-white border border-outline-variant/30 rounded-xl overflow-hidden">
+<div class="p-6 border-b border-surface-container">
+<p class="text-label-sm text-on-surface-variant mb-2">Linked to: <span class="text-primary underline">Properties of Alkanes</span></p>
+<p class="text-body-md font-semibold">How do we determine the boiling point difference between isomers?</p>
+</div>
+<div class="bg-blue-50/50 p-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-primary-container text-white text-[10px] rounded font-bold uppercase">Pinned</span>
+<span class="text-label-sm font-bold text-primary">Instructor Reply</span>
+</div>
+<p class="text-body-md text-on-surface italic">"Focus on the surface area and branching. More branching leads to lower surface area, resulting in weaker Van der Waals forces."</p>
+</div>
+</div>
+<!-- Q&A Item 2 -->
+<div class="bg-white border border-outline-variant/30 rounded-xl p-6">
+<p class="text-label-sm text-on-surface-variant mb-2">Linked to: <span class="text-primary underline">Plant Physiology Intro</span></p>
+<p class="text-body-md font-semibold">Will the cellular respiration cycle be covered in the next module?</p>
+<p class="mt-4 text-label-sm text-gray-400">Awaiting Instructor response...</p>
+</div>
+</div>
+</section>
+<!-- 5. Exam History & Performance -->
+<section class="px-container-margin">
+<h3 class="text-headline-md font-headline-md mb-6">Exam History &amp; Performance</h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Subject Breakdown -->
+<div class="bg-white p-card-padding border border-outline-variant/30 rounded-xl space-y-6">
+<div class="flex justify-between items-end">
+<h4 class="text-body-lg font-bold">9 Exams Taken</h4>
+<span class="text-label-sm bg-surface-container px-3 py-1 rounded">Avg Score: 78%</span>
+</div>
+<div class="space-y-5">
+<!-- Bangla -->
+<div class="space-y-2">
+<div class="flex justify-between text-body-md">
+<span class="font-medium">Bangla</span>
+<span class="font-bold text-error">200/300</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 66.6%"></div>
+</div>
+<p class="text-label-sm text-error font-semibold italic">Weak Area - Focus here</p>
+</div>
+<!-- English -->
+<div class="space-y-2">
+<div class="flex justify-between text-body-md">
+<span class="font-medium">English</span>
+<span class="font-bold">250/300</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary-container h-full" style="width: 83.3%"></div>
+</div>
+</div>
+<!-- GK -->
+<div class="space-y-2">
+<div class="flex justify-between text-body-md">
+<span class="font-medium">General Knowledge</span>
+<span class="font-bold">270/300</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-secondary h-full" style="width: 90%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Exam List -->
+<div class="space-y-3">
+<h4 class="text-label-sm font-bold uppercase tracking-widest text-on-surface-variant mb-2">Recent Results</h4>
+<div class="bg-white p-4 border border-outline-variant/30 rounded-lg flex items-center justify-between active:bg-gray-50 transition-colors cursor-pointer">
+<div>
+<p class="text-label-sm text-on-surface-variant">June 18, 2024</p>
+<p class="text-body-md font-bold">Physics Paper 01</p>
+</div>
+<div class="text-right">
+<p class="text-body-lg font-bold text-primary">Score: 45/50</p>
+<p class="text-label-sm text-secondary font-bold">Rank: 12th</p>
+</div>
+</div>
+<div class="bg-white p-4 border border-outline-variant/30 rounded-lg flex items-center justify-between active:bg-gray-50 transition-colors cursor-pointer">
+<div>
+<p class="text-label-sm text-on-surface-variant">June 15, 2024</p>
+<p class="text-body-md font-bold">Chemistry Full Mock</p>
+</div>
+<div class="text-right">
+<p class="text-body-lg font-bold text-primary">Score: 82/100</p>
+<p class="text-label-sm text-secondary font-bold">Rank: 45th</p>
+</div>
+</div>
+<div class="bg-white p-4 border border-outline-variant/30 rounded-lg flex items-center justify-between active:bg-gray-50 transition-colors cursor-pointer">
+<div>
+<p class="text-label-sm text-on-surface-variant">June 10, 2024</p>
+<p class="text-body-md font-bold">Weekly English Test</p>
+</div>
+<div class="text-right">
+<p class="text-body-lg font-bold text-primary">Score: 18/20</p>
+<p class="text-label-sm text-secondary font-bold">Rank: 4th</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Study Materials Section -->
+<section class="px-container-margin">
+<h3 class="text-headline-md font-headline-md mb-4">My Downloaded Materials</h3>
+<div class="bg-white border border-outline-variant/30 rounded-xl divide-y divide-surface-container">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-red-50 text-red-600 flex items-center justify-center rounded">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-body-md font-medium">Biology_Lecture_Notes.pdf</p>
+<p class="text-label-sm text-on-surface-variant">2.4 MB • June 20</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-red-50 text-red-600 flex items-center justify-center rounded">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-body-md font-medium">Chemistry_Question_Bank.pdf</p>
+<p class="text-label-sm text-on-surface-variant">14.8 MB • June 15</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-red-50 text-red-600 flex items-center justify-center rounded">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-body-md font-medium">Summary_Sheets.pdf</p>
+<p class="text-label-sm text-on-surface-variant">1.1 MB • June 12</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 7. Upcoming Exams Section -->
+<section class="px-container-margin pb-10">
+<h3 class="text-headline-md font-headline-md mb-4">Upcoming Exams</h3>
+<div class="bg-primary-container text-white p-card-padding rounded-xl relative overflow-hidden">
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="event">event</span>
+<span class="text-label-sm uppercase font-bold tracking-widest opacity-80">Next Goal</span>
+</div>
+<div>
+<h4 class="text-headline-md leading-tight">Biology Unit Test</h4>
+<p class="text-body-lg text-primary-fixed">June 24, 10:00 AM</p>
+</div>
+<div class="flex gap-4 pt-2">
+<button class="px-6 h-tap-target-min bg-white text-primary-container font-bold rounded-lg">View Syllabus</button>
+<button class="px-6 h-tap-target-min border border-white/30 font-bold rounded-lg">Remind Me</button>
+</div>
+</div>
+<!-- Subtle graphic element -->
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-2 pb-safe bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-gray-800 z-50">
+<button class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 py-1 w-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-inter text-[11px] font-medium mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 py-1 w-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-inter text-[11px] font-medium mt-1">Courses</span>
+</button>
+<button class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 py-1 w-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-inter text-[11px] font-medium mt-1">Exams</span>
+</button>
+<button class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 py-1 w-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-inter text-[11px] font-medium mt-1">Leaderboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#003087] dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-lg py-1 w-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="person" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-inter text-[11px] font-medium mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

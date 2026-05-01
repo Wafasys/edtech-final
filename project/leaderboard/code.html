@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#99f89e",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed-variant": "#1c4197",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#0e742c",
+                        "on-tertiary-container": "#ff7675",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "background": "#f8f9fa",
+                        "surface-tint": "#3959b0",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary-container": "#760013",
+                        "on-tertiary-fixed-variant": "#93001a",
+                        "on-surface-variant": "#444652",
+                        "on-secondary-fixed": "#002106",
+                        "error": "#ba1a1a",
+                        "primary-container": "#003087",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "outline-variant": "#c4c6d4",
+                        "on-primary-container": "#7f9df8",
+                        "secondary-fixed-dim": "#7edb85",
+                        "secondary": "#006e26",
+                        "surface-container-highest": "#e1e3e4",
+                        "primary": "#001d59",
+                        "on-tertiary-fixed": "#410006",
+                        "surface-container-low": "#f3f4f5",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-fixed-variant": "#00531b",
+                        "on-primary-fixed": "#00174b",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "outline": "#747683",
+                        "on-surface": "#191c1d",
+                        "primary-fixed": "#dbe1ff",
+                        "secondary-container": "#99f89e",
+                        "tertiary": "#4d0009",
+                        "surface": "#f8f9fa",
+                        "tertiary-fixed": "#ffdad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "tap-target-min": "48px",
+                        "card-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "question-text": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "question-text": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
+<!-- Top Navigation Anchor -->
+<header class="bg-white dark:bg-slate-950 text-blue-900 dark:text-blue-400 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center w-full px-5 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="active:opacity-70 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold text-blue-900 dark:text-blue-400 font-inter tracking-tight">Admission Pro</h1>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="minimalist professional profile avatar of a young male student wearing a neutral colored shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByMywwLq6pH3mOcKP_Q3BkgAwc84YC5RWXM4zWluKo1K_ruCOaM_yZhsQDQT0arrf0kjcSg2qLtT7ck512KqPO0532_Vp3hz1aoS9T8z44B9zGya7_XKvl62LuRJvcEna8PoHqGe1RJcUUaQpBbcjvbksK9Du8DBs8Jnwn6eQE0M0f-uITsFJjcrja54kC1iJT534RVT9BYr19ZHGYTQCi12h1GdNsg2bmVJ5I6sXCnQVD0Y3Ycitjz8Wwm640VPINTQFFI8yMc_Q"/>
+</div>
+</header>
+<main class="flex-1 w-full max-w-4xl mx-auto px-container-margin pb-32">
+<!-- Rank Hero Section -->
+<section class="py-gutter">
+<div class="bg-primary text-on-primary rounded-xl p-card-padding flex flex-col items-center justify-center text-center shadow-sm">
+<p class="font-label-sm text-label-sm opacity-80 mb-1">YOUR PERFORMANCE</p>
+<h2 class="font-display-lg text-display-lg mb-2">Your Current Rank: 337</h2>
+<div class="flex items-center gap-2 bg-primary-container/30 px-4 py-2 rounded-full border border-primary-container/50">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="trending_up">trending_up</span>
+<span class="font-label-sm text-label-sm">Top 15% of all candidates</span>
+</div>
+</div>
+</section>
+<!-- Tabs Section -->
+<nav class="flex w-full bg-surface-container-low rounded-xl p-1 mb-gutter">
+<button class="flex-1 py-3 text-center rounded-lg font-label-sm text-label-sm bg-white text-primary shadow-sm transition-all">
+                This Exam
+            </button>
+<button class="flex-1 py-3 text-center rounded-lg font-label-sm text-label-sm text-outline hover:text-primary transition-all">
+                Cumulative (Weekly)
+            </button>
+</nav>
+<!-- Podium / Top 3 Bento Layout -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-gutter">
+<!-- Rank 2 -->
+<div class="order-2 md:order-1 bg-white border border-outline-variant rounded-xl p-card-padding flex flex-col items-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-slate-300"></div>
+<div class="w-16 h-16 rounded-full border-4 border-slate-100 mb-3 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a south asian female student in a clean school environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaJhF5zssq6gDKOZWE1meLPUtp9Uo53eJmNvpA45YuHHuyEyRlHZ4befwVhlDi1T6sxsUgAjOwjRfQneRdBa6kdRkaTPKuyq15AB6MNGQC33VgeR3pvT9F3JM7WHqVbe-TtrCv6hQL-NglY03oCdVI98XtyMLGUahG4X6_AxapBtukPKPvH5ulu0FhVDFccPXROS3I-WLGsv-TjDB9qtTdMvkwF_XK_F-q78mTBwqA06h6hmlNWQvz_dNhLJ7iDfMKXLUpqurKc3c"/>
+</div>
+<span class="font-display-lg text-display-lg text-slate-400 mb-1">#2</span>
+<p class="font-label-sm text-label-sm text-primary">Arpita Rahman</p>
+<p class="font-body-md text-body-md text-secondary font-bold">98.5/100</p>
+<a class="mt-4 text-xs font-semibold text-primary underline underline-offset-4" href="#">View Answer Pattern</a>
+</div>
+<!-- Rank 1 -->
+<div class="order-1 md:order-2 bg-white border-2 border-secondary-fixed rounded-xl p-card-padding flex flex-col items-center relative overflow-hidden scale-105 shadow-md">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary"></div>
+<div class="absolute top-2 right-2">
+<span class="material-symbols-outlined text-secondary" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="w-20 h-20 rounded-full border-4 border-secondary-container mb-3 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="confident professional portrait of a south asian male student with dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqvwyKCvO2DYbHnUKdAq44QTsBUSLY-ylQ7WGd27nnQ28LlIWVQlHIwFYC0nGDJwMlLj-tIHqXTxwMb8ihfPEJzLWdg-sPdnwMjZ68LUQYdLkmnQzpKxQbThVt7sShPVTvFKOGix1UZPuTmaH0oidVkDUqMfT_9wlk6_AHsBDl0r4GtYAzeUUoAQPT1UmGA1uhW30_xNN9oK3evkkDp4FXdfuwUCmxBxzwGVIYDx1qTvTTovxfpgPmTb0hJOfXIJFUksHhHhGG5_Q"/>
+</div>
+<span class="font-display-lg text-display-lg text-secondary mb-1">#1</span>
+<p class="font-label-sm text-label-sm text-primary">Tanvir Ahmed</p>
+<p class="font-body-md text-body-md text-secondary font-bold">99.2/100</p>
+<a class="mt-4 text-xs font-semibold text-primary underline underline-offset-4" href="#">View Answer Pattern</a>
+</div>
+<!-- Rank 3 -->
+<div class="order-3 md:order-3 bg-white border border-outline-variant rounded-xl p-card-padding flex flex-col items-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-orange-200"></div>
+<div class="w-16 h-16 rounded-full border-4 border-slate-100 mb-3 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="clean professional profile photo of a student with neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuMY9w__ql87uTv-fahFmW0gRFAMeaUmgvmnJwzu_g86vmcPoEmfUxbByE7NGBA241zWOPbDVbKP9bEYc10hMTMfIfEB-dtHf0YHOBCw9yquy3JXIVJioMGExhTx1LenWs_nb03s-9sWail1ECTCPQ-z_pd8dA59Nruk2XUyJfFcxJ5PwOH5PtjMWCK5Uurtod-JPnkBvDAvFaMAtHIM8_Nz5N_6ICUW-l75e0Utc69fPo-aw2hmpGiw_5lcT8gW4uHLurtpzhCiM"/>
+</div>
+<span class="font-display-lg text-display-lg text-orange-300 mb-1">#3</span>
+<p class="font-label-sm text-label-sm text-primary">Sifat Ullah</p>
+<p class="font-body-md text-body-md text-secondary font-bold">97.8/100</p>
+<a class="mt-4 text-xs font-semibold text-primary underline underline-offset-4" href="#">View Answer Pattern</a>
+</div>
+</div>
+<!-- Leaderboard List -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-outline">RANK &amp; STUDENT</span>
+<span class="font-label-sm text-label-sm text-outline">SCORE</span>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Row 4 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">4</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a female student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyKeiKB1OGfCVVzkbNlOWSI6MdXSKmu-0OlH10iQxemN2zbI6YpJucE-FrCx-U4jFO7FeF6lUboeDgSvaVjwi7Gf5KYJmXKBBifftx9MWCScAf_djossV4rnWeq75emXUufFYwBXbvRn5t8CN-Y3DMG9M_g_jroTTss6Ot3zeqAjmMa7zX44HP0sVzD9o2WIBlNz8GhwtIdqhKPpxGbALgliJYG-FdDtEZQudcCUHMrhV1Y16kEe_wDv1Wd7WPbPutc_y8MC6H8gA"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-primary">Nadia Islam</p>
+<a class="text-[10px] text-primary-container uppercase font-bold tracking-wider" href="#">Answer Pattern</a>
+</div>
+</div>
+<span class="font-body-md text-body-md text-secondary font-semibold">96.5</span>
+</div>
+<!-- Row 5 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">5</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuConVyc8aq3vaP1kN92w16SfNfTQEL7f0wJLBQB8kybiAs__qnl9RJACVwwyB5nYnOk4OUV9D1ITsDwNS7CfyKY7HzFUp5l7EPpeoJKLiy80YUOT_hQmGVxR_s4NBmPo48v8_GZqeb6Z5Ojf03FyFDkcGL1lSnZ62yKYlnT-Be2wgpJUQCJTXmFg_sZCDkinOqktdVd2P2yUBn1ILRS5g6GI7K5L9Ra8na5e2ZSG64W_r1J5YK9OQPxFALcwK0bwyn8ZSDtJ6B8IDA"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-primary">Zubayer Al-Mahmud</p>
+<a class="text-[10px] text-primary-container uppercase font-bold tracking-wider" href="#">Answer Pattern</a>
+</div>
+</div>
+<span class="font-body-md text-body-md text-secondary font-semibold">95.8</span>
+</div>
+<!-- Row 6 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">6</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a female student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKjzRVtqODVKpL45ZJV2uwNbE4yhev3BwmgEhvhXVi5O5CSb8Q5tP6hwh23BeyrxDooTRnNEBajCI9j3PWfx3BXDiXvvhCV8YlM1erMbZd1dp1AyF3T1TUhDKU1XNVA_krgTcSrSlEnzDgqmWzv9tOKRwOhFcrDyGAaDzg17GhBvW40Aa9ij_97RlUJ59mTR1kbeU5FP4bmWMru0DSB5VPIV3vaYwUdKk7DbzA5NEUNYVStUNlW3WJ0CUWdNiiPVmh1V0gtL1LMh0"/>
+</div>
+<p class="font-label-sm text-label-sm text-primary">Farhana Haque</p>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">94.2</span>
+</div>
+<!-- Row 7 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">7</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHQPs9PkwBqytR0FonqkuRDUGR6Y-6VneRcnXgtNINltsQ-hNvuBol2-Uk9DT1E5wnKCi-ykK51VINe5orCa5yoZRRLoF_B_s32l-EA-OsG0PSuekq3mdABSpgOOY2S0xgx5v2A3GkhpzCZ0VrisQDyEIHGq_BhoHa-J2iTEKE6zd-BRYfYRm_8Q6YsPFXLJ1jYLS-UkrHc7QgbIgo9GMvsant3XdTJRPPKO2P02ctzVtn0HfwQ8RaejZ05Wop3SLPdx8IYeZsPE"/>
+</div>
+<p class="font-label-sm text-label-sm text-primary">Rakibul Hasan</p>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">93.9</span>
+</div>
+<!-- Row 8 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">8</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRU-9ANr1FQ4vOmR_c-g_BrT6jPpYbupvV4kABCkkxnQkasy1JT6w0r-mtNexzlLQaStChmvWYVqY1BNn4KQSgp6yFFcv4D3mJgbaZ-tMkIwHZJL8Vt9T5o0i9osLB-RwNESWkpv0DY43upbc3uv-XrTQFwxeeKM98efDVZxovfDs-mED6z4aKe6ez5K3DEJDYZlqETC1-B5XEanUUiA-TZFYn9B5WYaDKqxYKDGUDAKkwEa3ogvhUBMahpNV_BQ57SoxU0705KiI"/>
+</div>
+<p class="font-label-sm text-label-sm text-primary">Sakib Chowdhury</p>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">93.5</span>
+</div>
+<!-- Row 9 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">9</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a female student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYMrwUlWfIXb0tTFOcxJ1kuJ3skJmSRLE7dITF4lfa2AAaU8qFDgH_Y6-5OQ_fWukzTll_GX26Dgf6V7cYdv0m_UZu1EQQPHPWwUwFMVVEdQ4mmnud7aFr5TBrL0Lgo92ZMIzZRjgrP-vHg1tpeKTAbzFCyZM2H3kQT5Twnu4bM7rcHCezvPv4xkXip3XRDc8mhWPfNoL7OKnahw1-31uu3_I7ImyTM-09f0IXslkjAW0Ihs9A7eAzZkyigMOoYtDvBXx6yqHhN2U"/>
+</div>
+<p class="font-label-sm text-label-sm text-primary">Sumaiya Akhter</p>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">93.1</span>
+</div>
+<!-- Row 10 -->
+<div class="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm text-primary w-6">10</span>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist profile circle of a male student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA32DXIdMe0YwOAK4xefKsSxvqfIbmjjzNL6MdGFD1g6T6XDyVX8asDyN_iEMXUJF_o3h92xctdX85Hs-s0Csxyjnu0FdbtOG8Q6799-KdcHl2GpYyuN-4DRJZdFAwmmCOVTCe0svsK-SJhTOAn6W6nsWgZTVONOP-E11OpWuDi8PdlJ6Mtr2SDVUlRr99Gjj9NQ_1XTQ-JHIRATS3PzbuFpZFBdFWr8CbWe9IhI-aWmzuhuFMHNgsRujsYl51FNAWmXvdUFeP2qZk"/>
+</div>
+<p class="font-label-sm text-label-sm text-primary">Joydeep Sen</p>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant">92.8</span>
+</div>
+</div>
+</div>
+<!-- Pagination or View More -->
+<div class="mt-gutter flex justify-center">
+<button class="bg-white border border-outline text-primary font-label-sm text-label-sm px-6 py-3 rounded-lg active:opacity-70 transition-all">
+                Load Next 20 Students
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800">
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[11px] font-medium font-inter">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-[11px] font-medium font-inter">Courses</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="text-[11px] font-medium font-inter">Exams</span>
+</button>
+<button class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="leaderboard" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="text-[11px] font-medium font-inter">Leaderboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-3 py-1 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[11px] font-medium font-inter">Profile</span>
+</button>
+</nav>
+</body></html>

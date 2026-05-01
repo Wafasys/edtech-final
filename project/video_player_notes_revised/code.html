@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191c1d",
+                    "inverse-surface": "#2e3132",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#b4c5ff",
+                    "surface": "#f8f9fa",
+                    "secondary-fixed": "#99f89e",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-container-low": "#f3f4f5",
+                    "on-tertiary-fixed": "#410006",
+                    "surface-container": "#edeeef",
+                    "tertiary": "#4d0009",
+                    "primary": "#001d59",
+                    "outline": "#747683",
+                    "on-secondary-fixed": "#002106",
+                    "on-primary-fixed": "#00174b",
+                    "on-secondary-container": "#0e742c",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-dim": "#d9dadb",
+                    "secondary-fixed-dim": "#7edb85",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-bright": "#f8f9fa",
+                    "on-surface": "#191c1d",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-tint": "#3959b0",
+                    "primary-container": "#003087",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#ff7675",
+                    "on-tertiary-fixed-variant": "#93001a",
+                    "on-primary-container": "#7f9df8",
+                    "on-secondary-fixed-variant": "#00531b",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-surface-variant": "#444652",
+                    "tertiary-container": "#760013",
+                    "error": "#ba1a1a",
+                    "background": "#f8f9fa",
+                    "tertiary-fixed": "#ffdad8",
+                    "outline-variant": "#c4c6d4",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e1e3e4",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#006e26",
+                    "on-primary-fixed-variant": "#1c4197",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "secondary-container": "#99f89e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "tap-target-min": "48px",
+                    "base": "8px",
+                    "gutter": "16px",
+                    "card-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "question-text": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "question-text": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                    "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .video-container {
+            aspect-ratio: 16/9;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white border-b border-slate-200 flex justify-between items-center px-5 h-16 w-full">
+<div class="flex items-center gap-3">
+<button class="active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[#003087]">menu</span>
+</button>
+<h1 class="text-xl font-black text-[#003087] font-inter tracking-tight">Admission PRO</h1>
+</div>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden">
+<img alt="Student Profile" data-alt="Professional studio portrait of a young Bangladeshi student with a focused expression, clean background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3avy4eZuhsibClz2B1LMqap4nAOfr3l8WiY5vmOHMlzNw83lPlCigJcvFSWQAkmFwnvg_TY2VXD_eF-5mt0vxUXb3DpSGoua8pGuG8xRYlkuyHXCtd25Yyg5I8VZpJ-Q6AW91U1w7ku8E1ctbxYS7Pa4efPFIuan_PDd0SuroDuV9ShYDIIt5r8v81aiT00jKwIOUwoJEz2bFNF0czaYLukw6-Kh4-zD3dsDifN3q-xmLSRvrqlB5igRwtp28XAmcDgqlAADkqsE"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-16 pb-24">
+<!-- Video Player Section -->
+<section class="w-full bg-black relative group">
+<div class="video-container relative flex items-center justify-center overflow-hidden">
+<img alt="Lecture Video" class="w-full h-full object-cover opacity-60" data-alt="Cinematic wide shot of a professional mathematics lecture being filmed in a high-tech studio with bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABKvDLAP_mzHF5uC7jzV4q2yhk-7dXNE9ze66eCXYyEwyl9-ON176Zqgvl58IPKf-7e_VEeWusUx1hYji1vTtgZ3zVQzS_Id8YckS4UKlMxQj4wx11UXLt30W_fDUX1eiZ4E4k7kFE_G85A49zMV1GVV7qXTtwhlvuuK5b-EqsAoCpMm5pwhlEJpE44jduz9Dssp4qECNyWznv-e3yp5xMtn3OZ88As_iOJr1dl7VD8EQcbk2_qeX7smaqJkDmg21x8W2I9pWuZr4"/>
+<!-- Video Overlay UI -->
+<div class="absolute inset-0 flex flex-col justify-between p-4">
+<div class="flex justify-end">
+<span class="bg-black/50 text-white px-2 py-1 rounded text-xs font-mono">1080p</span>
+</div>
+<div class="flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-6xl opacity-90 cursor-pointer">play_circle</span>
+</div>
+<div class="space-y-2">
+<div class="w-full bg-white/30 h-1 rounded-full overflow-hidden">
+<div class="bg-[#003087] h-full w-[35%]"></div>
+</div>
+<div class="flex justify-between text-white text-xs font-mono">
+<span>03:12</span>
+<span>12:45</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-container-margin py-4 bg-white">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">Differential Calculus: Basic Derivatives &amp; Limits</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Instructor: Sabbir Rahman • Module 4</p>
+</div>
+</section>
+<!-- Interactions Section -->
+<section class="p-container-margin space-y-gutter mt-4">
+<!-- Take Note Action -->
+<div class="space-y-4">
+<button class="w-full h-tap-target-min bg-primary-container text-white rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">edit_note</span>
+                    Take Note at 03:12
+                </button>
+<!-- Active Input Field -->
+<div class="bg-white p-card-padding rounded-xl border border-primary/10 shadow-sm space-y-3">
+<div class="flex items-center gap-2 text-[#003087]">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="font-label-sm text-label-sm">03:12 - Timestamped Note</span>
+</div>
+<div class="relative">
+<textarea class="w-full border-outline-variant rounded-lg p-3 text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none min-h-[100px] resize-none" placeholder="Explain the relationship between limits and tangents here..."></textarea>
+</div>
+<div class="flex justify-end gap-2">
+<button class="px-4 py-2 text-primary font-bold font-label-sm">Cancel</button>
+<button class="px-6 py-2 bg-primary text-white rounded-lg font-bold font-label-sm">Save Note</button>
+</div>
+</div>
+</div>
+<!-- Saved Notes List -->
+<div class="pt-4 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-background text-lg">My Timestamped Notes</h3>
+<span class="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded-full font-bold">3 NOTES</span>
+</div>
+<div class="space-y-3">
+<!-- Note Item 1 -->
+<div class="bg-white p-4 rounded-xl border border-slate-200 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<button class="bg-blue-50 text-[#003087] px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1 active:bg-blue-100">
+<span class="material-symbols-outlined text-xs">play_arrow</span>
+                                01:45
+                            </button>
+<span class="material-symbols-outlined text-slate-400 text-sm cursor-pointer">more_vert</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">The definition of derivative as the slope of the secant line as h approaches zero.</p>
+</div>
+<!-- Note Item 2 -->
+<div class="bg-white p-4 rounded-xl border border-slate-200 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<button class="bg-blue-50 text-[#003087] px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1 active:bg-blue-100">
+<span class="material-symbols-outlined text-xs">play_arrow</span>
+                                02:30
+                            </button>
+<span class="material-symbols-outlined text-slate-400 text-sm cursor-pointer">more_vert</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">Power rule shortcut is only applicable for constant exponents.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-white border-t border-slate-100 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] flex justify-around items-center h-20 pb-safe px-4 w-full">
+<a class="flex flex-col items-center justify-center text-slate-500 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[11px] font-semibold font-inter">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#003087] bg-blue-50 rounded-lg py-1 px-3 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-[11px] font-semibold font-inter">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-[11px] font-semibold font-inter">Q&amp;A</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-[11px] font-semibold font-inter">Panel</span>
+</a>
+</nav>
+</body></html>

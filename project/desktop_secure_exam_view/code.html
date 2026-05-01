@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ff7675",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#410006",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container-high": "#e7e8e9",
+                        "on-surface-variant": "#444652",
+                        "surface": "#f8f9fa",
+                        "primary": "#001d59",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-primary-container": "#7f9df8",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c4c6d4",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-background": "#191c1d",
+                        "secondary-fixed-dim": "#7edb85",
+                        "error": "#ba1a1a",
+                        "surface-container": "#edeeef",
+                        "primary-container": "#003087",
+                        "surface-tint": "#3959b0",
+                        "secondary": "#006e26",
+                        "on-surface": "#191c1d",
+                        "on-secondary-fixed-variant": "#00531b",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#99f89e",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline": "#747683",
+                        "on-secondary-fixed": "#002106",
+                        "on-secondary-container": "#0e742c",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-fixed-variant": "#93001a",
+                        "tertiary-fixed": "#ffdad8",
+                        "tertiary-container": "#760013",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary-fixed": "#99f89e",
+                        "on-primary-fixed-variant": "#1c4197",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#4d0009",
+                        "background": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "card-padding": "24px",
+                        "gutter": "16px",
+                        "tap-target-min": "48px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "question-text": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "question-text": ["20px", {"lineHeight": "1.5", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-hidden h-screen w-screen flex flex-col">
+<!-- Top Bar Component -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 h-16 bg-white border-b border-slate-200">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="timer">timer</span>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">45:12</h1>
+<p class="font-label-sm text-label-sm text-outline">Question 12 of 50</p>
+</div>
+</div>
+<div class="flex-1 px-12">
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="24" class="bg-primary h-full w-[24%]" role="progressbar"></div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden md:block">
+<p class="font-label-sm text-label-sm text-on-surface font-bold">Medical Admission Mock Test 2027</p>
+<p class="font-label-sm text-label-sm text-error">Negative Marking: 0.25</p>
+</div>
+<button class="bg-surface-container-high px-4 py-2 rounded-lg font-label-sm text-label-sm text-primary transition-all opacity-90 active:scale-95">
+                Help
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-16 mb-20 flex overflow-hidden">
+<!-- Left Column: Question Area -->
+<section class="flex-1 overflow-y-auto p-10 border-r border-slate-200 bg-white">
+<div class="max-w-2xl ml-auto mr-auto lg:mr-10">
+<span class="inline-block px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full font-label-sm text-label-sm mb-6">Biology: Cell Structure</span>
+<h2 class="font-question-text text-question-text text-on-surface mb-8">
+                    Which of the following cell organelles is known as the "powerhouse of the cell"?
+                </h2>
+<!-- Diagram/Image Placeholder (Decorative) -->
+<div class="rounded-xl overflow-hidden border border-slate-100 mb-8 bg-surface-container">
+<img class="w-full h-64 object-cover" data-alt="Scientific microscopic visualization of cellular organelles with glowing mitochondria in a deep blue and violet biological environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNMi_W-idtFfUDsWjrEBPvF4IyueJ_wYe5lEc8xOJdfokzNY1lybVYYdjZDQJC6E8L-ae_crHf7ux5OqYh4JKi25NEVc_bdnY5WvLZKLNkO4-IYCYLlVXu1FHP-YvKjx7ZO6xWq53DUQhGcCq_8ocMhHkjwZnvlPTmX6rCyc6eep0jYDtsxHtJwkUWbz7iewDN7Ud72OX0lZ3w5fZaalfBqRqKihjvYF3DPe8kFC8HvZfyGWf3ANlR6bzrVSVM7RplJ2wN9pJ2kTQ"/>
+</div>
+<div class="bg-error-container p-4 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<p class="font-label-sm text-label-sm text-on-error-container">
+                        Warning: Leaving full-screen mode or switching tabs will automatically submit your exam and invalidate the attempt.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Right Column: Options Area -->
+<section class="w-[450px] overflow-y-auto p-10 bg-surface">
+<div class="max-w-md mx-auto">
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-widest mb-6">Select one option</p>
+<div class="space-y-4">
+<!-- Option A -->
+<label class="group flex items-center p-6 bg-white border border-outline-variant rounded-xl cursor-pointer transition-all active:scale-[0.98] hover:border-primary">
+<input class="hidden peer" name="exam-option" type="radio"/>
+<div class="w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors">
+<div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="ml-4 font-body-lg text-body-lg text-on-surface">Ribosome</span>
+</label>
+<!-- Option B -->
+<label class="group flex items-center p-6 bg-white border border-outline-variant rounded-xl cursor-pointer transition-all active:scale-[0.98] hover:border-primary">
+<input class="hidden peer" name="exam-option" type="radio"/>
+<div class="w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors">
+<div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="ml-4 font-body-lg text-body-lg text-on-surface">Golgi Body</span>
+</label>
+<!-- Option C - Selected State Simulation -->
+<label class="group flex items-center p-6 bg-primary-fixed border-2 border-primary rounded-xl cursor-pointer transition-all active:scale-[0.98]">
+<input checked="" class="hidden peer" name="exam-option" type="radio"/>
+<div class="w-6 h-6 border-2 border-primary bg-primary rounded-full flex items-center justify-center">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+</div>
+<span class="ml-4 font-body-lg text-body-lg text-on-primary-fixed font-bold">Mitochondria</span>
+</label>
+<!-- Option D -->
+<label class="group flex items-center p-6 bg-white border border-outline-variant rounded-xl cursor-pointer transition-all active:scale-[0.98] hover:border-primary">
+<input class="hidden peer" name="exam-option" type="radio"/>
+<div class="w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors">
+<div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="ml-4 font-body-lg text-body-lg text-on-surface">Lysosome</span>
+</label>
+</div>
+<div class="mt-12 flex flex-col gap-3">
+<button class="w-full h-12 flex items-center justify-center gap-2 border border-outline text-outline font-label-sm text-label-sm rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+                        Mark for Review
+                    </button>
+<button class="w-full h-12 flex items-center justify-center gap-2 text-error font-label-sm text-label-sm rounded-lg hover:bg-error-container transition-colors">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+                        Clear Selection
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Action Bar Component -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-white border-t border-slate-200 h-20">
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-6 h-12 rounded-lg text-slate-500 font-label-sm text-label-sm border border-slate-200 hover:bg-slate-50 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                Previous
+            </button>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex gap-1 mr-4">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-slate-200"></div>
+<div class="w-2 h-2 rounded-full bg-slate-200"></div>
+</div>
+<button class="flex items-center gap-2 px-8 h-12 rounded-lg bg-primary text-white font-label-sm text-label-sm transition-all active:scale-95 shadow-lg shadow-primary/20">
+                Next Question
+                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="flex items-center gap-2 px-8 h-12 rounded-lg bg-secondary text-white font-label-sm text-label-sm transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                Final Submit
+            </button>
+</div>
+</footer>
+<!-- Full-Screen Lock Overlay (Hidden by default, shown for demonstration) -->
+<div class="hidden fixed inset-0 z-[100] bg-primary/95 flex items-center justify-center backdrop-blur-md">
+<div class="max-w-md bg-white p-10 rounded-2xl text-center shadow-2xl">
+<div class="w-20 h-20 bg-error-container text-error rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-4xl" data-icon="lock">lock</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">System Locked Mode</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                Your examination environment is strictly monitored. Any attempt to minimize this window, capture screenshots, or switch tabs will result in an immediate disqualification.
+            </p>
+<button class="w-full py-4 bg-primary text-white font-label-sm text-label-sm rounded-xl">
+                I Understand, Continue Exam
+            </button>
+</div>
+</div>
+</body></html>
