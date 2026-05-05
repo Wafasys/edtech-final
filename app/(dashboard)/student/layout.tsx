@@ -7,7 +7,11 @@ import { clearDemoUser } from "../../../lib/demo-auth";
 const NAV_ITEMS = [
   { href: "/student/dashboard", label: "Home", icon: "home" },
   { href: "/student/search", label: "Courses", icon: "menu_book" },
+  { href: "/student/lessons", label: "Lessons", icon: "play_circle" },
+  { href: "/student/lessons/pinned-reply", label: "Pinned Reply", icon: "push_pin" },
   { href: "/student/results", label: "Exams", icon: "quiz" },
+  { href: "/exam/secure-desktop", label: "Desktop Exam", icon: "desktop_windows" },
+  { href: "/exam/secure-mobile", label: "Mobile Exam", icon: "smartphone" },
   { href: "/student/leaderboard", label: "Leaderboard", icon: "leaderboard" },
   { href: "/student/profile", label: "Profile", icon: "person" },
 ];
@@ -79,7 +83,7 @@ export default function StudentPanelLayout({
 
       <div className="flex-1 md:ml-72 min-w-0 pb-24 md:pb-0">{children}</div>
 
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white/95 backdrop-blur-md border-t border-slate-100">
+      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 flex items-center gap-2 overflow-x-auto px-3 py-2 bg-white/95 backdrop-blur-md border-t border-slate-100">
         {NAV_ITEMS.map((item) => {
           const active = isActive(item.href);
           return (
@@ -88,8 +92,8 @@ export default function StudentPanelLayout({
               href={item.href}
               className={
                 active
-                  ? "flex flex-col items-center justify-center text-blue-900 bg-blue-50/50 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150"
-                  : "flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-blue-800 active:scale-95 transition-transform duration-150"
+                  ? "shrink-0 min-w-[64px] flex flex-col items-center justify-center text-blue-900 bg-blue-50/50 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150"
+                  : "shrink-0 min-w-[64px] flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-blue-800 active:scale-95 transition-transform duration-150"
               }
             >
               <span
