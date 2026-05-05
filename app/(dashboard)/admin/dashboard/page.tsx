@@ -4,6 +4,55 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { clearDemoUser } from "../../../../lib/demo-auth";
 
+const cohortBars = [
+  { label: "Jan", value: 48 },
+  { label: "Feb", value: 62 },
+  { label: "Mar", value: 58 },
+  { label: "Apr", value: 76 },
+  { label: "May", value: 83 },
+  { label: "Jun", value: 92 },
+  { label: "Jul", value: 88 },
+];
+
+const questionBanks = [
+  { icon: "functions", name: "Mathematics", count: "2,450 questions", health: "92%" },
+  { icon: "science", name: "Physics", count: "1,820 questions", health: "87%" },
+  { icon: "biotech", name: "Biology", count: "3,100 questions", health: "95%" },
+];
+
+const scheduled = [
+  { day: "09", title: "Medical Model Test 08", time: "10:00 AM - 11:30 AM", status: "Ready" },
+  { day: "11", title: "Engineering Physics Mock", time: "04:00 PM - 05:00 PM", status: "Draft" },
+  { day: "14", title: "DU A-Unit Mega Exam", time: "08:00 PM - 09:30 PM", status: "Review" },
+];
+
+const courses = [
+  {
+    tag: "MEDICAL",
+    title: "Medical Excellence Batch",
+    students: "6.8k",
+    lessons: "95 lessons",
+    status: "Live",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWa-TENXDWQ4DY6emvd_jjk8dpC0BfcN4lAwE5PaOk3SAOSqtKfzchQQjeIjlDOCRs4Jl-tEBmqqfRqYLo0KNkNQcLlabrG5sQ2PMrNGmpwQTLLIWrCh1rilaCqQJ0l5yGoh2jTvIXNzDD2TYDU_Rbxg7bLb2gP7hN_FTqXXm-FIgHUN1qSwHj-pr3PgAJUAluYO5GWx6kRvCrhuYCRBidN5zH3b90RrwB38unWhcdaIX7UJ7GXktjoCj1nBoXPNu6w4OqJD9LHPw",
+  },
+  {
+    tag: "ENGINEERING",
+    title: "BUET Admission Mastery",
+    students: "4.2k",
+    lessons: "120 lessons",
+    status: "Live",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD7FHSBL_Jt41NQEJd7TE8gEqBqG-PSs_pkkVoMUGMNWU8COwhHEQ-3NYcPPGcAYk1bT7nSon95Cf8cvo79yr7qkgUIBXUbq7mNogWHFqLKT1ZuaL1uTDKBsaEELSIVB5cqltLnUFpo_O_yFR6sTxxym1QX3U3XoAdPsw0nLXApvBSBVw1wwZad69PE5gZlkJW8i2un6b3y6yuEwvCGxFfufextP9d7M3TSwubVF68s78R4w9CxZVpwk8Aix1rlQzQvTFotAHgZGcE",
+  },
+  {
+    tag: "VARSITY",
+    title: "DU A-Unit Target Batch",
+    students: "3.1k",
+    lessons: "85 lessons",
+    status: "Recorded",
+    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAWwrdi-Q3lWO-4D336FWlKjOxEguq0ZYfN4DK6DP7COtUGz6s7n7877cAQK85t6UQBikhp2rNfvPZuKboCneeEzb0GlJ7JJxP8gJtGz4rAd-sJ7ITS1Pf_bWlVW15Y_ikxRt2OiTnw1bGEzf8oZrmxRn-iemBZUnLyGLJUJuCwc9P4-gVIPpMiW-Ek5-hflA3ub-TUynlj6FPa1FWDSM5K0manH7QaH-XMyVdGc0NGcswW1dUO4TnegVhORqo1ybdIVRKiw3CF32c",
+  },
+];
+
 export default function AdminDashboardPage() {
   const router = useRouter();
 
@@ -13,252 +62,207 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="bg-background text-on-background min-h-screen pb-20 md:pb-0">
-      <header className="flex justify-between items-center w-full px-5 py-3 sticky top-0 z-50 bg-white border-b border-slate-100 transition-all duration-200">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="active:opacity-70 transition-all duration-200 text-blue-900">
-            <span className="material-symbols-outlined">arrow_back</span>
-          </Link>
-          <h1 className="text-lg font-bold text-blue-900 tracking-tight">Admission Pro</h1>
-        </div>
-        <div className="flex items-center gap-4">
-          <button className="hidden md:flex items-center gap-2 bg-primary px-4 py-2 rounded-xl text-white text-sm font-medium active:scale-95 transition-all">
-            <span className="material-symbols-outlined text-[20px]">upload</span>
-            Upload Video
-          </button>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            title="Sign out"
-            className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant"
-          >
-            <img
-              alt="User Profile"
-              className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXl2oaPBwYtdqAtustIZmHadF3FIVVlDDGivawPKa6KWq3LS_3rNMh0lJsGw6kUcJFsmbHVOLneKCI31wXlhqorstaYYhLXeeNsNfRtnr7DlP-mibxR3kFHYZw8rxXyQZ16yYn7khjxDDPKcM1YyGFpfEAor2-edjSLj3gHjJ8903rmP73u_L7eZFpka9QX6sulOOrr_VhO6r41UsFx-DKfPWVIWc9HIovNbSk7ymOELS8Tq3M5AERQ0S34MOboHV5pHz20hr8JZA"
-            />
-          </button>
+    <div className="min-h-screen bg-[#f8fbfa] text-[#101828] pb-20 md:pb-0">
+      <header className="sticky top-0 z-50 border-b border-[rgba(216,216,216,0.5)] bg-white/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="grid h-10 w-10 place-items-center rounded-full border border-[#d0d5dd] text-[#1a906b] transition hover:bg-[#f0faf7]">
+              <span className="material-symbols-outlined">arrow_back</span>
+            </Link>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#20b486]">Command Center</p>
+              <h1 className="text-xl font-black tracking-tight text-[#101828]">Admin Dashboard</h1>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="hidden h-11 items-center gap-2 rounded-full bg-[#20b486] px-5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(32,180,134,0.24)] transition hover:bg-[#1a906b] md:flex">
+              <span className="material-symbols-outlined text-[20px]">upload</span>
+              Upload Video
+            </button>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              title="Sign out"
+              className="h-11 w-11 overflow-hidden rounded-full border border-[#d0d5dd] bg-white p-1 shadow-[0_1px_2px_rgba(16,24,40,0.05)]"
+            >
+              <img
+                alt="User Profile"
+                className="h-full w-full rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXl2oaPBwYtdqAtustIZmHadF3FIVVlDDGivawPKa6KWq3LS_3rNMh0lJsGw6kUcJFsmbHVOLneKCI31wXlhqorstaYYhLXeeNsNfRtnr7DlP-mibxR3kFHYZw8rxXyQZ16yYn7khjxDDPKcM1YyGFpfEAor2-edjSLj3gHjJ8903rmP73u_L7eZFpka9QX6sulOOrr_VhO6r41UsFx-DKfPWVIWc9HIovNbSk7ymOELS8Tq3M5AERQ0S34MOboHV5pHz20hr8JZA"
+              />
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-container-margin py-8">
-        <div className="mb-8">
-          <h2 className="font-display-lg text-3xl font-extrabold text-primary">Admin Dashboard</h2>
-          <p className="text-base text-outline">
-            Manage courses, question banks, and monitor student performance.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-          <div className="md:col-span-8 bg-white p-card-padding border border-slate-100 rounded-xl">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-primary">Performance Overview</h3>
-              <div className="flex gap-2">
-                <span className="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-medium">
-                  +12.5%
-                </span>
+      <main className="mx-auto max-w-7xl px-5 py-8">
+        <section className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_18px_50px_rgba(16,24,40,0.08)] sm:p-8">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+            <div>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#edfff9] px-4 py-2 text-sm font-bold text-[#1a906b]">
+                <span className="material-symbols-outlined text-[18px]">verified</span>
+                Live operations healthy
               </div>
+              <h2 className="max-w-2xl text-4xl font-black leading-tight tracking-tight text-[#101828] sm:text-5xl">
+                Monitor cohorts, exams, and learning quality from one place.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[#646464]">
+                Admissions activity is up this week. Review the model-test pipeline and question bank
+                quality before the next high-volume exam window.
+              </p>
             </div>
-            <div className="h-64 flex items-end justify-between gap-2 px-2">
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
               {[
-                { cls: "bg-blue-50", h: "40%", v: "62%" },
-                { cls: "bg-blue-100", h: "55%", v: "68%" },
-                { cls: "bg-blue-200", h: "45%", v: "65%" },
-                { cls: "bg-primary-container", h: "75%", v: "82%" },
-                { cls: "bg-blue-400", h: "65%", v: "74%" },
-                { cls: "bg-primary", h: "90%", v: "94%" },
-              ].map((b, i) => (
-                <div key={i} className={`w-full ${b.cls} rounded-t-lg relative group`} style={{ height: b.h }}>
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                    {b.v}
+                { label: "Active Students", value: "12,482", delta: "+4.2%", icon: "groups" },
+                { label: "Exam Attempts", value: "8,854", delta: "+12.5%", icon: "quiz" },
+                { label: "Open Q&A", value: "148", delta: "32 urgent", icon: "forum" },
+              ].map((item) => (
+                <div key={item.label} className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                      <span className="material-symbols-outlined">{item.icon}</span>
+                    </span>
+                    <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-[#1a906b]">
+                      {item.delta}
+                    </span>
                   </div>
+                  <p className="text-sm font-semibold text-[#667085]">{item.label}</p>
+                  <p className="text-3xl font-black text-[#101828]">{item.value}</p>
                 </div>
               ))}
             </div>
-            <div className="flex justify-between mt-4 text-xs text-outline">
-              <span>JAN</span>
-              <span>FEB</span>
-              <span>MAR</span>
-              <span>APR</span>
-              <span>MAY</span>
-              <span>JUN</span>
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <div className="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Cohort Analytics</p>
+                <h3 className="mt-1 text-2xl font-black text-[#101828]">Performance overview</h3>
+              </div>
+              <div className="rounded-full bg-[#edfff9] px-3 py-1 text-sm font-bold text-[#1a906b]">
+                +12.5% avg score
+              </div>
+            </div>
+            <div className="flex h-72 items-end gap-3 rounded-lg bg-[#f8fbfa] p-5">
+              {cohortBars.map((bar) => (
+                <div key={bar.label} className="flex h-full flex-1 flex-col justify-end gap-3">
+                  <div className="relative flex-1 rounded-full bg-white">
+                    <div
+                      className="absolute bottom-0 left-0 right-0 rounded-full bg-gradient-to-t from-[#1a906b] to-[#4ac8ae] shadow-[0_10px_20px_rgba(32,180,134,0.18)]"
+                      style={{ height: `${bar.value}%` }}
+                    />
+                  </div>
+                  <span className="text-center text-xs font-bold text-[#98a2b3]">{bar.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="md:col-span-4 flex flex-col gap-gutter">
-            <div className="bg-primary text-white p-card-padding rounded-xl flex flex-col justify-between h-1/2">
-              <span className="text-xs font-medium opacity-80 uppercase tracking-widest">Active Students</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold">12,482</span>
-                <span className="text-secondary-fixed text-sm">↑ 4%</span>
+          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Question Bank</p>
+                <h3 className="text-2xl font-black text-[#101828]">Coverage health</h3>
               </div>
+              <Link href="/admin/exams/schedule" className="grid h-10 w-10 place-items-center rounded-full bg-[#edfff9] text-[#20b486]">
+                <span className="material-symbols-outlined">arrow_forward</span>
+              </Link>
             </div>
-            <div className="bg-white border border-slate-100 p-card-padding rounded-xl flex flex-col justify-between h-1/2">
-              <span className="text-xs font-medium text-outline uppercase tracking-widest">Total Exams Held</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold text-primary">854</span>
-                <span className="text-on-surface-variant text-sm">This year</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="md:col-span-6 bg-white p-card-padding border border-slate-100 rounded-xl">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-primary">Question Bank</h3>
-              <button className="text-blue-700 text-sm font-medium flex items-center gap-1">
-                View All <span className="material-symbols-outlined text-[18px]">chevron_right</span>
-              </button>
-            </div>
-            <div className="space-y-4">
-              {[
-                { icon: "functions", iconCls: "bg-blue-50 text-blue-900", name: "Mathematics (DU Pattern)", count: "2,450 Questions" },
-                { icon: "science", iconCls: "bg-red-50 text-red-900", name: "Physics (Engineering)", count: "1,820 Questions" },
-                { icon: "biotech", iconCls: "bg-green-50 text-green-900", name: "Biology (Medical)", count: "3,100 Questions" },
-              ].map((q) => (
-                <div key={q.name} className="flex items-center justify-between p-4 bg-surface rounded-lg border border-surface-container">
+            <div className="space-y-3">
+              {questionBanks.map((bank) => (
+                <div key={bank.name} className="rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4">
                   <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded ${q.iconCls}`}>
-                      <span className="material-symbols-outlined">{q.icon}</span>
+                    <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                      <span className="material-symbols-outlined">{bank.icon}</span>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-primary">{q.name}</p>
-                      <p className="text-xs text-outline">{q.count}</p>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="font-black text-[#101828]">{bank.name}</p>
+                        <p className="text-sm font-black text-[#20b486]">{bank.health}</p>
+                      </div>
+                      <p className="text-sm text-[#667085]">{bank.count}</p>
                     </div>
                   </div>
-                  <button className="material-symbols-outlined text-outline">edit</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-5 xl:grid-cols-[0.85fr_1.15fr]">
+          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Scheduler</p>
+                <h3 className="text-2xl font-black text-[#101828]">Upcoming exams</h3>
+              </div>
+              <Link href="/admin/exams/schedule" className="rounded-full bg-[#20b486] px-4 py-2 text-sm font-bold text-white">
+                New exam
+              </Link>
+            </div>
+            <div className="space-y-3">
+              {scheduled.map((exam) => (
+                <div key={exam.title} className="flex items-center gap-4 rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4">
+                  <div className="min-w-[58px] rounded-lg bg-white p-2 text-center shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                    <p className="text-xs font-bold uppercase text-[#667085]">May</p>
+                    <p className="text-2xl font-black text-[#20b486]">{exam.day}</p>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="truncate text-sm font-black text-[#101828]">{exam.title}</h4>
+                    <p className="text-sm text-[#667085]">{exam.time}</p>
+                  </div>
+                  <span className="rounded-full bg-[#edfff9] px-3 py-1 text-xs font-bold text-[#1a906b]">
+                    {exam.status}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="md:col-span-6 bg-white p-card-padding border border-slate-100 rounded-xl">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-primary">Exam Scheduler</h3>
-              <button className="bg-primary-container text-on-primary-container px-3 py-1.5 rounded-lg text-sm font-medium">
-                Schedule New
+          <div>
+            <div className="mb-4 flex items-end justify-between">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Courses</p>
+                <h3 className="text-2xl font-black text-[#101828]">Active programs</h3>
+              </div>
+              <button className="grid h-10 w-10 place-items-center rounded-full border border-[#d0d5dd] bg-white text-[#667085] transition hover:border-[#20b486] hover:text-[#20b486]">
+                <span className="material-symbols-outlined">filter_list</span>
               </button>
             </div>
-            <div className="space-y-4">
-              {[
-                { d: "24", t: "Model Test: BUET Standard 01", time: "10:00 AM - 12:00 PM", status: "UPCOMING", statusCls: "bg-yellow-100 text-yellow-800" },
-                { d: "26", t: "Subject Test: Chemistry P1", time: "04:00 PM - 05:00 PM", status: "UPCOMING", statusCls: "bg-yellow-100 text-yellow-800" },
-                { d: "28", t: "Mega Final: DU A-Unit Mock", time: "09:00 AM - 10:30 AM", status: "DRAFT", statusCls: "bg-slate-100 text-slate-500" },
-              ].map((e, i) => (
-                <div key={e.t} className={`flex gap-4 items-start ${i < 2 ? "pb-4 border-b border-surface-container" : ""}`}>
-                  <div className="text-center min-w-[50px]">
-                    <p className="text-xs font-bold text-outline uppercase">Oct</p>
-                    <p className="text-xl font-bold text-primary">{e.d}</p>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-medium text-primary">{e.t}</h4>
-                    <p className="text-xs text-outline">Time: {e.time}</p>
-                  </div>
-                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${e.statusCls}`}>{e.status}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="md:col-span-12 mt-4">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-primary">Active Courses</h3>
-              <div className="flex gap-2">
-                <button className="p-2 border border-outline-variant rounded-lg hover:bg-surface transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">filter_list</span>
-                </button>
-                <button className="p-2 border border-outline-variant rounded-lg hover:bg-surface transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">search</span>
-                </button>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
-              {[
-                {
-                  tag: "ENGINEERING",
-                  title: "BUET Admission Mastery 2024",
-                  lectures: "120 Lectures",
-                  students: "4.2k Students",
-                  status: "LIVE",
-                  statusCls: "text-secondary",
-                  dotCls: "bg-secondary",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD7FHSBL_Jt41NQEJd7TE8gEqBqG-PSs_pkkVoMUGMNWU8COwhHEQ-3NYcPPGcAYk1bT7nSon95Cf8cvo79yr7qkgUIBXUbq7mNogWHFqLKT1ZuaL1uTDKBsaEELSIVB5cqltLnUFpo_O_yFR6sTxxym1QX3U3XoAdPsw0nLXApvBSBVw1wwZad69PE5gZlkJW8i2un6b3y6yuEwvCGxFfufextP9d7M3TSwubVF68s78R4w9CxZVpwk8Aix1rlQzQvTFotAHgZGcE",
-                },
-                {
-                  tag: "MEDICAL",
-                  title: "Medical Excellence Batch",
-                  lectures: "95 Lectures",
-                  students: "6.8k Students",
-                  status: "RECORDED",
-                  statusCls: "text-outline",
-                  dotCls: "bg-outline",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWa-TENXDWQ4DY6emvd_jjk8dpC0BfcN4lAwE5PaOk3SAOSqtKfzchQQjeIjlDOCRs4Jl-tEBmqqfRqYLo0KNkNQcLlabrG5sQ2PMrNGmpwQTLLIWrCh1rilaCqQJ0l5yGoh2jTvIXNzDD2TYDU_Rbxg7bLb2gP7hN_FTqXXm-FIgHUN1qSwHj-pr3PgAJUAluYO5GWx6kRvCrhuYCRBidN5zH3b90RrwB38unWhcdaIX7UJ7GXktjoCj1nBoXPNu6w4OqJD9LHPw",
-                },
-                {
-                  tag: "VARSITY A",
-                  title: "DU A-Unit Target Batch",
-                  lectures: "85 Lectures",
-                  students: "3.1k Students",
-                  status: "LIVE",
-                  statusCls: "text-secondary",
-                  dotCls: "bg-secondary",
-                  img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAWwrdi-Q3lWO-4D336FWlKjOxEguq0ZYfN4DK6DP7COtUGz6s7n7877cAQK85t6UQBikhp2rNfvPZuKboCneeEzb0GlJ7JJxP8gJtGz4rAd-sJ7ITS1Pf_bWlVW15Y_ikxRt2OiTnw1bGEzf8oZrmxRn-iemBZUnLyGLJUJuCwc9P4-gVIPpMiW-Ek5-hflA3ub-TUynlj6FPa1FWDSM5K0manH7QaH-XMyVdGc0NGcswW1dUO4TnegVhORqo1ybdIVRKiw3CF32c",
-                },
-              ].map((c) => (
-                <div key={c.title} className="bg-white border border-slate-100 rounded-xl overflow-hidden group">
-                  <div className="relative h-40 overflow-hidden">
-                    <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={c.img} alt="" />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-[10px] font-bold text-primary">
-                      {c.tag}
+            <div className="grid gap-4 md:grid-cols-3">
+              {courses.map((course) => (
+                <article key={course.title} className="overflow-hidden rounded-xl border border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)] transition hover:-translate-y-0.5 hover:border-[#20b486]">
+                  <div className="relative h-36 overflow-hidden">
+                    <img className="h-full w-full object-cover transition duration-500 hover:scale-105" src={course.img} alt="" />
+                    <div className="absolute left-3 top-3 rounded-full bg-white/92 px-3 py-1 text-[10px] font-black text-[#1a906b] backdrop-blur">
+                      {course.tag}
                     </div>
                   </div>
-                  <div className="p-card-padding">
-                    <h4 className="text-sm font-medium text-primary mb-2">{c.title}</h4>
-                    <div className="flex justify-between items-center text-xs text-outline">
-                      <span>{c.lectures}</span>
+                  <div className="p-4">
+                    <h4 className="line-clamp-2 min-h-[40px] text-sm font-black text-[#101828]">{course.title}</h4>
+                    <div className="mt-4 flex items-center justify-between text-xs text-[#667085]">
+                      <span>{course.lessons}</span>
                       <span className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[14px]">group</span> {c.students}
+                        <span className="material-symbols-outlined text-[14px]">group</span>
+                        {course.students}
                       </span>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-surface-container flex justify-between">
-                      <button className="text-primary text-sm font-medium">Manage</button>
-                      <div className={`flex items-center font-bold text-[10px] ${c.statusCls}`}>
-                        <span className={`w-2 h-2 ${c.dotCls} rounded-full mr-1`}></span> {c.status}
-                      </div>
+                    <div className="mt-4 flex items-center justify-between border-t border-[rgba(216,216,216,0.55)] pt-4">
+                      <button className="text-sm font-bold text-[#1a906b]">Manage</button>
+                      <span className="flex items-center gap-1 text-xs font-black text-[#20b486]">
+                        <span className="h-2 w-2 rounded-full bg-[#20b486]" />
+                        {course.status}
+                      </span>
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
-        </div>
+        </section>
       </main>
-
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-white/95 backdrop-blur-md md:hidden border-t border-slate-100">
-        <Link href="/admin/dashboard" className="flex flex-col items-center justify-center text-blue-900 bg-blue-50/50 rounded-xl px-3 py-1 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
-          <span className="text-[11px] font-medium">Home</span>
-        </Link>
-        <button className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-blue-800 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">menu_book</span>
-          <span className="text-[11px] font-medium">Courses</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-blue-800 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">quiz</span>
-          <span className="text-[11px] font-medium">Exams</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-blue-800 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">leaderboard</span>
-          <span className="text-[11px] font-medium">Leaderboard</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-slate-400 px-3 py-1 hover:text-blue-800 active:scale-95 transition-transform duration-150">
-          <span className="material-symbols-outlined">person</span>
-          <span className="text-[11px] font-medium">Profile</span>
-        </button>
-      </nav>
-
-      <button className="fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center md:hidden active:scale-90 transition-transform">
-        <span className="material-symbols-outlined">video_call</span>
-      </button>
     </div>
   );
 }
