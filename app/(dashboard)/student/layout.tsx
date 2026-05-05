@@ -33,34 +33,25 @@ export default function StudentPanelLayout({
 
   return (
     <div className="flex min-h-screen bg-[#f8fbfa]">
-      <aside className="fixed left-0 top-0 z-40 hidden h-full w-80 flex-col border-r border-[rgba(216,216,216,0.55)] bg-[#f3faf7] p-4 md:flex">
-        <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-4 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+      <aside className="fixed left-0 top-0 z-40 hidden h-full w-80 flex-col border-r border-[rgba(216,216,216,0.55)] bg-[#f3faf7] p-3 md:flex">
+        <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-3 shadow-[0_8px_18px_rgba(16,24,40,0.04)]">
           <Link href="/student/dashboard" className="flex items-center gap-3">
-            <div className="grid h-12 w-12 place-items-center rounded-lg bg-[#20b486] text-white shadow-[0_10px_22px_rgba(32,180,134,0.24)]">
+            <div className="grid h-10 w-10 place-items-center rounded-lg bg-[#20b486] text-white shadow-[0_8px_18px_rgba(32,180,134,0.22)]">
               <span className="material-symbols-outlined">school</span>
             </div>
             <div className="min-w-0">
-              <h2 className="truncate text-lg font-black leading-tight tracking-tight text-[#101828]">
+              <h2 className="truncate text-base font-black leading-tight tracking-tight text-[#101828]">
                 Admission Pro
               </h2>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#20b486]">
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#20b486]">
                 Student Portal
               </p>
             </div>
           </Link>
         </div>
 
-        <div className="mt-4 rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-3 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-          <div className="mb-3 flex items-center justify-between px-2">
-            <span className="text-xs font-black uppercase tracking-[0.16em] text-[#98a2b3]">
-              Workspace
-            </span>
-            <span className="rounded-full bg-[#edfff9] px-2.5 py-1 text-[10px] font-black text-[#1a906b]">
-              78%
-            </span>
-          </div>
-
-          <nav className="max-h-[calc(100vh-352px)] space-y-1 overflow-y-auto pr-1">
+        <div className="mt-3 min-h-0 flex-1 rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-2 shadow-[0_8px_18px_rgba(16,24,40,0.04)]">
+          <nav className="h-full space-y-0.5 overflow-y-auto pr-1">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.href);
               return (
@@ -69,52 +60,52 @@ export default function StudentPanelLayout({
                   href={item.href}
                   className={
                     active
-                      ? "group flex items-center gap-3 rounded-lg bg-[#20b486] px-3 py-3 text-sm font-black text-white shadow-[0_10px_22px_rgba(32,180,134,0.22)]"
-                      : "group flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-bold text-[#667085] transition hover:bg-[#f0faf7] hover:text-[#101828]"
+                      ? "group flex h-10 items-center gap-2.5 rounded-lg bg-[#20b486] px-2.5 text-sm font-black text-white shadow-[0_8px_18px_rgba(32,180,134,0.18)]"
+                      : "group flex h-10 items-center gap-2.5 rounded-lg px-2.5 text-sm font-bold text-[#667085] transition hover:bg-[#f0faf7] hover:text-[#101828]"
                   }
                 >
                   <span
                     className={
                       active
-                        ? "material-symbols-outlined grid h-9 w-9 place-items-center rounded-md bg-white/16 text-white"
-                        : "material-symbols-outlined grid h-9 w-9 place-items-center rounded-md bg-[#f8fbfa] text-[#20b486] transition group-hover:bg-white"
+                        ? "material-symbols-outlined grid h-7 w-7 place-items-center rounded-md bg-white/16 text-[19px] text-white"
+                        : "material-symbols-outlined grid h-7 w-7 place-items-center rounded-md bg-[#f8fbfa] text-[19px] text-[#20b486] transition group-hover:bg-white"
                     }
                     style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
                   >
                     {item.icon}
                   </span>
                   <span className="min-w-0 flex-1 truncate">{item.label}</span>
-                  {active && (
-                    <span className="material-symbols-outlined text-[18px]">chevron_right</span>
-                  )}
+                  {active && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
                 </Link>
               );
             })}
           </nav>
         </div>
 
-        <div className="mt-4 rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-4 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#20b486]">
-                Weekly Goal
-              </p>
-              <p className="mt-1 text-sm font-bold text-[#667085]">14 of 18 hours completed</p>
-            </div>
-            <div className="grid h-12 w-12 place-items-center rounded-full bg-[#edfff9] text-sm font-black text-[#1a906b]">
+        <div className="mt-3 shrink-0 rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-3 shadow-[0_8px_18px_rgba(16,24,40,0.04)]">
+          <div className="flex items-center gap-3">
+            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-sm font-black text-[#1a906b]">
               78%
             </div>
-          </div>
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#f2f4f7]">
-            <div className="h-full w-[78%] rounded-full bg-[#20b486]" />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-3">
+                <p className="truncate text-xs font-black uppercase tracking-[0.14em] text-[#20b486]">
+                  Weekly Goal
+                </p>
+                <p className="shrink-0 text-xs font-bold text-[#667085]">14/18h</p>
+              </div>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-[#f2f4f7]">
+                <div className="h-full w-[78%] rounded-full bg-[#20b486]" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-auto rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-4 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-          <div className="mb-4 flex items-center gap-3">
+        <div className="mt-3 shrink-0 rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-3 shadow-[0_8px_18px_rgba(16,24,40,0.04)]">
+          <div className="mb-3 flex items-center gap-3">
             <img
               alt="Student"
-              className="h-11 w-11 rounded-full object-cover"
+              className="h-9 w-9 rounded-full object-cover"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7AVCa4cbImZGmJFs9PZrFqrnKiHsrMVbtu_AvNewLKNnd1SYzk4LAGylzk67kVH4NWaatlGp5NVZGyhwPxNVtG-foMlfFChdJjAI8xUo0QMgMqZM7tDCr1m2fVcAY2eKFPD3o8ZfRUEk02shPYJxUE59v9jEE_E6nZY9xCA_0QJ5mRC_OyY9F_ednoy-XwWcvN_dJj00oVywilCOogXpTnOWR_HNK_XlW5DlKA3ZeJROOsiI7tnNKUVkmiNbtZYhtUVCJNUZN_8M"
             />
             <div className="min-w-0 flex-1">
@@ -125,7 +116,7 @@ export default function StudentPanelLayout({
           <button
             type="button"
             onClick={handleLogout}
-            className="flex h-11 w-full items-center justify-center gap-2 rounded-full border border-[#d0d5dd] bg-white text-sm font-black text-[#101828] transition hover:border-[#ba1a1a] hover:bg-[#fff5f4] hover:text-[#ba1a1a]"
+            className="flex h-9 w-full items-center justify-center gap-2 rounded-full border border-[#d0d5dd] bg-white text-xs font-black text-[#101828] transition hover:border-[#ba1a1a] hover:bg-[#fff5f4] hover:text-[#ba1a1a]"
           >
             <span className="material-symbols-outlined text-[18px]">logout</span>
             Logout

@@ -103,56 +103,99 @@ export default function StudentDashboardPage() {
       <main className="mx-auto max-w-7xl px-5 py-8">
         <section className="grid gap-5 lg:grid-cols-[1.45fr_0.9fr]">
           <div className="overflow-hidden rounded-xl border border-[rgba(216,216,216,0.55)] bg-white shadow-[0_18px_50px_rgba(16,24,40,0.08)]">
-            <div className="grid min-h-[330px] lg:grid-cols-[1.12fr_0.88fr]">
-              <div className="flex flex-col justify-between p-7 sm:p-8">
+            <div className="grid min-h-[318px] lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="flex flex-col justify-between p-6 sm:p-7">
                 <div>
-                  <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#edfff9] px-4 py-2 text-sm font-bold text-[#1a906b]">
-                    <span className="material-symbols-outlined text-[18px]">local_fire_department</span>
-                    12 day learning streak
+                  <div className="mb-5 flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-2 rounded-full bg-[#edfff9] px-3 py-1.5 text-xs font-black text-[#1a906b]">
+                      <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
+                      12 day streak
+                    </span>
+                    <span className="rounded-full bg-[#fff9f3] px-3 py-1.5 text-xs font-black text-[#ff9b26]">
+                      Top 12% this week
+                    </span>
                   </div>
-                  <h2 className="max-w-xl text-4xl font-black leading-tight tracking-tight text-[#101828] sm:text-5xl">
-                    Welcome back, Fahim. Keep the momentum sharp.
+                  <h2 className="max-w-xl text-3xl font-black leading-tight tracking-tight text-[#101828] sm:text-4xl">
+                    Today&apos;s prep plan is ready.
                   </h2>
-                  <p className="mt-4 max-w-lg text-base leading-7 text-[#646464]">
-                    You are ahead of 68% of your batch this week. Finish today&apos;s physics lesson
-                    and one model test review to stay on track.
+                  <p className="mt-3 max-w-lg text-sm leading-6 text-[#646464]">
+                    Finish one physics lesson, review yesterday&apos;s mock mistakes, then take a
+                    20-minute timed quiz.
                   </p>
                 </div>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  {[
+                    { icon: "play_circle", title: "Resume", body: "14:22 left" },
+                    { icon: "fact_check", title: "Review", body: "18 mistakes" },
+                    { icon: "timer", title: "Quiz", body: "20 minutes" },
+                  ].map((item) => (
+                    <div key={item.title} className="rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f8fbfa] p-3">
+                      <span className="material-symbols-outlined text-[20px] text-[#20b486]">{item.icon}</span>
+                      <p className="mt-2 text-sm font-black text-[#101828]">{item.title}</p>
+                      <p className="text-xs font-semibold text-[#667085]">{item.body}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href="/student/lessons"
-                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(32,180,134,0.26)] transition hover:bg-[#1a906b]"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#20b486] px-5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(32,180,134,0.22)] transition hover:bg-[#1a906b]"
                   >
-                    Continue Learning
+                    Start Plan
                     <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                   </Link>
                   <Link
                     href="/exam/secure-desktop"
-                    className="inline-flex h-12 items-center justify-center rounded-full border border-[#d0d5dd] bg-white px-6 text-sm font-bold text-[#101828] transition hover:border-[#20b486] hover:bg-[#f2fffb]"
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-[#d0d5dd] bg-white px-5 text-sm font-bold text-[#101828] transition hover:border-[#20b486] hover:bg-[#f2fffb]"
                   >
-                    Start Mock Exam
+                    Timed Quiz
                   </Link>
                 </div>
               </div>
 
-              <div className="relative min-h-[260px] bg-[#f0faf7]">
-                <img
-                  alt="Student lesson preview"
-                  className="h-full w-full object-cover"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp56NRgQbpopI4tQGH3I_5nsB3VqqkF4f_mhFEGVePICnKBnusErVhkNg6twm1pW1OCbrej6tRf_W5SYMn1YYBLAX1Xm8mXKZfupRTHhAWq6T_LPej3fMEJ22JNpNZnxDj7mDljE22HQ-rCtKbTSDZ7rFpBzPrrzTyG8DvuxjepJo9gVxnQJxADc5RJlqUUcHMTf1sHk9L3YF5mm03Th3w49yqCTyw12W8CawOXH5z_BqYZ9hXnC2aTo5CbNl65WFruXWwgP-IBFQ"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#101828]/65 via-[#101828]/10 to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 rounded-xl border border-white/30 bg-white/90 p-4 shadow-[0_18px_38px_rgba(16,24,40,0.16)] backdrop-blur">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#20b486]">Resume</p>
-                      <h3 className="mt-1 text-base font-black text-[#101828]">Electromagnetic Induction</h3>
-                      <p className="text-sm text-[#667085]">14:22 of 45:00 completed</p>
+              <div className="bg-[#f0faf7] p-5">
+                <div className="flex h-full min-h-[260px] flex-col rounded-xl border border-[#dce8e2] bg-white p-5 shadow-[0_10px_24px_rgba(16,24,40,0.05)]">
+                  <div className="flex items-start gap-4">
+                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#101828] text-white">
+                      <span className="material-symbols-outlined">bolt</span>
                     </div>
-                    <span className="material-symbols-outlined grid h-12 w-12 place-items-center rounded-full bg-[#20b486] text-white">
-                      play_arrow
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-black uppercase tracking-[0.16em] text-[#20b486]">
+                        Current Focus
+                      </p>
+                      <h3 className="mt-2 text-2xl font-black leading-tight text-[#101828]">
+                        Electromagnetic Induction
+                      </h3>
+                      <p className="mt-2 text-sm font-semibold text-[#667085]">
+                        Physics Unit 4 • 31 minutes remaining
+                      </p>
+                    </div>
+                    <span className="material-symbols-outlined grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#20b486] text-white">
+                      bolt
                     </span>
+                  </div>
+
+                  <div className="my-6">
+                    <div className="mb-2 flex justify-between text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                      <span>Lesson progress</span>
+                      <span>68%</span>
+                    </div>
+                    <div className="h-3 overflow-hidden rounded-full bg-[#f2f4f7]">
+                      <div className="h-full w-[68%] rounded-full bg-[#20b486]" />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-lg bg-[#f8fbfa] p-4">
+                      <p className="text-2xl font-black text-[#101828]">18</p>
+                      <p className="text-xs font-bold text-[#667085]">mistakes to review</p>
+                    </div>
+                    <div className="rounded-lg bg-[#fff9f3] p-4">
+                      <p className="text-2xl font-black text-[#101828]">20m</p>
+                      <p className="text-xs font-bold text-[#667085]">target quiz time</p>
+                    </div>
                   </div>
                 </div>
               </div>

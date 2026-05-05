@@ -145,18 +145,30 @@ export default function AdminDashboardPage() {
                 +12.5% avg score
               </div>
             </div>
-            <div className="flex h-72 items-end gap-3 rounded-lg bg-[#f8fbfa] p-5">
-              {cohortBars.map((bar) => (
-                <div key={bar.label} className="flex h-full flex-1 flex-col justify-end gap-3">
-                  <div className="relative flex-1 rounded-full bg-white">
-                    <div
-                      className="absolute bottom-0 left-0 right-0 rounded-full bg-gradient-to-t from-[#1a906b] to-[#4ac8ae] shadow-[0_10px_20px_rgba(32,180,134,0.18)]"
-                      style={{ height: `${bar.value}%` }}
-                    />
+            <div className="relative h-72 rounded-lg border border-[#dce8e2] bg-[#f0faf7] p-5">
+              <div className="pointer-events-none absolute inset-x-5 top-8 bottom-12 grid grid-rows-4">
+                {[0, 1, 2, 3].map((line) => (
+                  <div key={line} className="border-t border-[#d7e8df]" />
+                ))}
+              </div>
+
+              <div className="relative z-10 flex h-full items-end gap-3">
+                {cohortBars.map((bar) => (
+                  <div key={bar.label} className="flex h-full flex-1 flex-col justify-end gap-3">
+                    <div className="relative min-h-0 flex-1 overflow-hidden rounded-full bg-white shadow-inner">
+                      <div
+                        className="absolute bottom-0 left-0 right-0 rounded-full shadow-[0_10px_20px_rgba(32,180,134,0.18)]"
+                        style={{
+                          height: `${bar.value}%`,
+                          background:
+                            "linear-gradient(180deg, #4ac8ae 0%, #20b486 52%, #1a906b 100%)",
+                        }}
+                      />
+                    </div>
+                    <span className="text-center text-xs font-bold text-[#667085]">{bar.label}</span>
                   </div>
-                  <span className="text-center text-xs font-bold text-[#98a2b3]">{bar.label}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
