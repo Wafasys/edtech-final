@@ -502,11 +502,11 @@ function PatternAnalysisModal({
     .slice(0, 2);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
-      <Card className="max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-2xl">
-        <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 bg-[#101828] p-6 text-white sm:p-7">
-          <div className="flex min-w-0 items-center gap-5">
-            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white/10 text-white ring-4 ring-white/10">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/45 p-3 backdrop-blur-sm sm:p-4">
+      <Card className="max-h-[92vh] w-full max-w-3xl overflow-hidden rounded-xl border-surface-container bg-background text-on-surface shadow-2xl">
+        <CardHeader className="flex-row items-center justify-between gap-4 space-y-0 border-b border-surface-container bg-white p-4 sm:p-5">
+          <div className="flex min-w-0 items-center gap-4">
+            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-surface-container text-primary ring-2 ring-primary/10 sm:h-14 sm:w-14">
               {student.img ? (
                 <img
                   src={student.img}
@@ -520,15 +520,12 @@ function PatternAnalysisModal({
               )}
             </div>
             <div className="min-w-0">
-              <CardDescription className="text-xs font-extrabold uppercase text-[#f5c542]">
-                Performance report
-              </CardDescription>
-              <CardTitle className="mt-2 truncate text-3xl font-black text-white">
+              <CardTitle className="truncate text-lg font-black text-primary sm:text-xl">
                 {student.name}
               </CardTitle>
-              <p className="mt-2 text-sm font-semibold text-white/70">
+              <CardDescription className="mt-1 text-sm font-semibold text-on-surface-variant">
                 Rank #{student.rank} - {student.unit} - Score {student.score}
-              </p>
+              </CardDescription>
             </div>
           </div>
           <Button
@@ -536,147 +533,192 @@ function PatternAnalysisModal({
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="h-10 w-10 shrink-0 rounded-md text-white hover:bg-white/12 hover:text-white"
+            className="h-10 w-10 shrink-0 rounded-md text-on-surface-variant hover:bg-surface-container hover:text-primary"
             aria-label="Close answer analysis"
           >
             <X className="h-5 w-5" />
           </Button>
         </CardHeader>
 
-        <CardContent className="max-h-[calc(90vh-144px)] overflow-y-auto bg-[#f8fbfa] p-5 sm:p-6">
-          <div className="grid gap-5 lg:grid-cols-[300px_minmax(0,1fr)]">
-            <aside className="space-y-4">
-              <div className="rounded-lg border border-[#eaecf0] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-                <p className="text-xs font-extrabold uppercase text-[#20b486]">
-                  Summary
-                </p>
-                <div className="mt-4 grid grid-cols-2 gap-3">
-                  <div className="rounded-lg bg-[#f2fffb] px-4 py-3">
-                    <p className="text-3xl font-black text-[#101828]">{accuracy}%</p>
-                    <p className="mt-1 text-xs font-bold text-[#667085]">accuracy</p>
-                  </div>
-                  <div className="rounded-lg bg-[#f9fafb] px-4 py-3">
-                    <p className="text-3xl font-black text-[#101828]">24m</p>
-                    <p className="mt-1 text-xs font-bold text-[#667085]">time</p>
-                  </div>
-                  <div className="rounded-lg bg-[#f2fffb] px-4 py-3">
-                    <p className="text-3xl font-black text-[#101828]">{correctCount}</p>
-                    <p className="mt-1 text-xs font-bold text-[#667085]">correct</p>
-                  </div>
-                  <div className="rounded-lg bg-[#fff9f3] px-4 py-3">
-                    <p className="text-3xl font-black text-[#101828]">{wrongCount}</p>
-                    <p className="mt-1 text-xs font-bold text-[#667085]">wrong</p>
-                  </div>
+        <CardContent className="max-h-[calc(92vh-88px)] overflow-y-auto bg-background p-0">
+          <section className="border-b border-surface-container bg-white px-5 py-7 text-center sm:px-8">
+            <div className="mb-4 inline-flex rounded-full bg-primary-fixed px-4 py-1 text-label-sm font-label-sm text-on-primary-fixed">
+              Leaderboard analysis
+            </div>
+            <div className="text-display-lg font-display-lg text-primary">
+              {student.score}
+              <span className="text-headline-md text-outline"> score</span>
+            </div>
+            <div className="mt-2 flex items-center justify-center gap-2 text-sm font-semibold text-on-surface-variant">
+              <Trophy className="h-4 w-4 text-primary" />
+              Rank #{student.rank} - {student.unit}
+            </div>
+
+            <div className="mt-7 text-left">
+              <p className="px-1 text-label-sm font-label-sm uppercase text-outline">
+                Summary
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div className="rounded-xl border border-secondary/10 bg-secondary-container/20 p-4 text-center">
+                  <span className="text-headline-md font-headline-md text-secondary">
+                    {accuracy}%
+                  </span>
+                  <span className="mt-1 block text-label-sm font-label-sm text-on-secondary-container">
+                    accuracy
+                  </span>
+                </div>
+                <div className="rounded-xl border border-outline-variant/30 bg-surface-container p-4 text-center">
+                  <span className="text-headline-md font-headline-md text-outline">24m</span>
+                  <span className="mt-1 block text-label-sm font-label-sm text-on-surface-variant">
+                    time
+                  </span>
+                </div>
+                <div className="rounded-xl border border-secondary/10 bg-secondary-container/20 p-4 text-center">
+                  <span className="text-headline-md font-headline-md text-secondary">
+                    {correctCount}
+                  </span>
+                  <span className="mt-1 block text-label-sm font-label-sm text-on-secondary-container">
+                    correct
+                  </span>
+                </div>
+                <div className="rounded-xl border border-error/10 bg-error-container/20 p-4 text-center">
+                  <span className="text-headline-md font-headline-md text-error">
+                    {wrongCount}
+                  </span>
+                  <span className="mt-1 block text-label-sm font-label-sm text-on-error-container">
+                    wrong
+                  </span>
                 </div>
               </div>
+            </div>
+          </section>
 
-              <div className="rounded-lg border border-[#eaecf0] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
-                <p className="text-xs font-extrabold uppercase text-[#20b486]">
-                  Insight
-                </p>
-                <h3 className="mt-2 text-lg font-black leading-6 text-[#101828]">
+          <section className="space-y-6 px-5 py-6 sm:px-8">
+            <div className="grid gap-4 sm:grid-cols-[1fr_220px]">
+              <div className="rounded-xl border border-surface-container bg-white p-card-padding">
+                <div className="mb-3 flex items-center gap-2 text-primary">
+                  <Sparkles className="h-5 w-5" />
+                  <span className="text-label-sm font-label-sm uppercase tracking-wider">
+                    Insight
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-on-surface">
                   Strong recall, one conceptual trap.
                 </h3>
-                <p className="mt-3 text-sm font-semibold leading-6 text-[#667085]">
+                <p className="mt-2 text-body-md font-body-md leading-relaxed text-on-surface-variant">
                   Fast on direct recall, but loses marks when similar physics laws
                   compete. Review conceptual mechanics before the next mock.
                 </p>
               </div>
 
-              <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-5">
-                <p className="text-xs font-extrabold uppercase text-[#20b486]">
+              <div className="rounded-xl border border-surface-container bg-white p-card-padding">
+                <p className="mb-3 text-label-sm font-label-sm uppercase text-outline">
                   Subject spread
                 </p>
-                <div className="mt-4 space-y-3">
+                <div className="space-y-2">
                   {["Chemistry", "Physics", "Biology", "English", "Math"].map((subject) => (
                     <div
                       key={subject}
-                      className="flex items-center justify-between rounded-md bg-white px-3 py-2"
+                      className="flex items-center justify-between rounded-lg bg-surface-container-low px-3 py-2"
                     >
-                      <span className="text-sm font-bold text-[#101828]">{subject}</span>
-                      <span className="text-xs font-bold text-[#20b486]">Reviewed</span>
+                      <span className="text-sm font-bold text-on-surface">{subject}</span>
+                      <span className="text-[11px] font-bold uppercase text-secondary">
+                        Reviewed
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
-            </aside>
+            </div>
 
-            <section className="min-w-0">
-              <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-                <div>
-                  <p className="text-xs font-extrabold uppercase text-[#20b486]">
-                    Question review
-                  </p>
-                  <h3 className="mt-1 text-2xl font-black text-[#101828]">
-                    Selected answers vs correct answers
-                  </h3>
-                </div>
-                <Badge className="rounded-md border-0 bg-white px-3 py-1.5 text-[#667085] hover:bg-white">
-                  {answerPattern.length} questions
-                </Badge>
-              </div>
+            <div className="flex flex-wrap items-end justify-between gap-3 px-1">
+              <h2 className="text-headline-md font-headline-md text-primary">
+                Question Analysis
+              </h2>
+              <Badge className="rounded-md border-0 bg-white px-3 py-1.5 text-on-surface-variant hover:bg-white">
+                {answerPattern.length} questions
+              </Badge>
+            </div>
 
-              <div className="space-y-3">
-                {answerPattern.map((item, index) => (
-                  <article
-                    key={item.question}
-                    className="rounded-lg border border-[#eaecf0] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)] sm:p-5"
-                  >
-                    <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <Badge className="rounded-md border-0 bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
-                            Q{index + 1}
-                          </Badge>
-                          <span className="text-xs font-extrabold uppercase text-[#98a2b3]">
-                            {item.subject}
-                          </span>
+            <div className="space-y-4">
+              {answerPattern.map((item, index) => (
+                <div
+                  key={item.question}
+                  className="overflow-hidden rounded-xl border border-surface-container bg-white"
+                >
+                  <div className="p-card-padding">
+                    <div className="mb-4 flex items-start justify-between gap-4">
+                      <div>
+                        <span className="text-label-sm font-label-sm text-outline">
+                          Question {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="ml-2 text-label-sm font-label-sm text-outline">
+                          {item.subject}
+                        </span>
+                      </div>
+                      <span
+                        className={
+                          item.result === "correct"
+                            ? "rounded bg-secondary-container px-2 py-0.5 text-[12px] font-bold uppercase text-secondary"
+                            : "rounded bg-error-container px-2 py-0.5 text-[12px] font-bold uppercase text-error"
+                        }
+                      >
+                        {item.result === "correct" ? "Correct" : "Incorrect"}
+                      </span>
+                    </div>
+
+                    <p className="mb-6 text-question-text font-question-text text-on-surface">
+                      {item.question}
+                    </p>
+
+                    <div className="space-y-3">
+                      {item.result === "wrong" && (
+                        <div className="flex items-center gap-3 rounded-lg border-2 border-error bg-error/5 p-4">
+                          <X className="h-5 w-5 shrink-0 text-error" />
+                          <div>
+                            <p className="text-[11px] font-bold uppercase text-error">
+                              Selected
+                            </p>
+                            <p className="font-medium text-on-surface">{item.selected}</p>
+                          </div>
                         </div>
-                        <h3 className="mt-3 text-base font-black leading-6 text-[#101828]">
-                          {item.question}
-                        </h3>
+                      )}
+                      <div className="flex items-center gap-3 rounded-lg border-2 border-secondary bg-secondary/5 p-4">
+                        <CheckCircle2 className="h-5 w-5 shrink-0 text-secondary" />
+                        <div>
+                          <p className="text-[11px] font-bold uppercase text-secondary">
+                            Correct answer
+                          </p>
+                          <p className="font-medium text-on-surface">{item.correct}</p>
+                        </div>
                       </div>
-                      <Badge
-                        className={
-                          item.result === "correct"
-                            ? "rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]"
-                            : "rounded-md border-0 bg-[#fff5f4] text-[#ba1a1a] hover:bg-[#fff5f4]"
-                        }
-                      >
-                        {item.result === "correct" ? "Correct" : "Wrong"}
-                      </Badge>
                     </div>
+                  </div>
 
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <div className="rounded-lg bg-[#f9fafb] px-4 py-3">
-                        <p className="text-xs font-extrabold uppercase text-[#667085]">
-                          Selected
-                        </p>
-                        <p className="mt-1 text-sm font-black text-[#101828]">
-                          {item.selected}
-                        </p>
+                  <details className="group">
+                    <summary className="flex cursor-pointer list-none items-center justify-between border-t border-surface-container bg-surface-container-low p-4">
+                      <div className="flex items-center gap-2 text-primary">
+                        <Sparkles className="h-4 w-4" />
+                        <span className="text-label-sm font-label-sm uppercase tracking-wider">
+                          Show Explanation
+                        </span>
                       </div>
-                      <div
-                        className={
-                          item.result === "correct"
-                            ? "rounded-lg bg-[#f2fffb] px-4 py-3"
-                            : "rounded-lg bg-[#fff9f3] px-4 py-3"
-                        }
-                      >
-                        <p className="text-xs font-extrabold uppercase text-[#667085]">
-                          Correct
-                        </p>
-                        <p className="mt-1 flex items-center gap-2 text-sm font-black text-[#101828]">
-                          <CheckCircle2 className="h-4 w-4 text-[#20b486]" />
-                          {item.correct}
-                        </p>
-                      </div>
+                      <span className="text-lg font-black text-primary transition-transform group-open:rotate-180">
+                        +
+                      </span>
+                    </summary>
+                    <div className="bg-surface-container-low px-card-padding pb-card-padding">
+                      <p className="text-body-md font-body-md text-on-surface-variant">
+                        {item.result === "correct"
+                          ? `The selected answer matches the expected concept for ${item.subject}. Keep the same pace, but review the surrounding examples to protect this mark in mixed drills.`
+                          : `The selected answer misses the key ${item.subject.toLowerCase()} concept. Compare the wrong option with the correct one, then solve two similar MCQs before the next mock.`}
+                      </p>
                     </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </div>
+                  </details>
+                </div>
+              ))}
+            </div>
+          </section>
         </CardContent>
       </Card>
     </div>
