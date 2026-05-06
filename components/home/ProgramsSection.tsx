@@ -17,7 +17,7 @@ const COURSES: Course[] = [
     description:
       "Full BUET, RUET, CUET and KUET prep — Physics, Chemistry and Math drilled to the latest admission MCQ pattern, with weekly model tests and answer-key review.",
     duration: "Full year · live",
-    author: "Apurbo Mashrur",
+    author: "Imtiaz Rahman",
     authorImg: "/home/Avatar@2x.png",
     enrolled: "12,420 enrolled",
     rating: "4.9",
@@ -29,7 +29,7 @@ const COURSES: Course[] = [
     description:
       "Six-month intensive on Biology, Chemistry, Physics, English and General Knowledge — fully aligned with the latest DGHS syllabus and DMC pattern.",
     duration: "180 days · live",
-    author: "Dr. Tofael Ahmed",
+    author: "Dr. Faiyaz Karim",
     authorImg: "/home/Avatar6@2x.png",
     enrolled: "9,850 enrolled",
     rating: "4.9",
@@ -41,7 +41,7 @@ const COURSES: Course[] = [
     description:
       "Full coverage of the GST cluster plus DU, JU and RU patterns — weekly model tests, rank reports and chapter-wise weak-spot analysis.",
     duration: "150 days · hybrid",
-    author: "Mottasin Pahlovi",
+    author: "Sumaiya Akter",
     authorImg: "/home/Avatar2@2x.png",
     enrolled: "6,210 enrolled",
     rating: "4.8",
