@@ -3,7 +3,6 @@ export default function HeroSection() {
     <section className="hp-hero">
       <div className="hp-shell hp-hero-grid">
         <div className="hp-hero-copy">
-          <span className="hp-eyebrow">HSC &apos;26 batch · Admission prep</span>
           <h1 className="hp-hero-headline">
             Crack <span className="hp-emph">admission</span>, secure the{" "}
             <span className="hp-emph">seat</span>, start the{" "}
@@ -16,12 +15,12 @@ export default function HeroSection() {
           </p>
 
           <div className="hp-hero-actions">
-            <a href="/signup" className="hp-btn hp-btn-primary">
-              Start free week
+            <a href="#programs" className="hp-btn hp-btn-primary">
+              Browse courses
               <span className="hp-btn-arrow">→</span>
             </a>
-            <a href="#programs" className="hp-btn hp-btn-ghost">
-              Browse all tracks
+            <a href="/signin" className="hp-btn hp-btn-ghost">
+              Sign in
             </a>
           </div>
 
