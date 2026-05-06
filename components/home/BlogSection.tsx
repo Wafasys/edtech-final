@@ -1,104 +1,97 @@
+type Post = {
+  date: string;
+  readTime: string;
+  title: string;
+  description: string;
+  image: string;
+  tags: { label: string; tone?: "ink" | "amber" }[];
+};
+
+const POSTS: Post[] = [
+  {
+    date: "Nov 16, 2024",
+    readTime: "5 min read",
+    title: "Three pillars of user delight",
+    description:
+      "Delight is felt viscerally, behaviourally and reflectively. A great design earns it on all three fronts.",
+    image: "/home/Image3@2x.png",
+    tags: [{ label: "Research" }, { label: "UI · UX", tone: "ink" }],
+  },
+  {
+    date: "Sep 24, 2024",
+    readTime: "7 min read",
+    title: "UX mapping methods, refined",
+    description:
+      "Visual-design principles, applied consistently, are what turn a rough UX map into a tool the team can trust.",
+    image: "/home/Image21@2x.png",
+    tags: [{ label: "Research" }, { label: "UI design", tone: "amber" }],
+  },
+  {
+    date: "Mar 13, 2024",
+    readTime: "9 min read",
+    title: "Agile development &amp; usability",
+    description:
+      "Agile aims to overcome the usability gaps in traditional development — but introduces new threats to UX quality.",
+    image: "/home/Image4@2x.png",
+    tags: [
+      { label: "Programming", tone: "amber" },
+      { label: "Research" },
+      { label: "Engineering", tone: "ink" },
+    ],
+  },
+];
+
 export default function BlogSection() {
   return (
-    <section className="container11">
-      <h3 className="heading7">Our recent blogs</h3>
-      <div className="content8">
-        <section className="column">
-          <div className="blog-post-card4">
-            <img
-              className="image-icon"
-              loading="lazy"
-              alt=""
-              src="/home/Image3@2x.png"
-            />
-            <div className="content9">
-              <div className="heading-and-subheading2">
-                <div className="author">November 16, 2014</div>
-                <div className="heading-and-text5">
-                  <div className="heading8">Three Pillars of User Delight</div>
-                  <div className="former-frontend-dev">
-                    Delight can be experienced viscerally, behaviourally,
-                    and reflectively. A great design is ...
-                  </div>
-                </div>
-              </div>
-              <div className="categories">
-                <div className="badge">
-                  <div className="badge-base">
-                    <div className="writer">Research</div>
-                  </div>
-                </div>
-                <div className="badge2">
-                  <div className="badge-base2">
-                    <div className="writer">UI UX</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <section className="hp-blog">
+      <div className="hp-shell">
+        <div className="hp-blog-head">
+          <div>
+            <span className="hp-eyebrow">From the journal</span>
+            <h2 className="hp-section-title">Recent reading.</h2>
           </div>
-          <div className="blog-post-card4">
-            <img className="image-icon" alt="" src="/home/Image21@2x.png" />
-            <div className="content9">
-              <div className="heading-and-subheading2">
-                <div className="author">September 24, 2017</div>
-                <div className="heading-and-text5">
-                  <div className="heading8">UX Mapping Methods</div>
-                  <div className="former-frontend-dev">
-                    Visual-design principles can be applied consistently
-                    throughout the process of creating a polished UX map...
-                  </div>
+          <a href="#" className="hp-btn hp-btn-ghost">
+            View all posts
+          </a>
+        </div>
+
+        <div className="hp-blog-grid">
+          {POSTS.map((post) => (
+            <article key={post.title} className="hp-post">
+              <div className="hp-post-media">
+                <img src={post.image} alt="" />
+              </div>
+              <div className="hp-post-body">
+                <div className="hp-post-meta">
+                  <span>{post.date}</span>
+                  <span className="hp-post-meta-dot" aria-hidden="true" />
+                  <span>{post.readTime}</span>
+                </div>
+                <h3
+                  className="hp-post-title"
+                  dangerouslySetInnerHTML={{ __html: post.title }}
+                />
+                <p className="hp-post-desc">{post.description}</p>
+                <div className="hp-post-tags">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={tag.label}
+                      className={`hp-tag${
+                        tag.tone === "amber"
+                          ? " is-amber"
+                          : tag.tone === "ink"
+                            ? " is-ink"
+                            : ""
+                      }`}
+                    >
+                      {tag.label}
+                    </span>
+                  ))}
                 </div>
               </div>
-              <div className="categories">
-                <div className="badge">
-                  <div className="badge-base">
-                    <div className="writer">Research</div>
-                  </div>
-                </div>
-                <button className="badge4">
-                  <div className="badge-base4">
-                    <div className="text3">UI Design</div>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="blog-post-card6">
-          <img className="image-icon3" alt="" src="/home/Image4@2x.png" />
-          <div className="content11">
-            <div className="heading-and-subheading2">
-              <div className="author">March 13, 2014</div>
-              <div className="heading-and-icon4">
-                <h3 className="heading10">
-                  Agile Development Projects and Usability
-                </h3>
-              </div>
-              <div className="former-frontend-dev">
-                Agile methods aim to overcome usability barriers in
-                traditional development, but post new threats to user
-                experience quality.
-              </div>
-            </div>
-            <div className="categories3">
-              <button className="badge4">
-                <div className="badge-base5">
-                  <div className="category-title">Programming</div>
-                </div>
-              </button>
-              <div className="badge">
-                <div className="badge-base6">
-                  <div className="writer">Research</div>
-                </div>
-              </div>
-              <div className="badge7">
-                <div className="badge-base">
-                  <div className="writer">Developments</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -7,16 +7,13 @@ import BlogSection from "./BlogSection";
 
 export default function HomePage() {
   return (
-    <div className="design-file">
-      <div className="design-file-child"></div>
+    <div className="hp-page">
       <HeroSection />
-      <main className="frame-main">
-        <ProgramsSection />
-        <ServicesSection />
-        <TutorsSection />
-        <QuoteSection />
-        <BlogSection />
-      </main>
+      <ProgramsSection />
+      <ServicesSection />
+      <TutorsSection />
+      <QuoteSection />
+      <BlogSection />
     </div>
   );
 }

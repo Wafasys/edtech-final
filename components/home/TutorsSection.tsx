@@ -1,105 +1,79 @@
+type Tutor = {
+  name: string;
+  role: string;
+  bio: string;
+  photo: string;
+};
+
+const TUTORS: Tutor[] = [
+  {
+    name: "Theresa Webb",
+    role: "Application Support Lead",
+    bio: "Former co-founder of Opendoor. Early staff at Spotify and Clearbit.",
+    photo: "/home/Avatar5@2x.png",
+  },
+  {
+    name: "Courtney Henry",
+    role: "Director, Undergraduate Analytics",
+    bio: "Has led engineering teams at Figma, Pitch and Protocol Labs.",
+    photo: "/home/Avatar7@2x.png",
+  },
+  {
+    name: "Albert Flores",
+    role: "Career Educator",
+    bio: "Former product manager at Linear, Lambda School and On Deck.",
+    photo: "/home/Avatar1@2x.png",
+  },
+  {
+    name: "Marvin McKinney",
+    role: "Co-op &amp; Internships Lead",
+    bio: "Former frontend lead at Linear, Coinbase and Postscript.",
+    photo: "/home/Avatar3@2x.png",
+  },
+];
+
 export default function TutorsSection() {
   return (
-    <section className="headings">
-      <section className="heading-and-supporting-text3">
-        <div className="heading-and-subheading2">
-          <div className="subheading">Tutors</div>
-          <h2 className="heading">Meet the Heroes</h2>
-        </div>
-        <div className="supporting-text">
-          On Weekend UX, instructors from all over the world instruct
-          millions of students. We offer the knowledge and abilities.
-        </div>
-      </section>
-      <section className="content6">
-        <div className="team-member-wrap">
-          <div className="team-member">
-            <img className="avatar-icon4" alt="" src="/home/Avatar5@2x.png" />
-            <div className="text-and-social-links">
-              <div className="name-and-supporting-text">
-                <div className="name-and-role">
-                  <div className="name">Theresa Webb</div>
-                  <div className="role">Application Support Analyst Lead</div>
-                </div>
-                <div className="former-frontend-dev">
-                  Former co-founder of Opendoor. Early staff at Spotify and
-                  Clearbit.
-                </div>
-              </div>
-              <div className="social-icons">
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon.svg" />
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon1.svg" />
-              </div>
-            </div>
+    <section className="hp-tutors">
+      <div className="hp-shell">
+        <div className="hp-tutors-head">
+          <div>
+            <span className="hp-eyebrow">Tutors</span>
+            <h2 className="hp-section-title">Meet the heroes behind the work.</h2>
           </div>
+          <p className="hp-section-lede" style={{ marginTop: 0 }}>
+            Instructors from companies you actually recognise — teaching the
+            craft they practise every day. We hire for taste and lived
+            experience, not academic credentials.
+          </p>
         </div>
-        <div className="team-member-wrap">
-          <div className="team-member">
-            <img className="avatar-icon4" alt="" src="/home/Avatar7@2x.png" />
-            <div className="text-and-social-links">
-              <div className="name-and-supporting-text">
-                <div className="name-and-role">
-                  <div className="name">Courtney Henry</div>
-                  <div className="role">
-                    Director, Undergraduate Analytics and Planning
-                  </div>
-                </div>
-                <div className="former-frontend-dev">
-                  Lead engineering teams at Figma, Pitch, and Protocol Labs.
+
+        <div className="hp-tutors-grid">
+          {TUTORS.map((tutor) => (
+            <article key={tutor.name} className="hp-tutor">
+              <div className="hp-tutor-photo">
+                <img src={tutor.photo} alt={tutor.name} />
+                <div className="hp-tutor-socials">
+                  <a href="#" aria-label="Profile">
+                    <img src="/home/Social-icon.svg" alt="" />
+                  </a>
+                  <a href="#" aria-label="Profile">
+                    <img src="/home/Social-icon1.svg" alt="" />
+                  </a>
                 </div>
               </div>
-              <div className="social-icons">
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon.svg" />
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon1.svg" />
+              <div className="hp-tutor-body">
+                <h3 className="hp-tutor-name">{tutor.name}</h3>
+                <span
+                  className="hp-tutor-role"
+                  dangerouslySetInnerHTML={{ __html: tutor.role }}
+                />
+                <p className="hp-tutor-bio">{tutor.bio}</p>
               </div>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
-        <div className="team-member-wrap">
-          <div className="team-member">
-            <img className="avatar-icon4" alt="" src="/home/Avatar1@2x.png" />
-            <div className="text-and-social-links">
-              <div className="name-and-supporting-text">
-                <div className="name-and-role">
-                  <div className="name">Albert Flores</div>
-                  <div className="role">Career Educator</div>
-                </div>
-                <div className="former-frontend-dev">
-                  <p className="former-pm-for">
-                    Former PM for Linear, Lambda School, and On Deck.
-                  </p>
-                </div>
-              </div>
-              <div className="social-icons">
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon.svg" />
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon1.svg" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="team-member-wrap">
-          <div className="team-member">
-            <img className="avatar-icon4" alt="" src="/home/Avatar3@2x.png" />
-            <div className="text-and-social-links">
-              <div className="name-and-supporting-text">
-                <div className="name-and-role">
-                  <div className="name">Marvin McKinney</div>
-                  <div className="role">
-                    Co-op &amp; Internships Program &amp; Operations Manager
-                  </div>
-                </div>
-                <div className="former-frontend-dev">
-                  Former frontend dev for Linear, Coinbase, and Postscript.
-                </div>
-              </div>
-              <div className="social-icons">
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon.svg" />
-                <img className="chevron-down-icon" alt="" src="/home/Social-icon1.svg" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </section>
   );
 }

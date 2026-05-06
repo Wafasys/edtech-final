@@ -12,6 +12,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
         "secondary-fixed": "#99f89e",
         "surface-container-high": "#e7e8e9",
         "on-secondary": "#ffffff",
@@ -40,9 +64,15 @@ const config: Config = {
         "outline-variant": "#c4c6d4",
         "on-primary-container": "#7f9df8",
         "secondary-fixed-dim": "#7edb85",
-        secondary: "#006e26",
+        secondary: {
+          DEFAULT: "#006e26",
+          foreground: "#ffffff",
+        },
         "surface-container-highest": "#e1e3e4",
-        primary: "#001d59",
+        primary: {
+          DEFAULT: "#001d59",
+          foreground: "#ffffff",
+        },
         "on-tertiary-fixed": "#410006",
         "surface-container-low": "#f3f4f5",
         "primary-fixed-dim": "#b4c5ff",
@@ -101,6 +131,7 @@ const config: Config = {
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/container-queries"),
+    require("tailwindcss-animate"),
   ],
 };
 

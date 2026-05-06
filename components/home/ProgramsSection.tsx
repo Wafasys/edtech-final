@@ -1,232 +1,109 @@
+type Course = {
+  category: string;
+  title: string;
+  description: string;
+  duration: string;
+  author: string;
+  authorImg: string;
+  enrolled: string;
+  rating: string;
+  price: string;
+};
+
+const COURSES: Course[] = [
+  {
+    category: "Design",
+    title: "Figma UI · UX Design",
+    description:
+      "Use Figma to land a job in UI design — practical lessons covering interface, interaction and user experience.",
+    duration: "08 hr 12 mins",
+    author: "Jane Cooper",
+    authorImg: "/home/Avatar@2x.png",
+    enrolled: "2,001 enrolled",
+    rating: "4.3",
+    price: "$17.84",
+  },
+  {
+    category: "Product",
+    title: "Learn With Shoaib",
+    description:
+      "Design websites and mobile apps that users love — and keep coming back to. A pragmatic, project-led course.",
+    duration: "06 hr 03 mins",
+    author: "Jenny Wilson",
+    authorImg: "/home/Avatar6@2x.png",
+    enrolled: "1,520 enrolled",
+    rating: "3.9",
+    price: "$8.99",
+  },
+  {
+    category: "Research",
+    title: "Building User Interfaces",
+    description:
+      "Apply UX principles directly to your interface work, from foundational research through final visual polish.",
+    duration: "01 hr 02 mins",
+    author: "Esther Howard",
+    authorImg: "/home/Avatar2@2x.png",
+    enrolled: "832 enrolled",
+    rating: "4.2",
+    price: "$11.70",
+  },
+];
+
 export default function ProgramsSection() {
   return (
-    <section id="programs" className="inspirezvous-dupliquez-voyagez">
-      <section className="heading-and-supporting-text2">
-        <div className="heading-and-subheading2">
-          <div className="subheading">Explore Programs</div>
-          <h1 className="heading">Our Most Popular Class</h1>
+    <section id="programs" className="hp-programs">
+      <div className="hp-shell">
+        <div className="hp-section-head is-center">
+          <span className="hp-eyebrow">Explore programs</span>
+          <h2 className="hp-section-title">Our most popular classes</h2>
+          <p className="hp-section-lede">
+            Hand-picked programs from instructors who&apos;ve actually shipped
+            work — chosen for relevance, not popularity.
+          </p>
         </div>
-        <div className="supporting-text">
-          Let&apos;s join our famous class, the knowledge provided will
-          definitely be useful for you.
+
+        <div className="hp-programs-grid">
+          {COURSES.map((course) => (
+            <article key={course.title} className="hp-course">
+              <div className="hp-course-media">
+                <span className="hp-course-duration">{course.duration}</span>
+                <span className="hp-course-tag">{course.category}</span>
+              </div>
+              <div className="hp-course-body">
+                <h3 className="hp-course-title">
+                  {course.title}
+                  <span className="hp-arrow" aria-hidden="true">
+                    <img src="/home/arrow-up-right.svg" alt="" />
+                  </span>
+                </h3>
+                <p className="hp-course-desc">{course.description}</p>
+                <div className="hp-course-meta">
+                  <div className="hp-course-author">
+                    <img src={course.authorImg} alt="" />
+                    <div>
+                      <div className="hp-author-name">{course.author}</div>
+                      <div className="hp-author-meta">{course.enrolled}</div>
+                    </div>
+                  </div>
+                  <div className="hp-course-price">
+                    <span className="hp-course-price-num">{course.price}</span>
+                    <span className="hp-course-price-rate">
+                      <img src="/home/Les-Pouilles.svg" alt="" />
+                      {course.rating}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
-      </section>
-      <div className="carddesktop">
-        <section className="blog-post-card">
-          <div className="image">
-            <div className="photo">
-              <img
-                className="container-icon"
-                alt=""
-                src="/home/Container.svg"
-              />
 
-              <div className="hr-12-mins">08 hr 12 mins</div>
-            </div>
-          </div>
-          <div className="content3">
-            <div className="heading-and-subheading3">
-              <div className="author">Design</div>
-              <div className="heading-and-text">
-                <div className="heading-and-icon">
-                  <h3 className="heading3">Figma UI UX Design..</h3>
-                  <div className="icon-wrap">
-                    <img
-                      className="arrow-up-right-icon"
-                      alt=""
-                      src="/home/arrow-up-right.svg"
-                    />
-                  </div>
-                </div>
-                <div className="former-frontend-dev">
-                  Use Figma to get a job in UI Design, User Interface, User
-                  Experience design.
-                </div>
-              </div>
-            </div>
-            <div className="avatar-label-group">
-              <img
-                className="avatar-icon"
-                alt=""
-                src="/home/Avatar@2x.png"
-              />
-
-              <div className="input-field">
-                <div className="writer">Jane Cooper</div>
-                <div className="supporting-text3">2001 Enrolled</div>
-              </div>
-            </div>
-            <div className="rating">
-              <div className="marking">
-                <div className="container7">
-                  <div className="hr-12-mins">4.3</div>
-                  <div className="rating2">
-                    <img
-                      className="title-icon"
-                      loading="lazy"
-                      alt=""
-                      src="/home/Les-Pouilles.svg"
-                    />
-                    <img
-                      className="title-icon"
-                      loading="lazy"
-                      alt=""
-                      src="/home/Les-Pouilles.svg"
-                    />
-                    <img
-                      className="title-icon"
-                      alt=""
-                      src="/home/Les-Pouilles.svg"
-                    />
-                    <img
-                      className="title-icon"
-                      alt=""
-                      src="/home/Les-Pouilles.svg"
-                    />
-                    <img
-                      className="title-icon"
-                      alt=""
-                      src="/home/Les-Pouilles.svg"
-                    />
-                  </div>
-                </div>
-                <div className="tag6">(16,325)</div>
-              </div>
-            </div>
-            <h2 className="h2">$17.84</h2>
-          </div>
-        </section>
-        <section className="blog-post-card">
-          <div className="image2">
-            <div className="photo">
-              <img
-                className="container-icon"
-                alt=""
-                src="/home/Container.svg"
-              />
-
-              <div className="hr-12-mins">06 hr 3 mins</div>
-            </div>
-          </div>
-          <div className="content3">
-            <div className="heading-and-subheading3">
-              <div className="author">Design</div>
-              <div className="heading-and-text">
-                <div className="heading-and-icon">
-                  <h3 className="heading4">Learn With Shoaib</h3>
-                  <div className="icon-wrap">
-                    <img
-                      className="arrow-up-right-icon"
-                      alt=""
-                      src="/home/arrow-up-right.svg"
-                    />
-                  </div>
-                </div>
-                <div className="former-frontend-dev">
-                  Design Web Sites and Mobile Apps that Your Users Love and
-                  Return to Again.
-                </div>
-              </div>
-            </div>
-            <div className="avatar-label-group">
-              <img
-                className="avatar-icon"
-                alt=""
-                src="/home/Avatar6@2x.png"
-              />
-
-              <div className="input-field">
-                <div className="writer">Jenny Wilson</div>
-                <div className="supporting-text3">2001 Enrolled</div>
-              </div>
-            </div>
-            <div className="rating3">
-              <div className="marking">
-                <div className="container7">
-                  <div className="hr-12-mins">3.9</div>
-                  <div className="rating2">
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                  </div>
-                </div>
-                <div className="tag6">(832)</div>
-              </div>
-            </div>
-            <h2 className="carddesktop2">$8.99</h2>
-          </div>
-        </section>
-        <section className="blog-post-card">
-          <div className="image3">
-            <div className="photo">
-              <img
-                className="container-icon"
-                alt=""
-                src="/home/Container.svg"
-              />
-
-              <div className="hr-12-mins">01 hr 2 mins</div>
-            </div>
-          </div>
-          <div className="content3">
-            <div className="heading-and-subheading3">
-              <div className="author">Design</div>
-              <div className="heading-and-text">
-                <div className="heading-and-icon">
-                  <h3 className="heading5">Building User Interface..</h3>
-                  <div className="icon-wrap">
-                    <img
-                      className="arrow-up-right-icon"
-                      alt=""
-                      src="/home/arrow-up-right.svg"
-                    />
-                  </div>
-                </div>
-                <div className="former-frontend-dev">
-                  Learn how to apply User Experience (UX) principles to your
-                  website designs.
-                </div>
-              </div>
-            </div>
-            <div className="avatar-label-group">
-              <img
-                className="avatar-icon"
-                alt=""
-                src="/home/Avatar2@2x.png"
-              />
-
-              <div className="input-field">
-                <div className="writer">Esther Howard</div>
-                <div className="supporting-text3">2001 Enrolled</div>
-              </div>
-            </div>
-            <div className="rating5">
-              <div className="marking">
-                <div className="container7">
-                  <div className="hr-12-mins">4.2</div>
-                  <div className="rating2">
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                    <img className="title-icon" alt="" src="/home/Les-Pouilles.svg" />
-                  </div>
-                </div>
-                <div className="tag6">(125)</div>
-              </div>
-            </div>
-            <h2 className="h22">$11.70</h2>
-          </div>
-        </section>
-      </div>
-      <img className="tag-child" alt="" src="/home/Group-5212.svg" />
-
-      <div className="button3">
-        <button className="button-base5">
-          <div className="buttonprimary">Explore All Programs</div>
-        </button>
+        <div className="hp-programs-cta">
+          <a href="#" className="hp-btn hp-btn-primary">
+            Explore all programs
+            <span className="hp-btn-arrow">→</span>
+          </a>
+        </div>
       </div>
     </section>
   );

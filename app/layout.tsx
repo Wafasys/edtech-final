@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import "./reference-home.css";
+import "./home-premium.css";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],

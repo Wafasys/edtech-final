@@ -47,7 +47,7 @@ export default function ExamSchedulePage() {
                   <input
                     className="w-full h-12 px-4 border border-outline-variant focus:border-primary-container focus:ring-0 text-body-md bg-white"
                     type="text"
-                    defaultValue="Medical Admission Mock Test – Batch 2027"
+                    defaultValue="Medical Admission Mock Test - Batch 2027"
                   />
                 </div>
 

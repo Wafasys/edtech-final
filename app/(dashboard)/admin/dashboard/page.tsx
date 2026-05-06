@@ -2,17 +2,49 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 import { clearDemoUser } from "../../../../lib/demo-auth";
 
 const cohortBars = [
-  { label: "Jan", value: 48 },
-  { label: "Feb", value: 62 },
-  { label: "Mar", value: 58 },
-  { label: "Apr", value: 76 },
-  { label: "May", value: 83 },
-  { label: "Jun", value: 92 },
-  { label: "Jul", value: 88 },
+  { label: "Jan", value: 48, attempts: 4200 },
+  { label: "Feb", value: 62, attempts: 5100 },
+  { label: "Mar", value: 58, attempts: 4900 },
+  { label: "Apr", value: 76, attempts: 6700 },
+  { label: "May", value: 83, attempts: 7300 },
+  { label: "Jun", value: 92, attempts: 8600 },
+  { label: "Jul", value: 88, attempts: 8100 },
 ];
+
+const chartConfig = {
+  value: {
+    label: "Avg score",
+    color: "#20b486",
+  },
+  attempts: {
+    label: "Attempts",
+    color: "#ff9b26",
+  },
+} satisfies ChartConfig;
 
 const questionBanks = [
   { icon: "functions", name: "Mathematics", count: "2,450 questions", health: "92%" },
@@ -96,81 +128,124 @@ export default function AdminDashboardPage() {
       </header>
 
       <main className="mx-auto max-w-7xl px-5 py-8">
-        <section className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_18px_50px_rgba(16,24,40,0.08)] sm:p-8">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
-            <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#edfff9] px-4 py-2 text-sm font-bold text-[#1a906b]">
-                <span className="material-symbols-outlined text-[18px]">verified</span>
+        <section className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
+          <Card className="overflow-hidden border-[#101828] bg-[#101828] text-white shadow-[0_22px_70px_rgba(16,24,40,0.22)]">
+            <CardContent className="p-6 sm:p-8">
+              <Badge className="mb-6 border-white/10 bg-white/10 px-3 py-1.5 text-[#99f3d6] hover:bg-white/10">
+                <span className="material-symbols-outlined mr-1 text-[16px]">verified</span>
                 Live operations healthy
-              </div>
-              <h2 className="max-w-2xl text-4xl font-black leading-tight tracking-tight text-[#101828] sm:text-5xl">
-                Monitor cohorts, exams, and learning quality from one place.
+              </Badge>
+              <h2 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+                Operations cockpit for exams, cohorts, and instructor response.
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-[#646464]">
-                Admissions activity is up this week. Review the model-test pipeline and question bank
-                quality before the next high-volume exam window.
+              <p className="mt-4 max-w-2xl text-base leading-7 text-white/68">
+                Admissions activity is climbing. Keep high-volume exams ready, spot cohort risk
+                early, and clear response queues before they slow students down.
               </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-              {[
-                { label: "Active Students", value: "12,482", delta: "+4.2%", icon: "groups" },
-                { label: "Exam Attempts", value: "8,854", delta: "+12.5%", icon: "quiz" },
-                { label: "Open Q&A", value: "148", delta: "32 urgent", icon: "forum" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="grid h-10 w-10 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Button asChild className="rounded-full bg-[#20b486] px-5 font-black text-white hover:bg-[#1a906b]">
+                  <Link href="/admin/exams/monitor">
+                    <span className="material-symbols-outlined text-[18px]">monitoring</span>
+                    Open live monitor
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="rounded-full border-white/15 bg-white/8 px-5 font-black text-white hover:bg-white/14 hover:text-white">
+                  <Link href="/admin/qa">
+                    <span className="material-symbols-outlined text-[18px]">forum</span>
+                    Review Q&A
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+            {[
+              { label: "Active Students", value: "12,482", delta: "+4.2%", icon: "groups" },
+              { label: "Exam Attempts", value: "8,854", delta: "+12.5%", icon: "quiz" },
+              { label: "Open Q&A", value: "148", delta: "32 urgent", icon: "forum" },
+            ].map((item) => (
+              <Card key={item.label} className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-4">
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
                       <span className="material-symbols-outlined">{item.icon}</span>
                     </span>
-                    <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-[#1a906b]">
-                      {item.delta}
-                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="truncate text-sm font-bold text-[#667085]">{item.label}</p>
+                        <Badge variant="outline" className="shrink-0 rounded-full border-[#dce8e2] bg-[#f2fffb] text-[#1a906b]">
+                          {item.delta}
+                        </Badge>
+                      </div>
+                      <p className="mt-1 text-3xl font-black text-[#101828]">{item.value}</p>
+                    </div>
                   </div>
-                  <p className="text-sm font-semibold text-[#667085]">{item.label}</p>
-                  <p className="text-3xl font-black text-[#101828]">{item.value}</p>
-                </div>
-              ))}
-            </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 
         <section className="mt-6 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
-          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-            <div className="mb-6 flex items-start justify-between gap-4">
+          <Card className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 pb-3">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Cohort Analytics</p>
-                <h3 className="mt-1 text-2xl font-black text-[#101828]">Performance overview</h3>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#20b486]">
+                  Cohort Analytics
+                </p>
+                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                  Performance overview
+                </CardTitle>
               </div>
-              <div className="rounded-full bg-[#edfff9] px-3 py-1 text-sm font-bold text-[#1a906b]">
+              <Badge className="rounded-full bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
                 +12.5% avg score
+              </Badge>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-lg border border-[#dce8e2] bg-[#f0faf7] p-4">
+                <ChartContainer config={chartConfig} className="h-72 w-full">
+                  <AreaChart
+                    accessibilityLayer
+                    data={cohortBars}
+                    margin={{ left: 0, right: 12, top: 12, bottom: 4 }}
+                  >
+                    <CartesianGrid vertical={false} stroke="#d7e8df" />
+                    <XAxis
+                      dataKey="label"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={10}
+                      tick={{ fill: "#667085", fontSize: 12, fontWeight: 700 }}
+                    />
+                    <YAxis
+                      hide
+                      domain={[35, 100]}
+                    />
+                    <ChartTooltip
+                      cursor={false}
+                      content={<ChartTooltipContent indicator="line" />}
+                    />
+                    <defs>
+                      <linearGradient id="scoreFill" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="5%" stopColor="#20b486" stopOpacity={0.32} />
+                        <stop offset="95%" stopColor="#20b486" stopOpacity={0.02} />
+                      </linearGradient>
+                    </defs>
+                    <Area
+                      dataKey="value"
+                      type="monotone"
+                      fill="url(#scoreFill)"
+                      stroke="#20b486"
+                      strokeWidth={3}
+                      dot={{ r: 4, fill: "#fff", stroke: "#20b486", strokeWidth: 3 }}
+                      activeDot={{ r: 6, fill: "#20b486", stroke: "#fff", strokeWidth: 3 }}
+                    />
+                  </AreaChart>
+                </ChartContainer>
               </div>
-            </div>
-            <div className="relative h-72 rounded-lg border border-[#dce8e2] bg-[#f0faf7] p-5">
-              <div className="pointer-events-none absolute inset-x-5 top-8 bottom-12 grid grid-rows-4">
-                {[0, 1, 2, 3].map((line) => (
-                  <div key={line} className="border-t border-[#d7e8df]" />
-                ))}
-              </div>
-
-              <div className="relative z-10 flex h-full items-end gap-3">
-                {cohortBars.map((bar) => (
-                  <div key={bar.label} className="flex h-full flex-1 flex-col justify-end gap-3">
-                    <div className="relative min-h-0 flex-1 overflow-hidden rounded-full bg-white shadow-inner">
-                      <div
-                        className="absolute bottom-0 left-0 right-0 rounded-full shadow-[0_10px_20px_rgba(32,180,134,0.18)]"
-                        style={{
-                          height: `${bar.value}%`,
-                          background:
-                            "linear-gradient(180deg, #4ac8ae 0%, #20b486 52%, #1a906b 100%)",
-                        }}
-                      />
-                    </div>
-                    <span className="text-center text-xs font-bold text-[#667085]">{bar.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
           <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
             <div className="mb-5 flex items-center justify-between">
