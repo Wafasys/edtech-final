@@ -209,6 +209,8 @@
   background: transparent;
   color: var(--hp-ink);
   border-color: var(--hp-line-strong);
+  min-width: 160px;
+  padding: 0 36px;
 }
 
 .hp-btn-ghost:hover {
