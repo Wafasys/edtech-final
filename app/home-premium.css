@@ -1638,6 +1638,42 @@
   color: var(--hp-ink);
 }
 
+.brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: #0b1f17;
+  background: #f5c542;
+  border: 1px solid rgba(11, 31, 23, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(11, 31, 23, 0.12);
+}
+
+.brand-icon svg {
+  width: 66%;
+  height: 66%;
+}
+
+.brand-icon.image-2-icon {
+  width: 52px;
+  height: 52px;
+  max-width: none;
+  object-fit: initial;
+}
+
+.brand-icon.navbar-mobile-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: initial;
+}
+
+.brand-icon.mobile-drawer-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: initial;
+}
+
 /* =======================================================================
    RESPONSIVE
    ======================================================================= */

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import BrandIcon from "./BrandIcon";
 
 export default function SiteNavbar() {
   const [open, setOpen] = useState(false);
@@ -24,11 +25,7 @@ export default function SiteNavbar() {
       <div className="buttonsecondary"></div>
 
       <div className="navbar-mobile-bar">
-        <img
-          className="navbar-mobile-logo"
-          alt=""
-          src="/home/image-2@2x.png"
-        />
+        <BrandIcon className="navbar-mobile-logo" />
         <button
           type="button"
           className="navbar-hamburger"
@@ -45,12 +42,7 @@ export default function SiteNavbar() {
       <div className="explorer-mopingo">
         <div className="frame-group">
           <div className="image-2-parent">
-            <img
-              className="image-2-icon"
-              loading="lazy"
-              alt=""
-              src="/home/image-2@2x.png"
-            />
+            <BrandIcon className="image-2-icon" />
 
             <div className="input-field">
               <div className="input-field-base">
@@ -128,11 +120,7 @@ export default function SiteNavbar() {
         aria-hidden={!open}
       >
         <div className="mobile-drawer-header">
-          <img
-            className="mobile-drawer-logo"
-            alt=""
-            src="/home/image-2@2x.png"
-          />
+          <BrandIcon className="mobile-drawer-logo" />
           <button
             type="button"
             className="mobile-drawer-close"

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BrandIcon from "./BrandIcon";
 
 export default function SiteFooter() {
   return (
@@ -7,7 +8,7 @@ export default function SiteFooter() {
         <div className="container12">
           <div className="content12">
             <div className="logo-and-supporting-text">
-              <img className="image-2-icon" alt="" src="/home/image-2@2x.png" />
+              <BrandIcon className="image-2-icon" />
 
               <div className="supporting-text15">
                 Top learning experiences that create more talent in the world.
