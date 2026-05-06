@@ -99,6 +99,13 @@ const initialSavedNotes = [
   },
 ];
 
+const initialAskedQuestions = [
+  {
+    time: "Today, 10:24 AM",
+    body: "Could you explain why we keep the limit expression before substituting h = 0?",
+  },
+];
+
 const lessonPoster =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCWJefcI5HzVF9tJlWruGZbM4lPNq9BzJVYnQ0FcpROzGYR8i4eWhHWotL_o368ZsdKaAh35y8JOKOmARV8FZbFZYM3U6guX35Aph2Qyx1Zp7HfiWQ2auk9Hh8li_yOgOHleo3QVvmwk2yafLvfmLzETdUM3gpZ3pGPVkA3mrgGPwDlfRGmJ9-x02n4N7DtJ7aB93kG0rymM8DVYb3JV1fnpkwtQ73RK7C4zdORTeUD4OM2EybnFdF1_ZCKoAyAPUBirNWG9Mq2CWQ";
 
@@ -108,6 +115,8 @@ export default function VideoLessonPage() {
   const [noteDraft, setNoteDraft] = useState("");
   const [noteStamps, setNoteStamps] = useState(["12:45"]);
   const [savedNotes, setSavedNotes] = useState(initialSavedNotes);
+  const [questionDraft, setQuestionDraft] = useState("");
+  const [askedQuestions, setAskedQuestions] = useState(initialAskedQuestions);
   const [activeLessonTab, setActiveLessonTab] = useState("ask");
 
   useEffect(() => {
@@ -133,6 +142,14 @@ export default function VideoLessonPage() {
     setSavedNotes([{ time: noteStamps.join(", "), body }, ...savedNotes]);
     setNoteDraft("");
     setNoteStamps(["12:45"]);
+  }
+
+  function handlePostQuestion() {
+    const body = questionDraft.trim();
+    if (!body) return;
+
+    setAskedQuestions([{ time: "Just now", body }, ...askedQuestions]);
+    setQuestionDraft("");
   }
 
   return (
@@ -338,6 +355,8 @@ export default function VideoLessonPage() {
                   <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4">
                     <textarea
                       rows={4}
+                      value={questionDraft}
+                      onChange={(event) => setQuestionDraft(event.target.value)}
                       placeholder="Type your question here..."
                       className="min-h-[112px] w-full resize-none rounded-lg border border-[#d0d5dd] bg-white p-4 text-sm font-semibold text-[#101828] outline-none transition placeholder:text-[#98a2b3] focus:border-[#20b486] focus:ring-2 focus:ring-[#20b486]/20"
                     />
@@ -363,15 +382,38 @@ export default function VideoLessonPage() {
                         </Button>
                       </div>
                       <Button
-                        asChild
-                        className="h-10 rounded-md bg-[#20b486] px-4 font-extrabold text-white hover:bg-[#1a906b]"
+                        type="button"
+                        onClick={handlePostQuestion}
+                        disabled={!questionDraft.trim()}
+                        className="h-10 rounded-md bg-[#20b486] !px-6 font-extrabold text-white hover:bg-[#1a906b] disabled:opacity-45"
                       >
-                        <Link href="/student/lessons/ask">
-                          Post question
-                          <Send className="h-4 w-4" />
-                        </Link>
+                        Post question
+                        <Send className="h-4 w-4" />
                       </Button>
                     </div>
+                  </div>
+                  <div className="mt-5 space-y-3">
+                    <p className="text-xs font-extrabold uppercase text-[#667085]">
+                      Submitted questions
+                    </p>
+                    {askedQuestions.map((question) => (
+                      <div
+                        key={`${question.time}-${question.body}`}
+                        className="rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] px-5 py-4"
+                      >
+                        <div className="mb-2 flex flex-wrap items-center gap-2">
+                          <Badge className="rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]">
+                            Sent to instructor
+                          </Badge>
+                          <span className="text-xs font-semibold text-[#98a2b3]">
+                            {question.time}
+                          </span>
+                        </div>
+                        <p className="text-sm font-semibold leading-6 text-[#667085]">
+                          {question.body}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
