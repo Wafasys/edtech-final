@@ -1,173 +1,392 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import {
+  ArrowUpRight,
+  Award,
+  BarChart3,
+  CheckCircle2,
+  Crown,
+  Search,
+  Sparkles,
+  Target,
+  Trophy,
+  Users,
+} from "lucide-react";
 
-const PODIUM = [
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const podium = [
   {
     rank: 2,
     name: "Arpita Rahman",
-    score: "98.5/100",
+    score: "98.5",
+    unit: "Medical",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDaJhF5zssq6gDKOZWE1meLPUtp9Uo53eJmNvpA45YuHHuyEyRlHZ4befwVhlDi1T6sxsUgAjOwjRfQneRdBa6kdRkaTPKuyq15AB6MNGQC33VgeR3pvT9F3JM7WHqVbe-TtrCv6hQL-NglY03oCdVI98XtyMLGUahG4X6_AxapBtukPKPvH5ulu0FhVDFccPXROS3I-WLGsv-TjDB9qtTdMvkwF_XK_F-q78mTBwqA06h6hmlNWQvz_dNhLJ7iDfMKXLUpqurKc3c",
-    barCls: "bg-slate-300",
-    rankCls: "text-slate-400",
-    avatarSize: "w-16 h-16",
+    accent: "border-[#d0d5dd]",
+    badge: "bg-[#f2f4f7] text-[#667085]",
+    height: "md:mt-10",
   },
   {
     rank: 1,
     name: "Tanvir Ahmed",
-    score: "99.2/100",
+    score: "99.2",
+    unit: "Engineering",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBqvwyKCvO2DYbHnUKdAq44QTsBUSLY-ylQ7WGd27nnQ28LlIWVQlHIwFYC0nGDJwMlLj-tIHqXTxwMb8ihfPEJzLWdg-sPdnwMjZ68LUQYdLkmnQzpKxQbThVt7sShPVTvFKOGix1UZPuTmaH0oidVkDUqMfT_9wlk6_AHsBDl0r4GtYAzeUUoAQPT1UmGA1uhW30_xNN9oK3evkkDp4FXdfuwUCmxBxzwGVIYDx1qTvTTovxfpgPmTb0hJOfXIJFUksHhHhGG5_Q",
-    barCls: "bg-secondary",
-    rankCls: "text-secondary",
-    avatarSize: "w-20 h-20",
-    isWinner: true,
+    accent: "border-[#f5c542]",
+    badge: "bg-[#fff9f3] text-[#b25b00]",
+    height: "",
+    winner: true,
   },
   {
     rank: 3,
     name: "Sifat Ullah",
-    score: "97.8/100",
+    score: "97.8",
+    unit: "DU A-Unit",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBuMY9w__ql87uTv-fahFmW0gRFAMeaUmgvmnJwzu_g86vmcPoEmfUxbByE7NGBA241zWOPbDVbKP9bEYc10hMTMfIfEB-dtHf0YHOBCw9yquy3JXIVJioMGExhTx1LenWs_nb03s-9sWail1ECTCPQ-z_pd8dA59Nruk2XUyJfFcxJ5PwOH5PtjMWCK5Uurtod-JPnkBvDAvFaMAtHIM8_Nz5N_6ICUW-l75e0Utc69fPo-aw2hmpGiw_5lcT8gW4uHLurtpzhCiM",
-    barCls: "bg-orange-200",
-    rankCls: "text-orange-300",
-    avatarSize: "w-16 h-16",
+    accent: "border-[#ffbd7a]",
+    badge: "bg-[#fff9f3] text-[#b25b00]",
+    height: "md:mt-16",
   },
 ];
 
-const LEADERS = [
-  { rank: 4, name: "Nadia Islam", score: "96.5", scoreCls: "text-secondary font-semibold", showPattern: true, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyKeiKB1OGfCVVzkbNlOWSI6MdXSKmu-0OlH10iQxemN2zbI6YpJucE-FrCx-U4jFO7FeF6lUboeDgSvaVjwi7Gf5KYJmXKBBifftx9MWCScAf_djossV4rnWeq75emXUufFYwBXbvRn5t8CN-Y3DMG9M_g_jroTTss6Ot3zeqAjmMa7zX44HP0sVzD9o2WIBlNz8GhwtIdqhKPpxGbALgliJYG-FdDtEZQudcCUHMrhV1Y16kEe_wDv1Wd7WPbPutc_y8MC6H8gA" },
-  { rank: 5, name: "Zubayer Al-Mahmud", score: "95.8", scoreCls: "text-secondary font-semibold", showPattern: true, img: "https://lh3.googleusercontent.com/aida-public/AB6AXuConVyc8aq3vaP1kN92w16SfNfTQEL7f0wJLBQB8kybiAs__qnl9RJACVwwyB5nYnOk4OUV9D1ITsDwNS7CfyKY7HzFUp5l7EPpeoJKLiy80YUOT_hQmGVxR_s4NBmPo48v8_GZqeb6Z5Ojf03FyFDkcGL1lSnZ62yKYlnT-Be2wgpJUQCJTXmFg_sZCDkinOqktdVd2P2yUBn1ILRS5g6GI7K5L9Ra8na5e2ZSG64W_r1J5YK9OQPxFALcwK0bwyn8ZSDtJ6B8IDA" },
-  { rank: 6, name: "Farhana Haque", score: "94.2", scoreCls: "text-on-surface-variant", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBKjzRVtqODVKpL45ZJV2uwNbE4yhev3BwmgEhvhXVi5O5CSb8Q5tP6hwh23BeyrxDooTRnNEBajCI9j3PWfx3BXDiXvvhCV8YlM1erMbZd1dp1AyF3T1TUhDKU1XNVA_krgTcSrSlEnzDgqmWzv9tOKRwOhFcrDyGAaDzg17GhBvW40Aa9ij_97RlUJ59mTR1kbeU5FP4bmWMru0DSB5VPIV3vaYwUdKk7DbzA5NEUNYVStUNlW3WJ0CUWdNiiPVmh1V0gtL1LMh0" },
-  { rank: 7, name: "Rakibul Hasan", score: "93.9", scoreCls: "text-on-surface-variant", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBcHQPs9PkwBqytR0FonqkuRDUGR6Y-6VneRcnXgtNINltsQ-hNvuBol2-Uk9DT1E5wnKCi-ykK51VINe5orCa5yoZRRLoF_B_s32l-EA-OsG0PSuekq3mdABSpgOOY2S0xgx5v2A3GkhpzCZ0VrisQDyEIHGq_BhoHa-J2iTEKE6zd-BRYfYRm_8Q6YsPFXLJ1jYLS-UkrHc7QgbIgo9GMvsant3XdTJRPPKO2P02ctzVtn0HfwQ8RaejZ05Wop3SLPdx8IYeZsPE" },
-  { rank: 8, name: "Sakib Chowdhury", score: "93.5", scoreCls: "text-on-surface-variant", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDRU-9ANr1FQ4vOmR_c-g_BrT6jPpYbupvV4kABCkkxnQkasy1JT6w0r-mtNexzlLQaStChmvWYVqY1BNn4KQSgp6yFFcv4D3mJgbaZ-tMkIwHZJL8Vt9T5o0i9osLB-RwNESWkpv0DY43upbc3uv-XrTQFwxeeKM98efDVZxovfDs-mED6z4aKe6ez5K3DEJDYZlqETC1-B5XEanUUiA-TZFYn9B5WYaDKqxYKDGUDAKkwEa3ogvhUBMahpNV_BQ57SoxU0705KiI" },
-  { rank: 9, name: "Sumaiya Akhter", score: "93.1", scoreCls: "text-on-surface-variant", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBYMrwUlWfIXb0tTFOcxJ1kuJ3skJmSRLE7dITF4lfa2AAaU8qFDgH_Y6-5OQ_fWukzTll_GX26Dgf6V7cYdv0m_UZu1EQQPHPWwUwFMVVEdQ4mmnud7aFr5TBrL0Lgo92ZMIzZRjgrP-vHg1tpeKTAbzFCyZM2H3kQT5Twnu4bM7rcHCezvPv4xkXip3XRDc8mhWPfNoL7OKnahw1-31uu3_I7ImyTM-09f0IXslkjAW0Ihs9A7eAzZkyigMOoYtDvBXx6yqHhN2U" },
-  { rank: 10, name: "Joydeep Sen", score: "92.8", scoreCls: "text-on-surface-variant", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA32DXIdMe0YwOAK4xefKsSxvqfIbmjjzNL6MdGFD1g6T6XDyVX8asDyN_iEMXUJF_o3h92xctdX85Hs-s0Csxyjnu0FdbtOG8Q6799-KdcHl2GpYyuN-4DRJZdFAwmmCOVTCe0svsK-SJhTOAn6W6nsWgZTVONOP-E11OpWuDi8PdlJ6Mtr2SDVUlRr99Gjj9NQ_1XTQ-JHIRATS3PzbuFpZFBdFWr8CbWe9IhI-aWmzuhuFMHNgsRujsYl51FNAWmXvdUFeP2qZk" },
+const leaders = [
+  { rank: 4, name: "Nadia Islam", unit: "Medical", score: "96.5", delta: "+4" },
+  { rank: 5, name: "Zubayer Al-Mahmud", unit: "Engineering", score: "95.8", delta: "+2" },
+  { rank: 6, name: "Farhana Haque", unit: "DU A-Unit", score: "94.2", delta: "-1" },
+  { rank: 7, name: "Rakibul Hasan", unit: "Medical", score: "93.9", delta: "+8" },
+  { rank: 8, name: "Sakib Chowdhury", unit: "Engineering", score: "93.5", delta: "0" },
+  { rank: 9, name: "Sumaiya Akhter", unit: "Medical", score: "93.1", delta: "+1" },
+  { rank: 10, name: "Joydeep Sen", unit: "DU A-Unit", score: "92.8", delta: "-3" },
+];
+
+const leaderboardPages = [
+  leaders,
+  [
+    { rank: 11, name: "Maliha Tabassum", unit: "Medical", score: "92.4", delta: "+6" },
+    { rank: 12, name: "Rafi Hossain", unit: "Engineering", score: "91.9", delta: "+1" },
+    { rank: 13, name: "Tanjim Hasan", unit: "DU A-Unit", score: "91.3", delta: "-2" },
+    { rank: 14, name: "Nusrat Jahan", unit: "Medical", score: "90.8", delta: "+3" },
+    { rank: 15, name: "Fardin Ahmed", unit: "Engineering", score: "90.4", delta: "0" },
+    { rank: 16, name: "Ayesha Karim", unit: "Medical", score: "89.9", delta: "+2" },
+    { rank: 17, name: "Samiul Alam", unit: "DU A-Unit", score: "89.5", delta: "-1" },
+  ],
+  [
+    { rank: 18, name: "Tasnim Rahman", unit: "Medical", score: "89.1", delta: "+5" },
+    { rank: 19, name: "Omar Faruk", unit: "Engineering", score: "88.7", delta: "-4" },
+    { rank: 20, name: "Jannat Ara", unit: "DU A-Unit", score: "88.2", delta: "+1" },
+    { rank: 21, name: "Abrar Mahmud", unit: "Engineering", score: "87.8", delta: "0" },
+    { rank: 22, name: "Nabila Noor", unit: "Medical", score: "87.4", delta: "+2" },
+    { rank: 23, name: "Mahin Islam", unit: "DU A-Unit", score: "86.9", delta: "-3" },
+    { rank: 24, name: "Raisa Chowdhury", unit: "Medical", score: "86.5", delta: "+4" },
+  ],
+];
+
+const stats = [
+  { label: "Your rank", value: "#337", detail: "Top 15%", icon: Trophy },
+  { label: "Your score", value: "78.4", detail: "+6.4 this week", icon: Target },
+  { label: "Candidates", value: "2,248", detail: "Active in batch", icon: Users },
 ];
 
 export default function LeaderboardPage() {
-  const [tab, setTab] = useState<"exam" | "weekly">("exam");
-
-  const podium = [...PODIUM];
+  const [tab, setTab] = useState("exam");
 
   return (
-    <div className="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
-      <header className="bg-white text-blue-900 border-b border-slate-100 flex justify-between items-center w-full px-5 py-3 sticky top-0 z-50">
-        <div className="flex items-center gap-4">
-          <Link href="/student/dashboard" className="active:opacity-70 transition-all duration-200">
-            <span className="material-symbols-outlined">arrow_back</span>
-          </Link>
-          <h1 className="text-lg font-bold text-blue-900 tracking-tight">Admission Pro</h1>
-        </div>
-        <div className="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
-          <img
-            alt="User Profile"
-            className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuByMywwLq6pH3mOcKP_Q3BkgAwc84YC5RWXM4zWluKo1K_ruCOaM_yZhsQDQT0arrf0kjcSg2qLtT7ck512KqPO0532_Vp3hz1aoS9T8z44B9zGya7_XKvl62LuRJvcEna8PoHqGe1RJcUUaQpBbcjvbksK9Du8DBs8Jnwn6eQE0M0f-uITsFJjcrja54kC1iJT534RVT9BYr19ZHGYTQCi12h1GdNsg2bmVJ5I6sXCnQVD0Y3Ycitjz8Wwm640VPINTQFFI8yMc_Q"
-          />
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#f8fbfa] px-4 py-5 pb-28 text-[#101828] sm:px-6 lg:px-8 lg:py-8 md:pb-8">
+      <div className="mx-auto w-full max-w-[1240px] space-y-5">
+        <section className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_18px_44px_rgba(16,24,40,0.07)]">
+            <CardContent className="p-5 sm:p-7">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-2xl">
+                  <Badge className="rounded-md border-0 bg-[#edfff9] px-3 py-1.5 text-[#1a906b] hover:bg-[#edfff9]">
+                    Leaderboard
+                  </Badge>
+                  <h1 className="mt-4 text-3xl font-black leading-tight text-[#101828] sm:text-4xl">
+                    Track your rank against the strongest candidates.
+                  </h1>
+                  <p className="mt-4 max-w-xl text-sm leading-6 text-[#646464]">
+                    See where you stand this exam, compare weekly movement, and study
+                    the answer patterns of top performers.
+                  </p>
+                </div>
+                <Button className="h-11 rounded-md bg-[#20b486] !px-6 font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.22)] hover:bg-[#1a906b]">
+                  View answer pattern
+                  <ArrowUpRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
 
-      <main className="flex-1 w-full max-w-4xl mx-auto px-container-margin pb-32">
-        <section className="py-gutter">
-          <div className="bg-primary text-on-primary rounded-xl p-card-padding flex flex-col items-center justify-center text-center shadow-sm">
-            <p className="text-xs font-medium opacity-80 mb-1">YOUR PERFORMANCE</p>
-            <h2 className="text-3xl font-extrabold mb-2">Your Current Rank: 337</h2>
-            <div className="flex items-center gap-2 bg-primary-container/30 px-4 py-2 rounded-full border border-primary-container/50">
-              <span className="material-symbols-outlined text-secondary-fixed">trending_up</span>
-              <span className="text-sm font-medium">Top 15% of all candidates</span>
-            </div>
-          </div>
+          <Card className="rounded-lg border-[#ffe1bd] bg-[#fff9f3] shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardContent className="p-5 sm:p-6">
+              <div className="mb-5 flex items-start gap-3">
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[#101828] text-[#f5c542]">
+                  <Sparkles className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-extrabold uppercase text-[#b25b00]">
+                    Your performance
+                  </p>
+                  <h2 className="mt-1 text-xl font-black text-[#101828]">
+                    Rank #337 this exam
+                  </h2>
+                </div>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-white">
+                <div className="h-full w-[85%] rounded-full bg-[#20b486]" />
+              </div>
+              <p className="mt-3 text-sm font-semibold leading-6 text-[#667085]">
+                You are in the top 15%. Solve 34 more high-yield questions to target
+                top 10%.
+              </p>
+            </CardContent>
+          </Card>
         </section>
 
-        <nav className="flex w-full bg-surface-container-low rounded-xl p-1 mb-gutter">
-          <button
-            onClick={() => setTab("exam")}
-            className={`flex-1 py-3 text-center rounded-lg text-sm font-medium transition-all ${
-              tab === "exam" ? "bg-white text-primary shadow-sm" : "text-outline hover:text-primary"
-            }`}
-          >
-            This Exam
-          </button>
-          <button
-            onClick={() => setTab("weekly")}
-            className={`flex-1 py-3 text-center rounded-lg text-sm font-medium transition-all ${
-              tab === "weekly" ? "bg-white text-primary shadow-sm" : "text-outline hover:text-primary"
-            }`}
-          >
-            Cumulative (Weekly)
-          </button>
-        </nav>
+        <section className="grid gap-4 md:grid-cols-3">
+          {stats.map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <Card
+                key={stat.label}
+                className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]"
+              >
+                <CardContent className="flex items-center gap-4 p-5">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-[#667085]">{stat.label}</p>
+                    <p className="mt-1 text-3xl font-black text-[#101828]">{stat.value}</p>
+                    <p className="mt-1 text-xs font-bold text-[#20b486]">{stat.detail}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-gutter">
-          {podium.map((p, idx) => (
-            <div
-              key={p.rank}
-              className={`relative overflow-hidden bg-white rounded-xl p-card-padding flex flex-col items-center ${
-                p.isWinner
-                  ? "order-1 md:order-2 border-2 border-secondary-fixed scale-105 shadow-md"
-                  : idx === 0
-                  ? "order-2 md:order-1 border border-outline-variant"
-                  : "order-3 md:order-3 border border-outline-variant"
-              }`}
-            >
-              <div className={`absolute top-0 left-0 w-full h-1 ${p.barCls}`}></div>
-              {p.isWinner && (
-                <div className="absolute top-2 right-2">
-                  <span
-                    className="material-symbols-outlined text-secondary"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
+        <Tabs value={tab} onValueChange={setTab} className="space-y-5">
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <TabsList className="grid h-auto w-full grid-cols-2 gap-2 rounded-lg bg-[#f0faf7] p-1.5 lg:w-[440px]">
+                  <TabsTrigger
+                    value="exam"
+                    className="min-h-[48px] rounded-lg !px-5 !py-3 text-sm font-black data-[state=active]:bg-white data-[state=active]:text-[#101828] data-[state=active]:shadow-[0_8px_18px_rgba(16,24,40,0.08)]"
                   >
-                    workspace_premium
+                    This Exam
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="weekly"
+                    className="min-h-[48px] rounded-lg !px-5 !py-3 text-sm font-black data-[state=active]:bg-white data-[state=active]:text-[#101828] data-[state=active]:shadow-[0_8px_18px_rgba(16,24,40,0.08)]"
+                  >
+                    Weekly
+                  </TabsTrigger>
+                </TabsList>
+                <div className="flex min-h-[48px] items-center gap-3 rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] px-4 py-2">
+                  <Search className="h-4 w-4 shrink-0 text-[#98a2b3]" />
+                  <span className="text-sm font-semibold text-[#667085]">
+                    Filter by unit or student
                   </span>
                 </div>
-              )}
-              <div className={`${p.avatarSize} rounded-full ${p.isWinner ? "border-4 border-secondary-container" : "border-4 border-slate-100"} mb-3 overflow-hidden`}>
-                <img className="w-full h-full object-cover" src={p.img} alt="" />
               </div>
-              <span className={`text-3xl font-extrabold mb-1 ${p.rankCls}`}>#{p.rank}</span>
-              <p className="text-sm font-medium text-primary">{p.name}</p>
-              <p className="text-secondary font-bold">{p.score}</p>
-              <a className="mt-4 text-xs font-semibold text-primary underline underline-offset-4" href="#">
-                View Answer Pattern
-              </a>
+            </CardContent>
+          </Card>
+
+          <TabsContent value="exam" className="m-0 space-y-5">
+            <Podium />
+            <LeaderboardTable />
+          </TabsContent>
+
+          <TabsContent value="weekly" className="m-0 space-y-5">
+            <Card className="rounded-lg border-[#c9efe4] bg-[#f2fffb] shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+              <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+                <div className="flex items-start gap-3">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                    <BarChart3 className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-black text-[#101828]">
+                      Weekly movement is recalculated every Friday.
+                    </h2>
+                    <p className="mt-1 text-sm leading-6 text-[#667085]">
+                      Current weekly data uses the same sample leaderboard with movement
+                      deltas shown in the table.
+                    </p>
+                  </div>
+                </div>
+                <Button className="h-10 rounded-md bg-[#101828] !px-5 font-extrabold text-white hover:bg-[#243044]">
+                  Weekly report
+                </Button>
+              </CardContent>
+            </Card>
+            <Podium />
+            <LeaderboardTable />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </main>
+  );
+}
+
+function Podium() {
+  return (
+    <section className="grid gap-4 md:grid-cols-3 md:items-end">
+      {podium.map((student) => (
+        <Card
+          key={student.rank}
+          className={`relative overflow-hidden rounded-lg border-2 ${student.accent} bg-white shadow-[0_14px_32px_rgba(16,24,40,0.07)] ${student.height} ${student.winner ? "md:scale-[1.04]" : ""}`}
+        >
+          <CardContent className={student.winner ? "p-6 text-center sm:p-8" : "p-6 text-center sm:p-7"}>
+            <div className="mb-5 flex justify-center">
+              <div
+                className={
+                  student.winner
+                    ? "relative h-28 w-28 overflow-hidden rounded-full border-4 border-[#f5c542] bg-[#101828] shadow-[0_18px_34px_rgba(16,24,40,0.16)]"
+                    : "h-24 w-24 overflow-hidden rounded-full border-4 border-[#edfff9] bg-[#f0faf7] shadow-[0_12px_24px_rgba(16,24,40,0.08)]"
+                }
+              >
+                <img
+                  src={student.img}
+                  alt={student.name}
+                  className="h-full w-full object-cover"
+                />
+                {student.winner && (
+                  <span className="absolute -right-1 -top-1 grid h-8 w-8 place-items-center rounded-full bg-[#f5c542] text-[#101828] shadow-[0_8px_16px_rgba(16,24,40,0.14)]">
+                    <Crown className="h-4 w-4 fill-current" />
+                  </span>
+                )}
+              </div>
+            </div>
+            <Badge className={`rounded-md border-0 px-3 py-1.5 ${student.badge} hover:${student.badge}`}>
+              Rank #{student.rank}
+            </Badge>
+            <h3 className="mt-5 text-xl font-black text-[#101828]">{student.name}</h3>
+            <p className="mt-1 text-sm font-semibold text-[#667085]">{student.unit}</p>
+            <p className={student.winner ? "mt-5 text-5xl font-black text-[#101828]" : "mt-5 text-4xl font-black text-[#101828]"}>
+              {student.score}
+            </p>
+            <p className="mt-1 text-xs font-bold uppercase text-[#98a2b3]">score</p>
+            <Button
+              variant="ghost"
+              className="mt-5 h-10 rounded-md !px-5 text-sm font-extrabold text-[#1a906b] hover:bg-[#edfff9] hover:text-[#1a906b]"
+            >
+              Pattern
+              <ArrowUpRight className="h-4 w-4" />
+            </Button>
+          </CardContent>
+        </Card>
+      ))}
+    </section>
+  );
+}
+
+function LeaderboardTable() {
+  const [page, setPage] = useState(1);
+  const rows = leaderboardPages[page - 1];
+  const firstRank = rows[0].rank;
+  const lastRank = rows[rows.length - 1].rank;
+
+  return (
+    <Card className="overflow-hidden rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+      <CardHeader className="flex-row items-center justify-between gap-4 space-y-0 bg-[#f9fafb] p-5 sm:p-6">
+        <div>
+          <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+            Full ranking
+          </CardDescription>
+          <CardTitle className="mt-1 text-xl font-black text-[#101828]">
+            Candidates {firstRank}-{lastRank}
+          </CardTitle>
+        </div>
+        <Award className="h-5 w-5 text-[#20b486]" />
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className="divide-y divide-[#eaecf0]">
+          {rows.map((student) => (
+            <div
+              key={student.rank}
+              className="grid grid-cols-[56px_minmax(0,1fr)_86px] items-center gap-3 px-5 py-4 transition hover:bg-[#f8fbfa] sm:grid-cols-[64px_minmax(0,1fr)_120px_86px] sm:px-6"
+            >
+              <div className="text-sm font-black text-[#20b486]">#{student.rank}</div>
+              <div className="flex min-w-0 items-center gap-3">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-xs font-black text-[#1a906b]">
+                  {student.name
+                    .split(" ")
+                    .map((part) => part[0])
+                    .join("")
+                    .slice(0, 2)}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-black text-[#101828]">{student.name}</p>
+                  <p className="mt-1 truncate text-xs font-semibold text-[#667085]">
+                    {student.unit}
+                  </p>
+                </div>
+              </div>
+              <Badge
+                className={
+                  student.delta.startsWith("+")
+                    ? "hidden rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9] sm:inline-flex"
+                    : "hidden rounded-md border-0 bg-[#f2f4f7] text-[#667085] hover:bg-[#f2f4f7] sm:inline-flex"
+                }
+              >
+                {student.delta === "0" ? "No change" : student.delta}
+              </Badge>
+              <div className="text-right text-lg font-black text-[#101828]">{student.score}</div>
             </div>
           ))}
         </div>
-
-        <div className="bg-white rounded-xl border border-outline-variant overflow-hidden">
-          <div className="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
-            <span className="text-xs font-medium text-outline">RANK &amp; STUDENT</span>
-            <span className="text-xs font-medium text-outline">SCORE</span>
-          </div>
-          <div className="divide-y divide-outline-variant">
-            {LEADERS.map((row) => (
-              <div key={row.rank} className="px-6 py-4 flex justify-between items-center hover:bg-surface-container-lowest transition-colors">
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-medium text-primary w-6">{row.rank}</span>
-                  <div className="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
-                    <img className="w-full h-full object-cover" src={row.img} alt="" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-primary">{row.name}</p>
-                    {row.showPattern && (
-                      <a className="text-[10px] text-primary-container uppercase font-bold tracking-wider" href="#">
-                        Answer Pattern
-                      </a>
-                    )}
-                  </div>
-                </div>
-                <span className={row.scoreCls}>{row.score}</span>
-              </div>
+        <div className="border-t border-[#eaecf0] bg-[#f9fafb] p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setPage((current) => Math.max(1, current - 1))}
+              disabled={page === 1}
+              className="h-10 rounded-md border-[#d0d5dd] bg-white !px-4 font-extrabold text-[#667085] hover:border-[#20b486] hover:bg-[#f2fffb] hover:text-[#101828]"
+            >
+              Prev
+            </Button>
+            {[1, 2, 3].map((pageNumber) => (
+              <Button
+                key={pageNumber}
+                type="button"
+                variant={pageNumber === page ? "default" : "outline"}
+                onClick={() => setPage(pageNumber)}
+                className={
+                  pageNumber === page
+                    ? "h-10 min-w-10 rounded-md bg-[#20b486] !px-4 font-extrabold text-white hover:bg-[#1a906b]"
+                    : "h-10 min-w-10 rounded-md border-[#d0d5dd] bg-white !px-4 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+                }
+              >
+                {pageNumber}
+              </Button>
             ))}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                setPage((current) => Math.min(leaderboardPages.length, current + 1))
+              }
+              disabled={page === leaderboardPages.length}
+              className="h-10 rounded-md border-[#d0d5dd] bg-white !px-4 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+            >
+              Next
+            </Button>
           </div>
         </div>
-
-        <div className="mt-gutter flex justify-center">
-          <button className="bg-white border border-outline text-primary text-sm font-medium px-6 py-3 rounded-lg active:opacity-70 transition-all">
-            Load Next 20 Students
-          </button>
-        </div>
-      </main>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

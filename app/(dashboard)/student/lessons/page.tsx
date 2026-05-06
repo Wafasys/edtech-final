@@ -371,15 +371,6 @@ export default function VideoLessonPage() {
                         >
                           <Image className="h-4 w-4" />
                         </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          className="h-10 w-10 rounded-md border-[#d0d5dd] bg-white text-[#667085] hover:border-[#20b486] hover:bg-[#f2fffb] hover:text-[#20b486]"
-                          aria-label="Attach timestamp"
-                        >
-                          <Clock3 className="h-4 w-4" />
-                        </Button>
                       </div>
                       <Button
                         type="button"
