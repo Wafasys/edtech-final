@@ -90,71 +90,37 @@ export default function ExamSchedulePage() {
       </header>
 
       <main className="mx-auto max-w-7xl px-5 py-8">
-        <section className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
-          <Card className="overflow-hidden border-[#101828] bg-[#101828] text-white shadow-[0_22px_70px_rgba(16,24,40,0.22)]">
-            <CardContent className="p-6 sm:p-8">
-              <Badge className="mb-6 border-white/10 bg-white/10 px-3 py-1.5 text-[#99f3d6] hover:bg-white/10">
-                <span className="material-symbols-outlined mr-1 text-[16px]">event_available</span>
-                Schedule queue healthy
-              </Badge>
-              <h2 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-                Plan the next mock test, lock the rules, ship it to students.
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-white/68">
-                Configure timing, marking, and security in one pass. Saving a draft keeps the
-                exam off the student feed until you publish.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  className="inline-flex h-12 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-black text-white transition hover:bg-[#1a906b]"
-                >
-                  <span className="material-symbols-outlined text-[20px]">save</span>
-                  Save & schedule
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex h-12 items-center gap-2 rounded-full border border-white/15 bg-white/8 px-6 text-sm font-black text-white transition hover:bg-white/14"
-                >
-                  <span className="material-symbols-outlined text-[20px]">content_copy</span>
-                  Duplicate template
-                </button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
-            {[
-              { label: "Scheduled this month", value: "14", delta: "+3 vs May", icon: "event_note" },
-              { label: "Avg participation", value: "72%", delta: "+5.4%", icon: "groups" },
-              { label: "Drafts pending", value: "3", delta: "Review", icon: "edit_note" },
-            ].map((item) => (
-              <Card
-                key={item.label}
-                className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]"
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-4">
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
-                      <span className="material-symbols-outlined">{item.icon}</span>
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="truncate text-sm font-bold text-[#667085]">{item.label}</p>
-                        <Badge
-                          variant="outline"
-                          className="shrink-0 rounded-full border-[#dce8e2] bg-[#f2fffb] text-[#1a906b]"
-                        >
-                          {item.delta}
-                        </Badge>
-                      </div>
-                      <p className="mt-1 text-3xl font-black text-[#101828]">{item.value}</p>
+        <section className="grid gap-4 sm:grid-cols-3">
+          {[
+            { label: "Scheduled this month", value: "14", delta: "+3 vs May", icon: "event_note" },
+            { label: "Avg participation", value: "72%", delta: "+5.4%", icon: "groups" },
+            { label: "Drafts pending", value: "3", delta: "Review", icon: "edit_note" },
+          ].map((item) => (
+            <Card
+              key={item.label}
+              className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]"
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                    <span className="material-symbols-outlined">{item.icon}</span>
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="truncate text-sm font-bold text-[#667085]">{item.label}</p>
+                      <Badge
+                        variant="outline"
+                        className="shrink-0 rounded-full border-[#dce8e2] bg-[#f2fffb] text-[#1a906b]"
+                      >
+                        {item.delta}
+                      </Badge>
                     </div>
+                    <p className="mt-1 text-3xl font-black text-[#101828]">{item.value}</p>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </section>
 
         <section className="mt-6 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
@@ -195,9 +161,7 @@ export default function ExamSchedulePage() {
                         <option key={s}>{s}</option>
                       ))}
                     </select>
-                    <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[20px] text-[#667085]">
-                      expand_more
-                    </span>
+                    <span className="material-symbols-outlined pointer-events-none absolute right-3 inset-y-0 flex items-center text-[20px] leading-none text-[#667085]">expand_more</span>
                   </div>
                 </div>
 
@@ -221,14 +185,12 @@ export default function ExamSchedulePage() {
                   <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
                     Date
                   </label>
-                  <div className="relative">
-                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-[#20b486]">
-                      calendar_today
-                    </span>
+                  <div className="flex h-12 items-center gap-3 rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] px-4 transition focus-within:border-[#20b486] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#20b486]/20">
+                    <span className="material-symbols-outlined shrink-0 text-[20px] text-[#20b486]">calendar_today</span>
                     <input
                       type="text"
                       defaultValue="June 25, 2024"
-                      className="h-12 w-full rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] pl-11 pr-4 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
+                      className="w-full bg-transparent text-sm font-semibold text-[#101828] outline-none"
                     />
                   </div>
                 </div>
@@ -237,14 +199,12 @@ export default function ExamSchedulePage() {
                   <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
                     Start time
                   </label>
-                  <div className="relative">
-                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-[#20b486]">
-                      schedule
-                    </span>
+                  <div className="flex h-12 items-center gap-3 rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] px-4 transition focus-within:border-[#20b486] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#20b486]/20">
+                    <span className="material-symbols-outlined shrink-0 text-[20px] text-[#20b486]">schedule</span>
                     <input
                       type="text"
                       defaultValue="10:00 AM"
-                      className="h-12 w-full rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] pl-11 pr-4 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
+                      className="w-full bg-transparent text-sm font-semibold text-[#101828] outline-none"
                     />
                   </div>
                 </div>
