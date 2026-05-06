@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Bookmark,
@@ -88,7 +88,7 @@ const timestamps = [
   ["36:10", "Admission shortcut"],
 ];
 
-const savedNotes = [
+const initialSavedNotes = [
   {
     time: "12:45",
     body: "First principle setup before substituting h = 0.",
@@ -105,6 +105,35 @@ const lessonPoster =
 export default function VideoLessonPage() {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
+  const [noteDraft, setNoteDraft] = useState("");
+  const [noteStamps, setNoteStamps] = useState(["12:45"]);
+  const [savedNotes, setSavedNotes] = useState(initialSavedNotes);
+  const [activeLessonTab, setActiveLessonTab] = useState("ask");
+
+  useEffect(() => {
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    if (tab === "comments") {
+      setActiveLessonTab("comments");
+    }
+  }, []);
+
+  function handleAddStamp() {
+    const nextStamp = timestamps
+      .map(([time]) => time)
+      .find((time) => !noteStamps.includes(time));
+
+    if (!nextStamp) return;
+    setNoteStamps([...noteStamps, nextStamp]);
+  }
+
+  function handleSaveNote() {
+    const body = noteDraft.trim();
+    if (!body) return;
+
+    setSavedNotes([{ time: noteStamps.join(", "), body }, ...savedNotes]);
+    setNoteDraft("");
+    setNoteStamps(["12:45"]);
+  }
 
   return (
     <main className="min-h-screen bg-[#f8fbfa] px-4 py-5 pb-28 text-[#101828] sm:px-6 lg:px-8 lg:py-8 md:pb-8">
@@ -201,9 +230,9 @@ export default function VideoLessonPage() {
                   </h1>
                   <div className="mt-3 flex flex-wrap items-center gap-2 text-sm font-semibold text-[#667085]">
                     <span>Unit 4: Calculus</span>
-                    <span className="h-1 w-1 rounded-full bg-[#d0d5dd]" />
+                    <span className="mx-1 h-1 w-1 rounded-full bg-[#d0d5dd]" />
                     <span>Dr. Ariful Islam</span>
-                    <span className="h-1 w-1 rounded-full bg-[#d0d5dd]" />
+                    <span className="mx-1 h-1 w-1 rounded-full bg-[#d0d5dd]" />
                     <span>45 min lesson</span>
                   </div>
                 </div>
@@ -211,7 +240,7 @@ export default function VideoLessonPage() {
                 <div className="flex shrink-0 flex-wrap gap-2">
                   <Button
                     variant="outline"
-                    className="h-10 rounded-md border-[#d0d5dd] bg-white px-4 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+                    className="h-10 rounded-md border-[#d0d5dd] bg-white !px-5 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
                   >
                     <ThumbsUp className="h-4 w-4" />
                     1.2k
@@ -220,12 +249,12 @@ export default function VideoLessonPage() {
                     type="button"
                     variant="outline"
                     onClick={() => setFeedbackOpen(true)}
-                    className="h-10 rounded-md border-[#d0d5dd] bg-white px-4 font-extrabold text-[#101828] hover:border-[#ba1a1a] hover:bg-[#fff5f4] hover:text-[#ba1a1a]"
+                    className="h-10 rounded-md border-[#d0d5dd] bg-white !px-5 font-extrabold text-[#101828] hover:border-[#ba1a1a] hover:bg-[#fff5f4] hover:text-[#ba1a1a]"
                   >
                     <ThumbsDown className="h-4 w-4" />
                     Feedback
                   </Button>
-                  <Button className="h-10 rounded-md bg-[#20b486] px-4 font-extrabold text-white hover:bg-[#1a906b]">
+                  <Button className="h-10 rounded-md bg-[#20b486] !px-5 font-extrabold text-white hover:bg-[#1a906b]">
                     <Bookmark className="h-4 w-4" />
                     Save
                   </Button>
@@ -234,7 +263,11 @@ export default function VideoLessonPage() {
             </CardContent>
           </Card>
 
-          <Tabs defaultValue="ask" className="space-y-5">
+          <Tabs
+            value={activeLessonTab}
+            onValueChange={setActiveLessonTab}
+            className="space-y-5"
+          >
             <Card className="overflow-hidden rounded-lg border-[#c9efe4] bg-white shadow-[0_14px_32px_rgba(16,24,40,0.06)]">
               <CardContent className="p-2 sm:p-3">
                 <TabsList className="grid h-auto w-full grid-cols-2 gap-2 rounded-lg bg-[#f0faf7] p-1.5 lg:grid-cols-4">
@@ -269,9 +302,9 @@ export default function VideoLessonPage() {
                       <TabsTrigger
                         key={item.value}
                         value={item.value}
-                        className="group min-h-[72px] justify-start rounded-lg border border-transparent px-3 py-3 text-left data-[state=active]:border-[#c9efe4] data-[state=active]:bg-white data-[state=active]:text-[#101828] data-[state=active]:shadow-[0_10px_24px_rgba(16,24,40,0.08)]"
+                        className="group min-h-[68px] w-full justify-start rounded-lg border border-transparent !px-4 !py-2.5 text-left data-[state=active]:border-[#c9efe4] data-[state=active]:bg-white data-[state=active]:text-[#101828] data-[state=active]:shadow-[0_10px_24px_rgba(16,24,40,0.08)] lg:!px-5"
                       >
-                        <span className="flex min-w-0 items-center gap-3">
+                        <span className="flex w-full min-w-0 items-center gap-4">
                           <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)] group-data-[state=active]:bg-[#20b486] group-data-[state=active]:text-white">
                             <Icon className="h-5 w-5" />
                           </span>
@@ -346,17 +379,29 @@ export default function VideoLessonPage() {
 
             <TabsContent value="comments" className="m-0">
               <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-                <CardContent className="space-y-4 p-5 sm:p-6">
-                  <Comment
-                    name="Maliha"
-                    time="12 min ago"
-                    body="The chain-rule shortcut at 36:10 helped. Please add one more example with tan x."
-                  />
-                  <Comment
-                    name="Rafi"
-                    time="1 hour ago"
-                    body="At 12:45, why is the limit written before substituting h = 0?"
-                  />
+                <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+                  <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                    Lesson discussion
+                  </CardDescription>
+                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                    Comments and instructor replies
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-5 p-5 pt-5 sm:p-6 sm:pt-5">
+                  <PinnedInstructorThread />
+                  <Separator className="bg-[#eaecf0]" />
+                  <div className="space-y-4">
+                    <Comment
+                      name="Maliha"
+                      time="12 min ago"
+                      body="The chain-rule shortcut at 36:10 helped. Please add one more example with tan x."
+                    />
+                    <Comment
+                      name="Rafi"
+                      time="1 hour ago"
+                      body="At 12:45, why is the limit written before substituting h = 0?"
+                    />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -367,7 +412,7 @@ export default function VideoLessonPage() {
 
             <TabsContent value="notes" className="m-0">
               <Card className="rounded-lg border-[#c9efe4] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-                <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+                <CardHeader className="p-6 pb-0 sm:p-7 sm:pb-0">
                   <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
                     Timestamp notes
                   </CardDescription>
@@ -375,31 +420,47 @@ export default function VideoLessonPage() {
                     Take a note at 12:45
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="grid gap-5 p-5 pt-5 sm:p-6 sm:pt-5 lg:grid-cols-[minmax(0,1fr)_280px]">
-                  <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4">
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                      <Badge className="rounded-md border-0 bg-white font-mono text-[#1a906b] hover:bg-white">
-                        12:45
-                      </Badge>
-                      <span className="text-xs font-bold text-[#667085]">
+                <CardContent className="grid gap-5 p-6 pt-5 sm:p-7 sm:pt-5 lg:grid-cols-[minmax(0,1fr)_300px]">
+                  <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                    <div className="mb-4 rounded-lg bg-white/70 px-3 py-3">
+                      <div className="mb-2 flex flex-wrap gap-2">
+                        {noteStamps.map((stamp) => (
+                          <Badge
+                            key={stamp}
+                            className="rounded-md border border-[#c9efe4] bg-white px-3 py-1.5 font-mono text-[#1a906b] shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-white"
+                          >
+                            {stamp}
+                          </Badge>
+                        ))}
+                      </div>
+                      <span className="block text-xs font-bold text-[#667085]">
                         Linked to current playback time
                       </span>
                     </div>
                     <textarea
                       rows={5}
+                      value={noteDraft}
+                      onChange={(event) => setNoteDraft(event.target.value)}
                       placeholder="Write the exact point you want to remember from this timestamp..."
-                      className="min-h-[132px] w-full resize-none rounded-lg border border-[#d0d5dd] bg-white p-4 text-sm font-semibold text-[#101828] outline-none transition placeholder:text-[#98a2b3] focus:border-[#20b486] focus:ring-2 focus:ring-[#20b486]/20"
+                      className="min-h-[132px] w-full resize-none rounded-lg border border-[#d0d5dd] bg-white px-5 py-4 text-sm font-semibold text-[#101828] outline-none transition placeholder:text-[#98a2b3] focus:border-[#20b486] focus:ring-2 focus:ring-[#20b486]/20"
                     />
-                    <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
                       <Button
                         type="button"
                         variant="outline"
-                        className="h-10 rounded-md border-[#d0d5dd] bg-white px-4 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+                        onClick={handleAddStamp}
+                        disabled={noteStamps.length >= timestamps.length}
+                        className="h-10 w-full justify-center rounded-lg border-[#c9efe4] bg-white !px-5 font-extrabold text-[#101828] shadow-[0_8px_18px_rgba(16,24,40,0.06)] hover:border-[#20b486] hover:bg-white disabled:opacity-45"
                       >
                         <Clock3 className="h-4 w-4" />
                         Add another stamp
                       </Button>
-                      <Button className="h-10 rounded-md bg-[#20b486] px-4 font-extrabold text-white hover:bg-[#1a906b]">
+                      <Button
+                        type="button"
+                        onClick={handleSaveNote}
+                        disabled={!noteDraft.trim()}
+                        className="h-10 w-full justify-center rounded-lg bg-[#20b486] !px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.22)] hover:bg-[#1a906b] disabled:opacity-45"
+                      >
                         <NotebookPen className="h-4 w-4" />
                         Save note
                       </Button>
@@ -626,6 +687,109 @@ function Comment({ name, time, body }: { name: string; time: string; body: strin
         <p className="mt-1 text-sm leading-6 text-[#667085]">{body}</p>
       </div>
     </div>
+  );
+}
+
+function PinnedInstructorThread() {
+  return (
+    <section className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4 sm:p-5">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-xs font-extrabold uppercase text-[#20b486]">
+            Teacher replied
+          </p>
+          <h3 className="mt-1 text-lg font-black text-[#101828]">
+            Pinned answer for this lesson
+          </h3>
+        </div>
+        <Badge className="gap-1.5 rounded-md border-0 bg-white px-3 py-1.5 text-[#1a906b] shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-white">
+          <Star className="h-3.5 w-3.5 fill-current" />
+          Pinned
+        </Badge>
+      </div>
+
+      <div className="space-y-4">
+        <div className="rounded-lg bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <span className="text-sm font-black text-[#101828]">Farhan Tahir</span>
+            <span className="rounded-md bg-[#f8fbfa] px-2 py-1 font-mono text-xs font-bold text-[#20b486]">
+              12:40
+            </span>
+            <span className="text-xs font-semibold text-[#98a2b3]">Student question</span>
+          </div>
+          <p className="text-sm leading-6 text-[#667085]">
+            Sir, in the derivation at 12:40, why do we choose this setup before
+            substituting the limit? I understand the formula but not the reason behind
+            the step.
+          </p>
+        </div>
+
+        <article className="relative rounded-lg border border-[#20b486]/25 bg-white p-4 shadow-[0_14px_30px_rgba(16,24,40,0.08)] sm:p-5">
+          <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[#101828] text-sm font-black text-white">
+                AI
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-sm font-black text-[#101828]">
+                    Dr. Ariful Islam
+                  </span>
+                  <Badge className="rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]">
+                    Instructor
+                  </Badge>
+                </div>
+                <p className="mt-1 text-xs font-semibold text-[#667085]">
+                  Pinned 18 minutes ago
+                </p>
+              </div>
+            </div>
+            <CheckCircle2 className="h-5 w-5 text-[#20b486]" />
+          </div>
+
+          <div className="rounded-lg border-l-4 border-[#20b486] bg-[#f8fbfa] p-4">
+            <p className="text-sm font-semibold leading-6 text-[#101828]">
+              Good question. We keep the limit form until the expression is simplified
+              because direct substitution would create an indeterminate form. Once the
+              algebra removes the problematic term, substituting the value becomes valid.
+            </p>
+          </div>
+
+          <div className="mt-4 space-y-3 text-sm leading-6 text-[#667085]">
+            <p>
+              For admission MCQs, the important habit is to identify whether the limit
+              needs simplification before substitution. If the denominator becomes zero,
+              simplify first.
+            </p>
+            <p className="font-bold text-[#1a906b]">
+              Key takeaway: do not substitute until the expression is no longer
+              indeterminate.
+            </p>
+          </div>
+
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[#eaecf0] pt-4">
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant="outline"
+                className="h-9 rounded-md border-[#d0d5dd] bg-white !px-4 text-xs font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+              >
+                <ThumbsUp className="h-4 w-4" />
+                84 Helpful
+              </Button>
+              <Button
+                variant="ghost"
+                className="h-9 rounded-md !px-4 text-xs font-extrabold text-[#667085] hover:bg-[#f8fbfa]"
+              >
+                Reply
+              </Button>
+            </div>
+            <span className="text-xs font-bold uppercase text-[#98a2b3]">
+              Teacher answer is pinned
+            </span>
+          </div>
+        </article>
+      </div>
+    </section>
   );
 }
 

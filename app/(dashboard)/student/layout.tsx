@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { href: "/student/dashboard", label: "Home", icon: "home" },
   { href: "/student/search", label: "Courses", icon: "menu_book" },
   { href: "/student/lessons", label: "Lessons", icon: "play_circle" },
-  { href: "/student/lessons/pinned-reply", label: "Pinned Reply", icon: "push_pin" },
   { href: "/student/leaderboard", label: "Leaderboard", icon: "leaderboard" },
   { href: "/student/results", label: "Exams", icon: "quiz" },
   { href: "/exam/secure-desktop", label: "Desktop Exam", icon: "desktop_windows" },
