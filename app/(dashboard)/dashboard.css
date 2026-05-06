@@ -54,24 +54,16 @@
   text-decoration: inherit;
 }
 
-.dashboard-root button,
-.dashboard-root [type="button"],
-.dashboard-root [type="reset"],
-.dashboard-root [type="submit"] {
+.dashboard-root :where(button, [type="button"], [type="reset"], [type="submit"]) {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
   cursor: pointer;
-  padding: 0;
   border: 0;
   color: inherit;
 }
 
-.dashboard-root button,
-.dashboard-root input,
-.dashboard-root optgroup,
-.dashboard-root select,
-.dashboard-root textarea {
+.dashboard-root :where(button, input, optgroup, select, textarea) {
   font-family: inherit;
   font-feature-settings: inherit;
   font-variation-settings: inherit;
@@ -80,7 +72,6 @@
   line-height: inherit;
   color: inherit;
   margin: 0;
-  padding: 0;
 }
 
 .dashboard-root img,

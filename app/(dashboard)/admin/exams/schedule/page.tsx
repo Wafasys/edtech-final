@@ -161,7 +161,9 @@ export default function ExamSchedulePage() {
                         <option key={s}>{s}</option>
                       ))}
                     </select>
-                    <span className="material-symbols-outlined pointer-events-none absolute right-3 inset-y-0 flex items-center text-[20px] leading-none text-[#667085]">expand_more</span>
+                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                      <span className="material-symbols-outlined text-[20px] leading-none text-[#667085]">expand_more</span>
+                    </span>
                   </div>
                 </div>
 
