@@ -40,16 +40,30 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="hp-hero-stage">
-          <div className="hp-hero-portrait">
+        <div className="hp-stage" aria-hidden="false">
+          <div className="hp-stage-bg">
+            <div className="hp-stage-aurora" />
+            <div className="hp-stage-grid" />
+          </div>
+
+          <div className="hp-stage-ring">
+            <div className="hp-stage-ring-inner" />
+          </div>
+
+          <div className="hp-stage-portrait">
             <img src="/home/Mask-group@2x.png" alt="Featured student" />
           </div>
+
+          <span className="hp-stage-live">
+            <span className="hp-stage-live-dot" />
+            Live cohort · 12 spots
+          </span>
 
           <div className="hp-stat-card is-floating is-tutors">
             <div className="hp-stat-icon">
               <img src="/home/icon4.svg" alt="" />
             </div>
-            <div>
+            <div className="hp-stat-text">
               <p className="hp-stat-num">250+</p>
               <p className="hp-stat-label">Expert tutors on call</p>
             </div>
@@ -59,9 +73,15 @@ export default function HeroSection() {
             <div className="hp-stat-icon">
               <img src="/home/Progress-circle.svg" alt="" />
             </div>
-            <div>
-              <p className="hp-stat-num">5K+</p>
-              <p className="hp-stat-label">Online courses live today</p>
+            <div className="hp-stat-text">
+              <p className="hp-stat-num">5,200</p>
+              <p className="hp-stat-label">Live courses today</p>
+              <div className="hp-stat-avatars">
+                <img src="/home/Avatar@2x.png" alt="" />
+                <img src="/home/Avatar1@2x.png" alt="" />
+                <img src="/home/Avatar2@2x.png" alt="" />
+                <img src="/home/Avatar3@2x.png" alt="" />
+              </div>
             </div>
           </div>
 
@@ -69,7 +89,7 @@ export default function HeroSection() {
             <div className="hp-stat-icon">
               <img src="/home/icon3.svg" alt="" />
             </div>
-            <div>
+            <div className="hp-stat-text">
               <p className="hp-stat-num">4.9 / 5</p>
               <div className="hp-stat-stars" aria-label="rating">
                 <img src="/home/Les-Pouilles.svg" alt="" />
@@ -78,8 +98,14 @@ export default function HeroSection() {
                 <img src="/home/Les-Pouilles.svg" alt="" />
                 <img src="/home/Les-Pouilles.svg" alt="" />
               </div>
+              <p className="hp-stat-label">From 16,325 learners</p>
             </div>
           </div>
+
+          <span className="hp-stage-spark is-mentor">
+            <span className="hp-spark-dot" />
+            Verified mentor
+          </span>
         </div>
       </div>
 
