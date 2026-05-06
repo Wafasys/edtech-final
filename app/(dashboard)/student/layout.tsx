@@ -86,14 +86,14 @@ export default function StudentPanelLayout({
         <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-3 shadow-[0_8px_18px_rgba(16,24,40,0.04)]">
           <Link href="/student/dashboard" className="flex items-center gap-3">
             <div className="grid h-10 w-10 place-items-center rounded-lg bg-[#20b486] text-white shadow-[0_8px_18px_rgba(32,180,134,0.22)]">
-              <span className="material-symbols-outlined">school</span>
+              <BookOpenCheck className="h-5 w-5" />
             </div>
             <div className="min-w-0">
               <h2 className="truncate text-base font-black leading-tight tracking-tight text-[#101828]">
-                Admission Pro
+                EdTech LMS
               </h2>
               <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#20b486]">
-                Student Portal
+                Student Panel
               </p>
             </div>
           </Link>
@@ -192,9 +192,9 @@ export default function StudentPanelLayout({
               <BookOpenCheck className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-black leading-none text-[#101828]">Admission Pro</p>
+              <p className="text-sm font-black leading-none text-[#101828]">EdTech LMS</p>
               <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[#20b486]">
-                Student
+                Student Panel
               </p>
             </div>
           </Link>
@@ -257,10 +257,10 @@ export default function StudentPanelLayout({
                 </div>
                 <div className="min-w-0">
                   <h2 className="truncate text-base font-black leading-tight tracking-tight text-[#101828]">
-                    Admission Pro
+                    EdTech LMS
                   </h2>
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#20b486]">
-                    Student Portal
+                    Student Panel
                   </p>
                 </div>
               </Link>
