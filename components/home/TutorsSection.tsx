@@ -160,18 +160,15 @@ export default function TutorsSection() {
   return (
     <section className="hp-tutors">
       <div className="hp-shell">
-        <div className="hp-tutors-head">
-          <div>
-            <span className="hp-eyebrow">Mentors</span>
-            <h2 className="hp-section-title">
-              Mentors who&apos;ve actually sat the exam.
-            </h2>
-          </div>
-          <p className="hp-section-lede" style={{ marginTop: 0 }}>
-            Every mentor on Stitch is a verified BUET, DU, DMC or
-            GST-public alum — not a coaching broker. They&apos;ve sat the
-            exam you&apos;re sitting, and they remember the chapters that
-            cost them marks.
+        <div className="hp-section-head is-center">
+          <span className="hp-eyebrow">Mentors</span>
+          <h2 className="hp-section-title">
+            Mentors who&apos;ve actually sat the exam.
+          </h2>
+          <p className="hp-section-lede">
+            Every mentor on Stitch is a verified BUET, DU or DMC alum — not a
+            coaching broker. They&apos;ve sat the exam you&apos;re sitting,
+            and they remember the chapters that cost them marks.
           </p>
         </div>
       </div>
@@ -184,22 +181,28 @@ export default function TutorsSection() {
               className={`hp-mentor-card hp-subject-${tutor.subject}`}
             >
               <div className="hp-mentor-photo">
+                <img src={tutor.photo} alt="" />
+              </div>
+              <div className="hp-mentor-accent" aria-hidden="true" />
+              <div className="hp-mentor-body">
                 <span className="hp-mentor-subject">
                   <span className="hp-mentor-subject-dot" />
                   {tutor.subjectLabel}
                 </span>
-                <img src={tutor.photo} alt={tutor.name} />
-              </div>
-              <div className="hp-mentor-body">
                 <h3 className="hp-mentor-name">{tutor.name}</h3>
-                <span
-                  className="hp-mentor-inst"
-                  dangerouslySetInnerHTML={{ __html: tutor.institution }}
-                />
-                <span
-                  className="hp-mentor-founder"
-                  dangerouslySetInnerHTML={{ __html: tutor.founder }}
-                />
+                <p className="hp-mentor-meta">
+                  <span
+                    className="hp-mentor-inst"
+                    dangerouslySetInnerHTML={{ __html: tutor.institution }}
+                  />
+                  <span className="hp-mentor-sep" aria-hidden="true">
+                    ·
+                  </span>
+                  <span
+                    className="hp-mentor-founder"
+                    dangerouslySetInnerHTML={{ __html: tutor.founder }}
+                  />
+                </p>
                 <p
                   className="hp-mentor-bio"
                   dangerouslySetInnerHTML={{ __html: tutor.bio }}
