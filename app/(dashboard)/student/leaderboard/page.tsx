@@ -350,15 +350,17 @@ function Podium({ onViewPattern }: { onViewPattern: (student: any) => void }) {
               {student.score}
             </p>
             <p className="mt-1 text-xs font-bold uppercase text-[#98a2b3]">score</p>
-            <Button
-              type="button"
-              variant="default"
-              onClick={() => onViewPattern(student)}
-              className="mt-10 h-11 rounded-md bg-[#20b486] !px-6 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.18)] hover:bg-[#1a906b]"
-            >
-              Analysis
-              <ArrowUpRight className="h-4 w-4" />
-            </Button>
+            <div className="mt-5">
+              <Button
+                type="button"
+                variant="default"
+                onClick={() => onViewPattern(student)}
+                className="h-11 rounded-md bg-[#20b486] !px-6 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.18)] hover:bg-[#1a906b]"
+              >
+                Analysis
+                <ArrowUpRight className="h-4 w-4" />
+              </Button>
+            </div>
           </CardContent>
         </Card>
       ))}
