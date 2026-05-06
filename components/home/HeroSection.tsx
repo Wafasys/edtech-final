@@ -108,18 +108,6 @@ export default function HeroSection() {
           </span>
         </div>
       </div>
-
-      <div className="hp-shell hp-trusted">
-        <span className="hp-trusted-label">
-          Trusted by learners from 250+ partner programs
-        </span>
-        <div className="hp-trusted-row">
-          <img src="/home/Group.svg" alt="" />
-          <img src="/home/Codecov-logo-Black.svg" alt="" />
-          <img src="/home/UserTesting-logo-Black.svg" alt="" />
-          <img src="/home/Magic-Leap-logo-Black.svg" alt="" />
-        </div>
-      </div>
     </section>
   );
 }
