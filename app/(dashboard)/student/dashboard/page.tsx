@@ -1,58 +1,175 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { clearDemoUser } from "../../../../lib/demo-auth";
+import {
+  ArrowRight,
+  BarChart3,
+  BookOpenCheck,
+  CalendarDays,
+  CheckCircle2,
+  Clock3,
+  Flame,
+  GraduationCap,
+  LineChart,
+  ListChecks,
+  Play,
+  Search,
+  Sparkles,
+  Target,
+  Trophy,
+} from "lucide-react";
 
-const BRAND = {
-  green: "#20b486",
-  greenDark: "#1a906b",
-  mint: "#f0faf7",
-  text: "#101828",
-  muted: "#667085",
-  border: "rgba(216,216,216,0.55)",
-};
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const weeklyScores = [48, 56, 52, 64, 71, 69, 78];
-const studyMix = [
-  { label: "Physics", value: 82, color: "#20b486" },
-  { label: "Chemistry", value: 64, color: "#4ac8ae" },
-  { label: "Biology", value: 72, color: "#ff9b26" },
-  { label: "English", value: 46, color: "#3fc89e" },
+
+const stats = [
+  {
+    label: "Weekly accuracy",
+    value: "78%",
+    change: "+6.4%",
+    icon: Target,
+  },
+  {
+    label: "Questions solved",
+    value: "485",
+    change: "+82",
+    icon: CheckCircle2,
+  },
+  {
+    label: "Current rank",
+    value: "#337",
+    change: "Top 12%",
+    icon: Trophy,
+  },
 ];
+
+const plan = [
+  {
+    title: "Physics lesson",
+    detail: "Electromagnetic induction",
+    meta: "31 min",
+    icon: Play,
+    active: true,
+  },
+  {
+    title: "Mistake review",
+    detail: "Model test 07 weak spots",
+    meta: "18 items",
+    icon: ListChecks,
+  },
+  {
+    title: "Timed quiz",
+    detail: "20-question mixed drill",
+    meta: "20 min",
+    icon: Clock3,
+  },
+];
+
 const courses = [
-  { name: "Medical Physics Mastery", icon: "bolt", progress: 78, next: "Magnetism L-12" },
-  { name: "Organic Chemistry Sprint", icon: "science", progress: 61, next: "Aldehydes quiz" },
-  { name: "Biology Rapid Revision", icon: "biotech", progress: 84, next: "Cell cycle mock" },
+  {
+    name: "Medical Physics Mastery",
+    area: "Physics",
+    progress: 78,
+    next: "Magnetism L-12",
+  },
+  {
+    name: "Organic Chemistry Sprint",
+    area: "Chemistry",
+    progress: 61,
+    next: "Aldehydes quiz",
+  },
+  {
+    name: "Biology Rapid Revision",
+    area: "Biology",
+    progress: 84,
+    next: "Cell cycle mock",
+  },
 ];
+
+const subjects = [
+  { label: "Physics", value: 82, color: "bg-[#20b486]" },
+  { label: "Chemistry", value: 64, color: "bg-[#4ac8ae]" },
+  { label: "Biology", value: 72, color: "bg-[#ff9b26]" },
+  { label: "English", value: 46, color: "bg-[#101828]" },
+];
+
 const upcoming = [
-  { day: "09", month: "May", title: "Medical Model Test 08", time: "10:00 AM", tone: "Live in 3 days" },
-  { day: "12", month: "May", title: "Botany Topic Quiz", time: "08:30 PM", tone: "Practice" },
+  {
+    date: "09",
+    month: "May",
+    title: "Medical Model Test 08",
+    time: "10:00 AM",
+    tone: "Live in 3 days",
+  },
+  {
+    date: "12",
+    month: "May",
+    title: "Botany Topic Quiz",
+    time: "08:30 PM",
+    tone: "Practice",
+  },
+  {
+    date: "15",
+    month: "May",
+    title: "Full Syllabus Mock",
+    time: "09:00 PM",
+    tone: "Ranked",
+  },
 ];
 
 function MiniLineChart() {
   const points = weeklyScores
     .map((score, index) => {
-      const x = 12 + index * 44;
-      const y = 100 - ((score - 40) / 42) * 76;
+      const x = 16 + index * 44;
+      const y = 104 - ((score - 40) / 42) * 78;
       return `${x},${y}`;
     })
     .join(" ");
 
   return (
-    <svg viewBox="0 0 288 120" className="h-36 w-full" role="img" aria-label="Weekly score trend">
-      {[24, 52, 80, 108].map((y) => (
-        <line key={y} x1="0" x2="288" y1={y} y2={y} stroke="#e8eee9" strokeWidth="1" />
+    <svg
+      viewBox="0 0 296 128"
+      className="h-40 w-full"
+      role="img"
+      aria-label="Weekly score trend"
+    >
+      {[28, 56, 84, 112].map((y) => (
+        <line
+          key={y}
+          x1="0"
+          x2="296"
+          y1={y}
+          y2={y}
+          stroke="#e7eee9"
+          strokeWidth="1"
+        />
       ))}
-      <polyline points={points} fill="none" stroke={BRAND.green} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline
+        points={points}
+        fill="none"
+        stroke="#20b486"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {weeklyScores.map((score, index) => {
-        const x = 12 + index * 44;
-        const y = 100 - ((score - 40) / 42) * 76;
+        const x = 16 + index * 44;
+        const y = 104 - ((score - 40) / 42) * 78;
         return (
           <g key={index}>
-            <circle cx={x} cy={y} r="5" fill="#fff" stroke={BRAND.green} strokeWidth="3" />
+            <circle cx={x} cy={y} r="5" fill="#fff" stroke="#20b486" strokeWidth="3" />
             {index === weeklyScores.length - 1 && (
-              <text x={x - 8} y={y - 12} fill={BRAND.greenDark} fontSize="12" fontWeight="700">
+              <text x={x - 9} y={y - 14} fill="#1a906b" fontSize="12" fontWeight="800">
                 {score}%
               </text>
             )}
@@ -63,270 +180,396 @@ function MiniLineChart() {
   );
 }
 
-export default function StudentDashboardPage() {
-  const router = useRouter();
-
-  function handleSignOut() {
-    clearDemoUser();
-    router.push("/login");
-  }
-
+function ProgressBar({
+  value,
+  className = "bg-[#20b486]",
+}: {
+  value: number;
+  className?: string;
+}) {
   return (
-    <div className="min-h-screen bg-[#f8fbfa] text-[#101828] pb-24">
-      <header className="sticky top-0 z-50 border-b border-[rgba(216,216,216,0.5)] bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/" className="grid h-10 w-10 place-items-center rounded-full border border-[#d0d5dd] text-[#1a906b] transition hover:bg-[#f0faf7]">
-              <span className="material-symbols-outlined">arrow_back</span>
-            </Link>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#20b486]">Student Portal</p>
-              <h1 className="text-xl font-black tracking-tight text-[#101828]">Admission Pro</h1>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            title="Sign out"
-            className="flex items-center gap-3 rounded-full border border-[#d0d5dd] bg-white py-1.5 pl-2 pr-4 shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition hover:border-[#20b486]"
-          >
-            <img
-              alt="User Profile"
-              className="h-9 w-9 rounded-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7AVCa4cbImZGmJFs9PZrFqrnKiHsrMVbtu_AvNewLKNnd1SYzk4LAGylzk67kVH4NWaatlGp5NVZGyhwPxNVtG-foMlfFChdJjAI8xUo0QMgMqZM7tDCr1m2fVcAY2eKFPD3o8ZfRUEk02shPYJxUE59v9jEE_E6nZY9xCA_0QJ5mRC_OyY9F_ednoy-XwWcvN_dJj00oVywilCOogXpTnOWR_HNK_XlW5DlKA3ZeJROOsiI7tnNKUVkmiNbtZYhtUVCJNUZN_8M"
-            />
-            <span className="hidden text-sm font-semibold text-[#667085] sm:inline">Sign out</span>
-          </button>
-        </div>
-      </header>
+    <div className="h-2 overflow-hidden rounded-full bg-[#edf2ef]">
+      <div className={`h-full rounded-full ${className}`} style={{ width: `${value}%` }} />
+    </div>
+  );
+}
 
-      <main className="mx-auto max-w-7xl px-5 py-8">
-        <section className="grid gap-5 lg:grid-cols-[1.45fr_0.9fr]">
-          <div className="overflow-hidden rounded-xl border border-[rgba(216,216,216,0.55)] bg-white shadow-[0_18px_50px_rgba(16,24,40,0.08)]">
-            <div className="grid min-h-[318px] lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="flex flex-col justify-between p-6 sm:p-7">
-                <div>
-                  <div className="mb-5 flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-[#edfff9] px-3 py-1.5 text-xs font-black text-[#1a906b]">
-                      <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
-                      12 day streak
-                    </span>
-                    <span className="rounded-full bg-[#fff9f3] px-3 py-1.5 text-xs font-black text-[#ff9b26]">
-                      Top 12% this week
-                    </span>
-                  </div>
-                  <h2 className="max-w-xl text-3xl font-black leading-tight tracking-tight text-[#101828] sm:text-4xl">
+export default function StudentDashboardPage() {
+  return (
+    <main className="min-h-screen bg-[#f8fbfa] px-4 py-5 pb-28 text-[#101828] sm:px-6 lg:px-8 lg:py-8 md:pb-8">
+      <div className="mx-auto w-full max-w-[1240px] space-y-5">
+        <section className="grid gap-5 xl:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.75fr)]">
+          <div className="grid gap-5">
+            <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_18px_44px_rgba(16,24,40,0.07)]">
+              <CardContent className="grid gap-6 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
+                <div className="min-w-0">
+                  <Badge className="rounded-md border-0 bg-[#edfff9] px-3 py-1.5 text-[#1a906b] hover:bg-[#edfff9]">
+                    Student dashboard
+                  </Badge>
+                  <h1 className="mt-4 max-w-2xl text-3xl font-black leading-tight text-[#101828] sm:text-4xl">
                     Today&apos;s prep plan is ready.
-                  </h2>
-                  <p className="mt-3 max-w-lg text-sm leading-6 text-[#646464]">
-                    Finish one physics lesson, review yesterday&apos;s mock mistakes, then take a
-                    20-minute timed quiz.
+                  </h1>
+                  <p className="mt-4 max-w-xl text-sm leading-6 text-[#646464]">
+                    One lesson, one mistake review, one timed drill. Keep the day simple
+                    and finish the highest-impact work first.
                   </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Button
+                      asChild
+                      className="h-11 rounded-md bg-[#20b486] px-5 font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.22)] hover:bg-[#1a906b]"
+                    >
+                      <Link href="/student/lessons">
+                        Start plan
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-11 rounded-md border-[#d0d5dd] bg-white px-5 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+                    >
+                      <Link href="/exam/secure-desktop">Timed quiz</Link>
+                    </Button>
+                  </div>
                 </div>
 
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  {[
-                    { icon: "play_circle", title: "Resume", body: "14:22 left" },
-                    { icon: "fact_check", title: "Review", body: "18 mistakes" },
-                    { icon: "timer", title: "Quiz", body: "20 minutes" },
-                  ].map((item) => (
-                    <div key={item.title} className="rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f8fbfa] p-3">
-                      <span className="material-symbols-outlined text-[20px] text-[#20b486]">{item.icon}</span>
-                      <p className="mt-2 text-sm font-black text-[#101828]">{item.title}</p>
-                      <p className="text-xs font-semibold text-[#667085]">{item.body}</p>
+                <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
+                  <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4">
+                    <div className="mb-3 grid h-9 w-9 place-items-center rounded-md bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                      <Flame className="h-[18px] w-[18px]" />
                     </div>
-                  ))}
+                    <p className="text-2xl font-black text-[#101828]">12 days</p>
+                    <p className="mt-1 text-xs font-bold text-[#667085]">current streak</p>
+                  </div>
+                  <div className="rounded-lg border border-[#ffe1bd] bg-[#fff9f3] p-4">
+                    <div className="mb-3 grid h-9 w-9 place-items-center rounded-md bg-white text-[#b25b00] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                      <Trophy className="h-[18px] w-[18px]" />
+                    </div>
+                    <p className="text-2xl font-black text-[#101828]">Top 12%</p>
+                    <p className="mt-1 text-xs font-bold text-[#667085]">this week</p>
+                  </div>
                 </div>
+              </CardContent>
+            </Card>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href="/student/lessons"
-                    className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#20b486] px-5 text-sm font-bold text-white shadow-[0_10px_24px_rgba(32,180,134,0.22)] transition hover:bg-[#1a906b]"
-                  >
-                    Start Plan
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                  </Link>
-                  <Link
-                    href="/exam/secure-desktop"
-                    className="inline-flex h-11 items-center justify-center rounded-full border border-[#d0d5dd] bg-white px-5 text-sm font-bold text-[#101828] transition hover:border-[#20b486] hover:bg-[#f2fffb]"
-                  >
-                    Timed Quiz
-                  </Link>
-                </div>
-              </div>
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1.04fr)_minmax(320px,0.96fr)]">
+              <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+                <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+                  <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                    Today&apos;s sequence
+                  </CardDescription>
+                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                    Three focused tasks
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 p-5 pt-5 sm:p-6 sm:pt-5">
+                  {plan.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={item.title}
+                        className={
+                          item.active
+                            ? "flex items-center gap-4 rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4"
+                            : "flex items-center gap-4 rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-4"
+                        }
+                      >
+                        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                          <Icon className="h-[18px] w-[18px]" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-black text-[#101828]">
+                            {index + 1}. {item.title}
+                          </p>
+                          <p className="mt-1 truncate text-xs font-semibold text-[#667085]">
+                            {item.detail}
+                          </p>
+                        </div>
+                        <Badge className="shrink-0 rounded-md border-0 bg-white text-[#667085] shadow-[0_1px_2px_rgba(16,24,40,0.05)] hover:bg-white">
+                          {item.meta}
+                        </Badge>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </Card>
 
-              <div className="bg-[#f0faf7] p-5">
-                <div className="flex h-full min-h-[260px] flex-col rounded-xl border border-[#dce8e2] bg-white p-5 shadow-[0_10px_24px_rgba(16,24,40,0.05)]">
+              <Card className="rounded-lg border-[#dce8e2] bg-[#f0faf7] shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+                <CardContent className="p-5 sm:p-6">
                   <div className="flex items-start gap-4">
                     <div className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#101828] text-white">
-                      <span className="material-symbols-outlined">bolt</span>
+                      <GraduationCap className="h-6 w-6" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-black uppercase tracking-[0.16em] text-[#20b486]">
-                        Current Focus
+                      <p className="text-xs font-extrabold uppercase text-[#20b486]">
+                        Current focus
                       </p>
-                      <h3 className="mt-2 text-2xl font-black leading-tight text-[#101828]">
+                      <h2 className="mt-2 text-2xl font-black leading-tight text-[#101828]">
                         Electromagnetic Induction
-                      </h3>
+                      </h2>
                       <p className="mt-2 text-sm font-semibold text-[#667085]">
-                        Physics Unit 4 • 31 minutes remaining
+                        Physics Unit 4 - 31 minutes remaining
                       </p>
                     </div>
-                    <span className="material-symbols-outlined grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#20b486] text-white">
-                      bolt
-                    </span>
                   </div>
 
                   <div className="my-6">
-                    <div className="mb-2 flex justify-between text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    <div className="mb-2 flex justify-between text-xs font-extrabold uppercase text-[#667085]">
                       <span>Lesson progress</span>
                       <span>68%</span>
                     </div>
-                    <div className="h-3 overflow-hidden rounded-full bg-[#f2f4f7]">
-                      <div className="h-full w-[68%] rounded-full bg-[#20b486]" />
-                    </div>
+                    <ProgressBar value={68} />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-lg bg-[#f8fbfa] p-4">
+                    <div className="rounded-lg bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
                       <p className="text-2xl font-black text-[#101828]">18</p>
-                      <p className="text-xs font-bold text-[#667085]">mistakes to review</p>
+                      <p className="mt-1 text-xs font-bold text-[#667085]">
+                        mistakes to review
+                      </p>
                     </div>
-                    <div className="rounded-lg bg-[#fff9f3] p-4">
+                    <div className="rounded-lg bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
                       <p className="text-2xl font-black text-[#101828]">20m</p>
-                      <p className="text-xs font-bold text-[#667085]">target quiz time</p>
+                      <p className="mt-1 text-xs font-bold text-[#667085]">
+                        target quiz time
+                      </p>
                     </div>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
 
-          <aside className="grid gap-5 sm:grid-cols-3 lg:grid-cols-1">
-            {[
-              { label: "Weekly Accuracy", value: "78%", icon: "track_changes", delta: "+6.4%" },
-              { label: "Questions Solved", value: "485", icon: "fact_check", delta: "+82" },
-              { label: "Current Rank", value: "#337", icon: "leaderboard", delta: "Top 12%" },
-            ].map((stat) => (
-              <div key={stat.label} className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-5 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
-                    <span className="material-symbols-outlined">{stat.icon}</span>
-                  </div>
-                  <span className="rounded-full bg-[#f2fffb] px-3 py-1 text-xs font-bold text-[#1a906b]">
-                    {stat.delta}
-                  </span>
-                </div>
-                <p className="text-sm font-semibold text-[#667085]">{stat.label}</p>
-                <p className="mt-1 text-3xl font-black text-[#101828]">{stat.value}</p>
-              </div>
-            ))}
-          </aside>
+          <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <Card
+                  key={stat.label}
+                  className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]"
+                >
+                  <CardContent className="p-5">
+                    <div className="mb-5 flex items-center justify-between gap-3">
+                      <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <Badge className="rounded-md border-0 bg-[#f2fffb] text-[#1a906b] hover:bg-[#f2fffb]">
+                        {stat.change}
+                      </Badge>
+                    </div>
+                    <p className="text-sm font-semibold text-[#667085]">{stat.label}</p>
+                    <p className="mt-1 text-3xl font-black text-[#101828]">{stat.value}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </section>
 
-        <section className="mt-6 grid gap-5 lg:grid-cols-[1fr_0.82fr]">
-          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-            <div className="mb-4 flex items-start justify-between gap-4">
+        <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]">
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 p-5 pb-0 sm:p-6 sm:pb-0">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Score Trend</p>
-                <h3 className="mt-1 text-2xl font-black text-[#101828]">Weekly performance</h3>
+                <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Score trend
+                </CardDescription>
+                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                  Weekly performance
+                </CardTitle>
               </div>
-              <span className="rounded-full bg-[#edfff9] px-3 py-1 text-sm font-bold text-[#1a906b]">
+              <Badge className="rounded-md border-0 bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
                 +12.5%
-              </span>
-            </div>
-            <MiniLineChart />
-            <div className="mt-2 grid grid-cols-7 text-center text-xs font-bold text-[#98a2b3]">
-              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
-                <span key={day}>{day}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-            <div className="mb-5 flex items-start justify-between">
-              <div>
-                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Study Mix</p>
-                <h3 className="mt-1 text-2xl font-black text-[#101828]">Subject progress</h3>
+              </Badge>
+            </CardHeader>
+            <CardContent className="p-5 pt-4 sm:p-6 sm:pt-4">
+              <MiniLineChart />
+              <div className="mt-2 grid grid-cols-7 text-center text-xs font-bold text-[#98a2b3]">
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                  <span key={day}>{day}</span>
+                ))}
               </div>
-              <span className="material-symbols-outlined text-[#20b486]">insights</span>
-            </div>
-            <div className="space-y-4">
-              {studyMix.map((item) => (
-                <div key={item.label}>
-                  <div className="mb-2 flex justify-between text-sm">
-                    <span className="font-bold text-[#101828]">{item.label}</span>
-                    <span className="font-bold text-[#667085]">{item.value}%</span>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 p-5 pb-0 sm:p-6 sm:pb-0">
+              <div>
+                <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Study mix
+                </CardDescription>
+                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                  Subject progress
+                </CardTitle>
+              </div>
+              <BarChart3 className="h-5 w-5 text-[#20b486]" />
+            </CardHeader>
+            <CardContent className="space-y-4 p-5 pt-5 sm:p-6 sm:pt-5">
+              {subjects.map((subject) => (
+                <div key={subject.label}>
+                  <div className="mb-2 flex justify-between gap-3 text-sm">
+                    <span className="font-bold text-[#101828]">{subject.label}</span>
+                    <span className="font-bold text-[#667085]">{subject.value}%</span>
                   </div>
-                  <div className="h-3 overflow-hidden rounded-full bg-[#f2f4f7]">
-                    <div className="h-full rounded-full" style={{ width: `${item.value}%`, backgroundColor: item.color }} />
-                  </div>
+                  <ProgressBar value={subject.value} className={subject.color} />
                 </div>
               ))}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </section>
 
-        <section className="mt-6 grid gap-5 xl:grid-cols-[1fr_0.72fr]">
-          <div>
-            <div className="mb-4 flex items-end justify-between">
+        <section className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(320px,0.72fr)]">
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 p-5 pb-0 sm:p-6 sm:pb-0">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Courses</p>
-                <h3 className="text-2xl font-black text-[#101828]">Active learning paths</h3>
+                <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Courses
+                </CardDescription>
+                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                  Active learning paths
+                </CardTitle>
               </div>
-              <Link href="/student/search" className="text-sm font-bold text-[#1a906b] hover:underline">
-                Browse all
-              </Link>
-            </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {courses.map((course) => (
-                <article key={course.name} className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-5 shadow-[0_12px_28px_rgba(16,24,40,0.05)] transition hover:-translate-y-0.5 hover:border-[#20b486]">
-                  <div className="mb-5 flex items-center justify-between">
-                    <div className="grid h-12 w-12 place-items-center rounded-lg bg-[#f0faf7] text-[#20b486]">
-                      <span className="material-symbols-outlined">{course.icon}</span>
+              <Button
+                asChild
+                variant="ghost"
+                className="h-9 rounded-md px-3 text-sm font-extrabold text-[#1a906b] hover:bg-[#edfff9] hover:text-[#1a906b]"
+              >
+                <Link href="/student/search">
+                  <Search className="h-4 w-4" />
+                  Browse
+                </Link>
+              </Button>
+            </CardHeader>
+            <CardContent className="p-5 pt-5 sm:p-6 sm:pt-5">
+              <Tabs defaultValue="active" className="w-full">
+                <TabsList className="mb-5 h-10 rounded-lg bg-[#f0faf7] p-1">
+                  <TabsTrigger
+                    value="active"
+                    className="rounded-md px-4 text-sm font-bold data-[state=active]:bg-white data-[state=active]:text-[#101828]"
+                  >
+                    Active
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="review"
+                    className="rounded-md px-4 text-sm font-bold data-[state=active]:bg-white data-[state=active]:text-[#101828]"
+                  >
+                    Review
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="active" className="m-0">
+                  <div className="grid gap-4 md:grid-cols-3">
+                    {courses.map((course) => (
+                      <article
+                        key={course.name}
+                        className="rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-4 transition hover:border-[#20b486] hover:bg-white"
+                      >
+                        <div className="mb-5 flex items-center justify-between gap-3">
+                          <div className="grid h-11 w-11 place-items-center rounded-lg bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                            <BookOpenCheck className="h-5 w-5" />
+                          </div>
+                          <Badge className="rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]">
+                            {course.progress}%
+                          </Badge>
+                        </div>
+                        <p className="text-xs font-extrabold uppercase text-[#20b486]">
+                          {course.area}
+                        </p>
+                        <h3 className="mt-2 min-h-[44px] text-base font-black leading-snug text-[#101828]">
+                          {course.name}
+                        </h3>
+                        <p className="mt-2 truncate text-sm text-[#667085]">Next: {course.next}</p>
+                        <div className="mt-5">
+                          <ProgressBar value={course.progress} />
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </TabsContent>
+                <TabsContent value="review" className="m-0">
+                  <div className="rounded-lg border border-dashed border-[#c9efe4] bg-[#f2fffb] p-5">
+                    <div className="flex items-start gap-3">
+                      <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[#20b486]" />
+                      <div>
+                        <h3 className="font-black text-[#101828]">Review queue</h3>
+                        <p className="mt-1 text-sm leading-6 text-[#667085]">
+                          18 mistakes from the last model test are ready for focused revision.
+                        </p>
+                      </div>
                     </div>
-                    <span className="text-sm font-black text-[#20b486]">{course.progress}%</span>
                   </div>
-                  <h4 className="text-base font-black text-[#101828]">{course.name}</h4>
-                  <p className="mt-1 text-sm text-[#667085]">Next: {course.next}</p>
-                  <div className="mt-5 h-2 overflow-hidden rounded-full bg-[#f2f4f7]">
-                    <div className="h-full rounded-full bg-[#20b486]" style={{ width: `${course.progress}%` }} />
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
 
-          <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-white p-6 shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-            <div className="mb-5 flex items-center justify-between">
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 p-5 pb-0 sm:p-6 sm:pb-0">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#20b486]">Schedule</p>
-                <h3 className="text-2xl font-black text-[#101828]">Upcoming exams</h3>
+                <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Schedule
+                </CardDescription>
+                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                  Upcoming exams
+                </CardTitle>
               </div>
-              <Link href="/student/results" className="grid h-10 w-10 place-items-center rounded-full bg-[#edfff9] text-[#20b486]">
-                <span className="material-symbols-outlined">calendar_month</span>
-              </Link>
-            </div>
-            <div className="space-y-3">
+              <Button
+                asChild
+                variant="ghost"
+                size="icon"
+                className="h-10 w-10 rounded-lg bg-[#edfff9] text-[#20b486] hover:bg-[#dff8ef] hover:text-[#1a906b]"
+              >
+                <Link href="/student/results" aria-label="View exam schedule">
+                  <CalendarDays className="h-5 w-5" />
+                </Link>
+              </Button>
+            </CardHeader>
+            <CardContent className="space-y-3 p-5 pt-5 sm:p-6 sm:pt-5">
               {upcoming.map((exam) => (
-                <div key={exam.title} className="flex items-center gap-4 rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4">
-                  <div className="min-w-[58px] rounded-lg bg-white p-2 text-center shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                <div
+                  key={exam.title}
+                  className="flex min-w-0 items-center gap-4 rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-4"
+                >
+                  <div className="w-[58px] shrink-0 rounded-lg bg-white p-2 text-center shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
                     <p className="text-xs font-bold uppercase text-[#667085]">{exam.month}</p>
-                    <p className="text-2xl font-black text-[#20b486]">{exam.day}</p>
+                    <p className="text-2xl font-black text-[#20b486]">{exam.date}</p>
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h4 className="truncate text-sm font-black text-[#101828]">{exam.title}</h4>
-                    <p className="text-sm text-[#667085]">{exam.time}</p>
+                    <h3 className="truncate text-sm font-black text-[#101828]">{exam.title}</h3>
+                    <p className="mt-1 text-sm text-[#667085]">{exam.time}</p>
                   </div>
-                  <span className="hidden rounded-full bg-[#edfff9] px-3 py-1 text-xs font-bold text-[#1a906b] sm:inline">
+                  <Badge className="hidden shrink-0 rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9] sm:inline-flex">
                     {exam.tone}
-                  </span>
+                  </Badge>
                 </div>
               ))}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </section>
-      </main>
-    </div>
+
+        <Card className="rounded-lg border-[#ffe1bd] bg-[#fff9f3] text-[#101828] shadow-[0_16px_32px_rgba(16,24,40,0.08)]">
+          <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div className="flex items-start gap-3">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[#101828] text-[#f5c542]">
+                <LineChart className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-lg font-black">This week&apos;s target is still reachable.</h2>
+                <p className="mt-1 text-sm leading-6 text-[#667085]">
+                  Complete 4 more study hours to hit the weekly goal before Friday night.
+                </p>
+              </div>
+            </div>
+            <Button
+              asChild
+              className="h-11 shrink-0 rounded-md bg-[#f5c542] px-5 font-extrabold text-[#101828] shadow-[0_12px_24px_rgba(245,197,66,0.22)] hover:bg-[#e8b72f]"
+            >
+              <Link href="/student/lessons">
+                Continue learning
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </main>
   );
 }
