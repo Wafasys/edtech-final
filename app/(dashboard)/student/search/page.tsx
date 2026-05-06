@@ -39,69 +39,278 @@ const quickFilters = [
   "GST English",
 ];
 
-const mcqs = [
-  {
-    source: "DU A-Unit 2022",
-    title: "Which of the following is an electrophilic addition reaction?",
-    snippet:
-      "Reaction of ethene with bromine is a classic example of electrophilic addition because the pi bond attracts the electrophile.",
-    meta: "12 matches",
-    difficulty: "Medium",
-  },
-  {
-    source: "Organic Basics",
-    title: "The hybridization of carbon in benzene is-",
-    snippet:
-      "Each carbon atom in the benzene ring is sp2 hybridized, forming a delocalized system of electrons.",
-    meta: "8 matches",
-    difficulty: "Easy",
-  },
-  {
-    source: "Medical 2021",
-    title: "Which reagent identifies unsaturation in hydrocarbons?",
-    snippet:
-      "Bromine water decolorizes in the presence of a carbon-carbon double bond under standard test conditions.",
-    meta: "5 matches",
-    difficulty: "High yield",
-  },
-];
+type TrackKey = "medical" | "engineering" | "du";
 
-const videos = [
-  {
-    title: "Organic Chemistry: Reaction Mechanisms",
-    mentor: "Dr. Rahman",
-    duration: "24:15",
-    progress: "Watched 62%",
-    tone: "Recommended",
-  },
-  {
-    title: "Isomerism and Stereochemistry Masterclass",
-    mentor: "Prof. Karim",
-    duration: "42:08",
-    progress: "New lesson",
-    tone: "Core concept",
-  },
-];
+type McqItem = {
+  source: string;
+  title: string;
+  snippet: string;
+  meta: string;
+  difficulty: string;
+};
 
-const notes = [
-  {
-    title: "Nomenclature of Alkanes and Alkenes",
-    detail: "IUPAC rules with 50+ naming exercises",
-    type: "PDF",
-  },
-  {
-    title: "Handwritten Notes: Benzene Derivatives",
-    detail: "Resonance structures and directing effects",
-    type: "Scan",
-  },
-  {
-    title: "Quick Revision: Functional Groups",
-    detail: "One-page cheat sheet for fast memorization",
-    type: "Sheet",
-  },
-];
+type VideoItem = {
+  title: string;
+  mentor: string;
+  duration: string;
+  progress: string;
+  tone: string;
+};
 
-const focusTags = ["Chapter 7", "Admission pattern", "Weak area"];
+type NoteItem = {
+  title: string;
+  detail: string;
+  type: string;
+};
+
+const trackData: Record<
+  TrackKey,
+  {
+    label: string;
+    shortLabel: string;
+    query: string;
+    context: string;
+    focusTags: string[];
+    totals: { results: number; videos: number; notes: number };
+    difficulty: { label: string; count: string; active?: boolean }[];
+    sources: { label: string; count: string; icon: React.ElementType }[];
+    mcqs: McqItem[];
+    videos: VideoItem[];
+    notes: NoteItem[];
+  }
+> = {
+  medical: {
+    label: "Medical admission",
+    shortLabel: "Medical",
+    query: "Medical Organic Chemistry",
+    context: "Organic is your current weak area.",
+    focusTags: ["Chapter 7", "Admission pattern", "Weak area"],
+    totals: { results: 23, videos: 4, notes: 7 },
+    difficulty: [
+      { label: "Easy", count: "18" },
+      { label: "Medium", count: "23", active: true },
+      { label: "Hard", count: "9" },
+    ],
+    sources: [
+      { label: "MCQ bank", count: "12", icon: HelpCircle },
+      { label: "Video lessons", count: "4", icon: PlayCircle },
+      { label: "Class notes", count: "7", icon: FileText },
+    ],
+    mcqs: [
+      {
+        source: "Medical 2021",
+        title: "Which reagent identifies unsaturation in hydrocarbons?",
+        snippet:
+          "Bromine water decolorizes in the presence of a carbon-carbon double bond under standard test conditions.",
+        meta: "12 matches",
+        difficulty: "High yield",
+      },
+      {
+        source: "Organic Basics",
+        title: "The hybridization of carbon in benzene is-",
+        snippet:
+          "Each carbon atom in the benzene ring is sp2 hybridized, forming a delocalized system of electrons.",
+        meta: "8 matches",
+        difficulty: "Easy",
+      },
+      {
+        source: "Medical Model 08",
+        title: "Which compound gives a positive iodoform test?",
+        snippet:
+          "Methyl ketones and ethanol-type structures produce the yellow iodoform precipitate in alkaline iodine.",
+        meta: "5 matches",
+        difficulty: "Medium",
+      },
+    ],
+    videos: [
+      {
+        title: "Organic Chemistry: Reaction Mechanisms",
+        mentor: "Dr. Rahman",
+        duration: "24:15",
+        progress: "Watched 62%",
+        tone: "Recommended",
+      },
+      {
+        title: "Isomerism and Stereochemistry Masterclass",
+        mentor: "Prof. Karim",
+        duration: "42:08",
+        progress: "New lesson",
+        tone: "Core concept",
+      },
+    ],
+    notes: [
+      {
+        title: "Nomenclature of Alkanes and Alkenes",
+        detail: "IUPAC rules with 50+ naming exercises",
+        type: "PDF",
+      },
+      {
+        title: "Handwritten Notes: Benzene Derivatives",
+        detail: "Resonance structures and directing effects",
+        type: "Scan",
+      },
+      {
+        title: "Quick Revision: Functional Groups",
+        detail: "One-page cheat sheet for fast memorization",
+        type: "Sheet",
+      },
+    ],
+  },
+  engineering: {
+    label: "Engineering admission",
+    shortLabel: "Eng.",
+    query: "BUET Physics Vector",
+    context: "Mechanics and vectors need the most review.",
+    focusTags: ["BUET pattern", "Vector algebra", "Mechanics"],
+    totals: { results: 31, videos: 6, notes: 5 },
+    difficulty: [
+      { label: "Easy", count: "10" },
+      { label: "Medium", count: "17" },
+      { label: "Hard", count: "14", active: true },
+    ],
+    sources: [
+      { label: "MCQ bank", count: "20", icon: HelpCircle },
+      { label: "Video lessons", count: "6", icon: PlayCircle },
+      { label: "Class notes", count: "5", icon: FileText },
+    ],
+    mcqs: [
+      {
+        source: "BUET 2020",
+        title: "A projectile has maximum range when the launch angle is-",
+        snippet:
+          "For same launch speed on level ground, range is maximum when sin 2 theta reaches its maximum value.",
+        meta: "20 matches",
+        difficulty: "Hard",
+      },
+      {
+        source: "KUET Model",
+        title: "The dot product of two perpendicular vectors is-",
+        snippet:
+          "When vectors are perpendicular, cos 90 degrees is zero, so their scalar product becomes zero.",
+        meta: "7 matches",
+        difficulty: "Medium",
+      },
+      {
+        source: "Engineering Drill",
+        title: "Which condition gives translational equilibrium?",
+        snippet:
+          "The vector sum of all external forces must be zero for a rigid body to stay in translational equilibrium.",
+        meta: "4 matches",
+        difficulty: "High yield",
+      },
+    ],
+    videos: [
+      {
+        title: "BUET Mechanics: Projectile Motion Shortcuts",
+        mentor: "Imtiaz Rahman",
+        duration: "36:40",
+        progress: "Watched 28%",
+        tone: "BUET focus",
+      },
+      {
+        title: "Vectors for Engineering Admission",
+        mentor: "Rifat Hossain",
+        duration: "29:12",
+        progress: "New lesson",
+        tone: "Formula drill",
+      },
+    ],
+    notes: [
+      {
+        title: "Vector Formula Sheet",
+        detail: "Dot, cross, projection, and quick geometry rules",
+        type: "Sheet",
+      },
+      {
+        title: "Projectile Motion Problem Bank",
+        detail: "40 BUET-style problems with answer keys",
+        type: "PDF",
+      },
+      {
+        title: "Newtonian Mechanics Summary",
+        detail: "Force diagrams and common trap questions",
+        type: "Notes",
+      },
+    ],
+  },
+  du: {
+    label: "DU admission",
+    shortLabel: "DU",
+    query: "DU A Unit English",
+    context: "English grammar is costing speed in mocks.",
+    focusTags: ["DU A-Unit", "Grammar", "Timed practice"],
+    totals: { results: 27, videos: 3, notes: 9 },
+    difficulty: [
+      { label: "Easy", count: "14" },
+      { label: "Medium", count: "19", active: true },
+      { label: "Hard", count: "6" },
+    ],
+    sources: [
+      { label: "MCQ bank", count: "15", icon: HelpCircle },
+      { label: "Video lessons", count: "3", icon: PlayCircle },
+      { label: "Class notes", count: "9", icon: FileText },
+    ],
+    mcqs: [
+      {
+        source: "DU A-Unit 2022",
+        title: "Choose the correct synonym of 'meticulous'.",
+        snippet:
+          "Meticulous means extremely careful and precise, especially when handling detailed work.",
+        meta: "15 matches",
+        difficulty: "Medium",
+      },
+      {
+        source: "DU Grammar Drill",
+        title: "Identify the incorrect part: He prefers tea than coffee.",
+        snippet:
+          "The correct idiom is prefer one thing to another, so 'than' should be replaced by 'to'.",
+        meta: "9 matches",
+        difficulty: "High yield",
+      },
+      {
+        source: "DU Model Test",
+        title: "Select the correctly punctuated sentence.",
+        snippet:
+          "Comma placement and semicolon usage are common DU English speed traps in timed tests.",
+        meta: "3 matches",
+        difficulty: "Medium",
+      },
+    ],
+    videos: [
+      {
+        title: "DU English Grammar: Error Detection",
+        mentor: "Sanjida Rahman",
+        duration: "31:05",
+        progress: "Watched 44%",
+        tone: "DU focus",
+      },
+      {
+        title: "Vocabulary That Repeats in DU A-Unit",
+        mentor: "Riyad Chowdhury",
+        duration: "18:22",
+        progress: "New lesson",
+        tone: "Speed drill",
+      },
+    ],
+    notes: [
+      {
+        title: "DU English Grammar Rulebook",
+        detail: "Common correction patterns with examples",
+        type: "PDF",
+      },
+      {
+        title: "Vocabulary Repeat List",
+        detail: "300 words from recent DU and GST questions",
+        type: "Sheet",
+      },
+      {
+        title: "Bangla and English Mixed Revision",
+        detail: "Fast review pack for A-Unit candidates",
+        type: "Notes",
+      },
+    ],
+  },
+};
 
 function Highlight({ children }: { children: React.ReactNode }) {
   return (
@@ -112,7 +321,14 @@ function Highlight({ children }: { children: React.ReactNode }) {
 }
 
 export default function SmartSearchPage() {
-  const [query, setQuery] = useState("Organic Chemistry");
+  const [activeTrack, setActiveTrack] = useState<TrackKey>("medical");
+  const [query, setQuery] = useState(trackData.medical.query);
+  const activeData = trackData[activeTrack];
+
+  function selectTrack(track: TrackKey) {
+    setActiveTrack(track);
+    setQuery(trackData[track].query);
+  }
 
   return (
     <main className="min-h-screen bg-[#f8fbfa] px-4 py-5 pb-28 text-[#101828] sm:px-6 lg:px-8 lg:py-8 md:pb-8">
@@ -196,12 +412,12 @@ export default function SmartSearchPage() {
                     Search context
                   </p>
                   <h2 className="mt-1 text-xl font-black text-[#101828]">
-                    Organic is your current weak area.
+                    {activeData.context}
                   </h2>
                 </div>
               </div>
               <div className="space-y-3">
-                {focusTags.map((tag) => (
+                {activeData.focusTags.map((tag) => (
                   <div
                     key={tag}
                     className="flex items-center justify-between rounded-lg bg-white p-3 shadow-[0_1px_2px_rgba(16,24,40,0.05)]"
@@ -214,15 +430,21 @@ export default function SmartSearchPage() {
               <Separator className="my-5 bg-[#f1d4af]" />
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div>
-                  <p className="text-2xl font-black text-[#101828]">23</p>
+                  <p className="text-2xl font-black text-[#101828]">
+                    {activeData.totals.results}
+                  </p>
                   <p className="text-xs font-bold text-[#667085]">results</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-black text-[#101828]">4</p>
+                  <p className="text-2xl font-black text-[#101828]">
+                    {activeData.totals.videos}
+                  </p>
                   <p className="text-xs font-bold text-[#667085]">videos</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-black text-[#101828]">7</p>
+                  <p className="text-2xl font-black text-[#101828]">
+                    {activeData.totals.notes}
+                  </p>
                   <p className="text-xs font-bold text-[#667085]">notes</p>
                 </div>
               </div>
@@ -238,7 +460,7 @@ export default function SmartSearchPage() {
                 Search scope
               </CardDescription>
               <CardTitle className="mt-1 text-xl font-black text-[#101828]">
-                Medical admission
+                {activeData.label}
               </CardTitle>
               <p className="mt-2 text-sm font-semibold leading-5 text-[#667085]">
                 Showing high-yield results from your current target track.
@@ -246,17 +468,18 @@ export default function SmartSearchPage() {
             </CardHeader>
             <CardContent className="space-y-5 p-5">
               <div className="grid grid-cols-3 gap-2 rounded-lg bg-[#f8fbfa] p-1">
-                {["Medical", "Eng.", "DU"].map((item) => (
+                {(Object.keys(trackData) as TrackKey[]).map((track) => (
                   <button
-                    key={item}
+                    key={track}
                     type="button"
+                    onClick={() => selectTrack(track)}
                     className={
-                      item === "Medical"
+                      track === activeTrack
                         ? "h-9 rounded-md bg-[#20b486] text-xs font-black text-white shadow-[0_8px_18px_rgba(32,180,134,0.18)]"
                         : "h-9 rounded-md text-xs font-black text-[#667085] transition hover:bg-white hover:text-[#101828]"
                     }
                   >
-                    {item}
+                    {trackData[track].shortLabel}
                   </button>
                 ))}
               </div>
@@ -267,27 +490,25 @@ export default function SmartSearchPage() {
                     Difficulty
                   </p>
                   <Badge className="rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]">
-                    Medium
+                    {activeData.difficulty.find((item) => item.active)?.label ?? "All"}
                   </Badge>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  {[
-                    ["Easy", "18"],
-                    ["Medium", "23"],
-                    ["Hard", "9"],
-                  ].map(([item, count]) => (
+                  {activeData.difficulty.map((item) => (
                     <button
-                      key={item}
+                      key={item.label}
                       type="button"
                       className={
-                        item === "Medium"
+                        item.active
                           ? "rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-3 text-left"
                           : "rounded-lg border border-[rgba(216,216,216,0.65)] bg-white p-3 text-left transition hover:border-[#20b486] hover:bg-[#f2fffb]"
                       }
                     >
-                      <span className="block text-sm font-black text-[#101828]">{count}</span>
+                      <span className="block text-sm font-black text-[#101828]">
+                        {item.count}
+                      </span>
                       <span className="mt-1 block text-[11px] font-bold text-[#667085]">
-                        {item}
+                        {item.label}
                       </span>
                     </button>
                   ))}
@@ -297,13 +518,9 @@ export default function SmartSearchPage() {
               <Separator className="bg-[#eaecf0]" />
 
               <div className="space-y-2">
-                {[
-                  ["MCQ bank", "12", HelpCircle],
-                  ["Video lessons", "4", PlayCircle],
-                  ["Class notes", "7", FileText],
-                ].map(([label, count, Icon]) => (
+                {activeData.sources.map(({ label, count, icon: Icon }) => (
                   <button
-                    key={label as string}
+                    key={label}
                     type="button"
                     className="flex w-full items-center gap-3 rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-3 text-left transition hover:border-[#20b486] hover:bg-[#f2fffb]"
                   >
@@ -312,10 +529,10 @@ export default function SmartSearchPage() {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-black text-[#101828]">
-                        {label as string}
+                        {label}
                       </span>
                       <span className="text-xs font-semibold text-[#667085]">
-                        {count as string} matches
+                        {count} matches
                       </span>
                     </span>
                     <CheckCircle2 className="h-4 w-4 shrink-0 text-[#20b486]" />
@@ -374,25 +591,25 @@ export default function SmartSearchPage() {
             </Card>
 
             <TabsContent value="all" className="mt-5 space-y-5">
-              <ResultGroup title="MCQ Questions" count="12 matches" icon={HelpCircle}>
+              <ResultGroup title="MCQ Questions" count={`${activeData.sources[0].count} matches`} icon={HelpCircle}>
                 <div className="space-y-3">
-                  {mcqs.slice(0, 2).map((item) => (
+                  {activeData.mcqs.slice(0, 2).map((item) => (
                     <McqResult key={item.title} item={item} />
                   ))}
                 </div>
               </ResultGroup>
-              <ResultGroup title="Video Lectures" count="4 matches" icon={PlayCircle}>
-                <VideoGrid />
+              <ResultGroup title="Video Lectures" count={`${activeData.sources[1].count} matches`} icon={PlayCircle}>
+                <VideoGrid videos={activeData.videos} />
               </ResultGroup>
-              <ResultGroup title="Class Notes" count="7 matches" icon={FileText}>
-                <NotesList />
+              <ResultGroup title="Class Notes" count={`${activeData.sources[2].count} matches`} icon={FileText}>
+                <NotesList notes={activeData.notes} />
               </ResultGroup>
             </TabsContent>
 
             <TabsContent value="mcqs" className="mt-5">
-              <ResultGroup title="MCQ Questions" count="12 matches" icon={HelpCircle}>
+              <ResultGroup title="MCQ Questions" count={`${activeData.sources[0].count} matches`} icon={HelpCircle}>
                 <div className="space-y-3">
-                  {mcqs.map((item) => (
+                  {activeData.mcqs.map((item) => (
                     <McqResult key={item.title} item={item} />
                   ))}
                 </div>
@@ -400,14 +617,14 @@ export default function SmartSearchPage() {
             </TabsContent>
 
             <TabsContent value="videos" className="mt-5">
-              <ResultGroup title="Video Lectures" count="4 matches" icon={PlayCircle}>
-                <VideoGrid />
+              <ResultGroup title="Video Lectures" count={`${activeData.sources[1].count} matches`} icon={PlayCircle}>
+                <VideoGrid videos={activeData.videos} />
               </ResultGroup>
             </TabsContent>
 
             <TabsContent value="notes" className="mt-5">
-              <ResultGroup title="Class Notes" count="7 matches" icon={FileText}>
-                <NotesList />
+              <ResultGroup title="Class Notes" count={`${activeData.sources[2].count} matches`} icon={FileText}>
+                <NotesList notes={activeData.notes} />
               </ResultGroup>
             </TabsContent>
           </Tabs>
@@ -505,7 +722,7 @@ function McqResult({
   );
 }
 
-function VideoGrid() {
+function VideoGrid({ videos }: { videos: VideoItem[] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       {videos.map((video) => (
@@ -554,7 +771,7 @@ function VideoGrid() {
   );
 }
 
-function NotesList() {
+function NotesList({ notes }: { notes: NoteItem[] }) {
   return (
     <div className="overflow-hidden rounded-lg border border-[rgba(216,216,216,0.65)]">
       {notes.map((note, index) => (
