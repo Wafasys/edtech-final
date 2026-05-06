@@ -1,14 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
+import { useMemo, useState } from "react";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  ArrowLeft,
+  Bold,
+  Check,
+  Clock3,
+  ExternalLink,
+  Filter,
+  Inbox,
+  Italic,
+  MessageSquareText,
+  Paperclip,
+  Pin,
+  PlayCircle,
+  Search,
+  Send,
+  Sigma,
+  Sparkles,
+  TimerReset,
+  UserRound,
+} from "lucide-react";
+
+type QuestionStatus = "urgent" | "new" | "draft";
 
 type Question = {
   id: string;
@@ -19,6 +34,9 @@ type Question = {
   full: string;
   videoTitle: string;
   videoMoment: string;
+  status: QuestionStatus;
+  confidence: string;
+  attempts: number;
   hasAttachment?: boolean;
 };
 
@@ -33,6 +51,9 @@ const QUESTIONS: Question[] = [
     full: "Sir, I don't understand how the right-hand rule applies to this specific Lenz's Law problem. If the magnet is moving away, should the induced field oppose the change or the motion? The textbook says one thing, but your explanation in the video at 14:22 feels different.",
     videoTitle: "Physics L-08: Electromagnetic Induction (Part 2)",
     videoMoment: "14:22",
+    status: "urgent",
+    confidence: "Low confidence",
+    attempts: 3,
     hasAttachment: true,
   },
   {
@@ -44,6 +65,9 @@ const QUESTIONS: Question[] = [
     full: "Is the displacement current formula required for the engineering exam? I want to make sure I'm not skipping anything important.",
     videoTitle: "Physics L-08: Electromagnetic Induction (Part 2)",
     videoMoment: "08:10",
+    status: "new",
+    confidence: "Medium confidence",
+    attempts: 1,
   },
   {
     id: "q3",
@@ -54,6 +78,9 @@ const QUESTIONS: Question[] = [
     full: "Can you explain the stability of carbocations again? I keep mixing up the order of stability between primary, secondary and tertiary.",
     videoTitle: "Chemistry L-12: Carbocation Rearrangements",
     videoMoment: "09:45",
+    status: "draft",
+    confidence: "Medium confidence",
+    attempts: 2,
   },
   {
     id: "q4",
@@ -64,350 +91,451 @@ const QUESTIONS: Question[] = [
     full: "Apu, the dihybrid cross ratio confuses me when one allele is incompletely dominant. Could you walk through the 9:3:3:1 modification with a quick example?",
     videoTitle: "Biology L-04: Mendelian Genetics",
     videoMoment: "21:08",
+    status: "urgent",
+    confidence: "Low confidence",
+    attempts: 4,
   },
 ];
 
-const TOOLBAR_ICONS = [
-  { icon: "format_bold", label: "Bold" },
-  { icon: "format_italic", label: "Italic" },
-  { icon: "attachment", label: "Attach" },
-  { icon: "functions", label: "Equation" },
+const FILTERS: Array<{ value: "all" | QuestionStatus; label: string }> = [
+  { value: "all", label: "All" },
+  { value: "urgent", label: "Urgent" },
+  { value: "new", label: "New" },
+  { value: "draft", label: "Drafts" },
 ];
 
+const TOOLS = [
+  { icon: Bold, label: "Bold" },
+  { icon: Italic, label: "Italic" },
+  { icon: Paperclip, label: "Attach" },
+  { icon: Sigma, label: "Equation" },
+];
+
+function statusClass(status: QuestionStatus) {
+  if (status === "urgent") {
+    return "border-[#ffb3b0] bg-[#fff5f4] text-[#93000a]";
+  }
+
+  if (status === "draft") {
+    return "border-[#d9dadb] bg-[#f3f4f5] text-[#444652]";
+  }
+
+  return "border-[#b4c5ff] bg-[#edf1ff] text-[#001d59]";
+}
+
 export default function InstructorQAPage() {
-  const [activeId, setActiveId] = useState<string>(QUESTIONS[0].id);
-  const [filter, setFilter] = useState("");
+  const [activeId, setActiveId] = useState(QUESTIONS[0].id);
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState<"all" | QuestionStatus>("all");
   const [reply, setReply] = useState("");
 
-  const filtered = QUESTIONS.filter(
-    (q) =>
-      filter === "" ||
-      q.student.toLowerCase().includes(filter.toLowerCase()) ||
-      q.videoTitle.toLowerCase().includes(filter.toLowerCase()) ||
-      q.preview.toLowerCase().includes(filter.toLowerCase()),
+  const filtered = useMemo(() => {
+    const term = query.trim().toLowerCase();
+
+    return QUESTIONS.filter((question) => {
+      const matchesFilter = filter === "all" || question.status === filter;
+      const matchesTerm =
+        term === "" ||
+        question.student.toLowerCase().includes(term) ||
+        question.group.toLowerCase().includes(term) ||
+        question.videoTitle.toLowerCase().includes(term) ||
+        question.preview.toLowerCase().includes(term);
+
+      return matchesFilter && matchesTerm;
+    });
+  }, [filter, query]);
+
+  const grouped = useMemo(
+    () =>
+      filtered.reduce<Record<string, Question[]>>((groups, question) => {
+        (groups[question.group] ??= []).push(question);
+        return groups;
+      }, {}),
+    [filtered],
   );
-  const grouped = filtered.reduce<Record<string, Question[]>>((acc, q) => {
-    (acc[q.group] ??= []).push(q);
-    return acc;
-  }, {});
-  const active = QUESTIONS.find((q) => q.id === activeId) ?? QUESTIONS[0];
+
+  const active = QUESTIONS.find((question) => question.id === activeId) ?? QUESTIONS[0];
+  const urgentCount = QUESTIONS.filter((question) => question.status === "urgent").length;
 
   return (
-    <div className="min-h-screen bg-[#f8fbfa] text-[#101828] pb-20 md:pb-0">
-      <header className="sticky top-0 z-50 border-b border-[rgba(216,216,216,0.5)] bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/admin/dashboard"
-              className="grid h-10 w-10 place-items-center rounded-full border border-[#d0d5dd] text-[#1a906b] transition hover:bg-[#f0faf7]"
-            >
-              <span className="material-symbols-outlined">arrow_back</span>
-            </Link>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#20b486]">
-                Instructor Studio
-              </p>
-              <h1 className="text-xl font-black tracking-tight text-[#101828]">
-                Pending Q&amp;A
-              </h1>
+    <div className="min-h-screen bg-[#f4f6f4] pb-8 text-[#191c1d]">
+      <header className="sticky top-0 z-30 border-b border-[#d9dadb] bg-[#fbfdfb]/95 backdrop-blur">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 py-4 lg:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
+              <Link
+                href="/admin/dashboard"
+                aria-label="Back to admin dashboard"
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-[#c4c6d4] bg-white text-[#2e3132] shadow-[0_1px_0_rgba(25,28,29,0.06)] transition hover:border-[#001d59] hover:text-[#001d59]"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+              <div className="min-w-0">
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#006e26]">
+                  Instructor operations
+                </p>
+                <h1 className="truncate text-2xl font-extrabold tracking-tight text-[#111414]">
+                  Q&amp;A Reply Desk
+                </h1>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#c4c6d4] bg-white px-3 text-sm font-bold text-[#2e3132] shadow-[0_1px_0_rgba(25,28,29,0.06)] transition hover:border-[#006e26] hover:text-[#006e26]"
+              >
+                <Filter className="h-4 w-4" />
+                Lecture filter
+              </button>
+              <button
+                type="button"
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#001d59] px-4 text-sm font-extrabold text-white shadow-[0_14px_28px_rgba(0,29,89,0.2)] transition hover:bg-[#003087]"
+              >
+                <Pin className="h-4 w-4" />
+                Pinned library
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Badge className="hidden gap-2 rounded-full bg-[#edfff9] px-3 py-1.5 text-[#1a906b] hover:bg-[#edfff9] sm:inline-flex">
-              <span className="material-symbols-outlined text-[14px]">forum</span>
-              <span className="text-[11px] font-black uppercase tracking-[0.16em]">
-                {QUESTIONS.length} pending
-              </span>
-            </Badge>
-            <button
-              type="button"
-              className="inline-flex h-11 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(32,180,134,0.24)] transition hover:bg-[#1a906b]"
-            >
-              <span className="material-symbols-outlined text-[20px]">push_pin</span>
-              View pinned replies
-            </button>
+
+          <div className="grid gap-2 sm:grid-cols-3">
+            {[
+              { label: "Open threads", value: QUESTIONS.length, icon: Inbox, note: "3 subjects" },
+              { label: "Urgent", value: urgentCount, icon: TimerReset, note: "needs first pass" },
+              { label: "Avg reply", value: "27m", icon: Sparkles, note: "6m faster today" },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="rounded-lg border border-[#d9dadb] bg-white px-4 py-3 shadow-[0_1px_0_rgba(25,28,29,0.05)]"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-bold uppercase tracking-[0.12em] text-[#747683]">
+                      {item.label}
+                    </p>
+                    <p className="mt-1 text-2xl font-extrabold leading-none text-[#111414]">
+                      {item.value}
+                    </p>
+                  </div>
+                  <span className="grid h-9 w-9 place-items-center rounded-md bg-[#edf1ff] text-[#001d59]">
+                    <item.icon className="h-4 w-4" />
+                  </span>
+                </div>
+                <p className="mt-2 truncate text-xs font-semibold text-[#444652]">{item.note}</p>
+              </div>
+            ))}
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-5 py-8">
-        <section className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
-          <Card className="overflow-hidden border-[#101828] bg-[#101828] text-white shadow-[0_22px_70px_rgba(16,24,40,0.22)]">
-            <CardContent className="p-6 sm:p-8">
-              <Badge className="mb-6 border-white/10 bg-white/10 px-3 py-1.5 text-[#99f3d6] hover:bg-white/10">
-                <span className="material-symbols-outlined mr-1 text-[16px]">verified</span>
-                Reply queue under control
-              </Badge>
-              <h2 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-                Clear the response backlog before students lose the plot.
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-white/68">
-                Pinned answers surface as highlights inside the lecture player. Reply with markdown
-                or attach a quick screenshot to keep concepts crisp.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  className="inline-flex h-12 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-black text-white transition hover:bg-[#1a906b]"
-                >
-                  <span className="material-symbols-outlined text-[20px]">send</span>
-                  Reply to oldest
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex h-12 items-center gap-2 rounded-full border border-white/15 bg-white/8 px-6 text-sm font-black text-white transition hover:bg-white/14"
-                >
-                  <span className="material-symbols-outlined text-[20px]">filter_list</span>
-                  Filter by lecture
-                </button>
+      <main className="mx-auto grid max-w-[1440px] gap-4 px-4 py-4 lg:grid-cols-[370px_minmax(0,1fr)] lg:px-6 xl:grid-cols-[380px_minmax(0,1fr)_315px]">
+        <aside className="rounded-lg border border-[#d9dadb] bg-white shadow-[0_18px_40px_rgba(25,28,29,0.06)]">
+          <div className="border-b border-[#e1e3e4] p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#006e26]">
+                  Inbox
+                </p>
+                <h2 className="mt-1 text-lg font-extrabold tracking-tight">Pending questions</h2>
               </div>
-            </CardContent>
-          </Card>
+              <span className="rounded-md border border-[#c4c6d4] bg-[#f8f9fa] px-2.5 py-1 text-xs font-extrabold text-[#444652]">
+                {filtered.length} shown
+              </span>
+            </div>
 
-          <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
-            {[
-              { label: "Open Q&A", value: String(QUESTIONS.length), delta: "32 urgent", icon: "forum" },
-              { label: "Avg response time", value: "27m", delta: "-6m", icon: "timer" },
-              { label: "Pinned answers", value: "94", delta: "+12 this week", icon: "push_pin" },
-            ].map((item) => (
-              <Card
-                key={item.label}
-                className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]"
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-4">
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
-                      <span className="material-symbols-outlined">{item.icon}</span>
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="truncate text-sm font-bold text-[#667085]">{item.label}</p>
-                        <Badge
-                          variant="outline"
-                          className="shrink-0 rounded-full border-[#dce8e2] bg-[#f2fffb] text-[#1a906b]"
-                        >
-                          {item.delta}
-                        </Badge>
-                      </div>
-                      <p className="mt-1 text-3xl font-black text-[#101828]">{item.value}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            <div className="mt-4 grid grid-cols-4 rounded-lg border border-[#c4c6d4] bg-[#f3f4f5] p-1">
+              {FILTERS.map((item) => (
+                <button
+                  key={item.value}
+                  type="button"
+                  onClick={() => setFilter(item.value)}
+                  className={
+                    filter === item.value
+                      ? "h-8 rounded-md bg-white text-xs font-extrabold text-[#001d59] shadow-[0_1px_0_rgba(25,28,29,0.08)]"
+                      : "h-8 rounded-md text-xs font-bold text-[#747683] transition hover:text-[#191c1d]"
+                  }
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="relative mt-3">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#747683]" />
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search student, lecture, topic"
+                className="h-11 w-full rounded-lg border border-[#c4c6d4] bg-[#fbfdfb] pl-9 pr-3 text-sm font-semibold text-[#191c1d] outline-none transition placeholder:text-[#747683] focus:border-[#001d59] focus:bg-white focus:ring-2 focus:ring-[#b4c5ff]"
+              />
+            </div>
           </div>
-        </section>
 
-        <section className="mt-6 grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
-          <Card className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-            <CardHeader className="space-y-3 pb-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#20b486]">
-                    Inbox
-                  </p>
-                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
-                    Pending questions
-                  </CardTitle>
-                </div>
-                <Badge className="rounded-full bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
-                  {filtered.length} new
-                </Badge>
-              </div>
-              <div className="relative">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#667085]">
-                  search
-                </span>
-                <input
-                  type="text"
-                  value={filter}
-                  onChange={(e) => setFilter(e.target.value)}
-                  placeholder="Filter by lecture or student"
-                  className="h-11 w-full rounded-full border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] pl-10 pr-4 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {Object.entries(grouped).map(([group, qs]) => (
-                <div key={group} className="space-y-2">
-                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#667085]">
+          <div className="max-h-[calc(100dvh-292px)] min-h-[360px] space-y-5 overflow-y-auto p-3">
+            {Object.entries(grouped).map(([group, questions]) => (
+              <section key={group}>
+                <div className="mb-2 flex items-center gap-2 px-1">
+                  <span className="h-px flex-1 bg-[#e1e3e4]" />
+                  <p className="max-w-[72%] truncate text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#747683]">
                     {group}
                   </p>
-                  {qs.map((q) => {
-                    const isActive = q.id === activeId;
+                </div>
+
+                <div className="space-y-2">
+                  {questions.map((question) => {
+                    const selected = question.id === active.id;
+
                     return (
                       <button
-                        key={q.id}
+                        key={question.id}
                         type="button"
-                        onClick={() => setActiveId(q.id)}
-                        className={`w-full rounded-xl border p-4 text-left transition ${
-                          isActive
-                            ? "border-[#20b486] bg-[#f2fffb] shadow-[0_8px_18px_rgba(32,180,134,0.12)]"
-                            : "border-[rgba(216,216,216,0.55)] bg-white hover:border-[#20b486] hover:bg-[#f9fafb]"
-                        }`}
+                        onClick={() => setActiveId(question.id)}
+                        className={
+                          selected
+                            ? "w-full rounded-lg border border-[#001d59] bg-[#eef2ff] p-3 text-left shadow-[inset_4px_0_0_#001d59,0_12px_24px_rgba(0,29,89,0.10)]"
+                            : "w-full rounded-lg border border-[#e1e3e4] bg-white p-3 text-left transition hover:border-[#747683] hover:bg-[#f8f9fa]"
+                        }
                       >
-                        <div className="mb-2 flex items-start justify-between gap-3">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex min-w-0 items-center gap-2">
+                            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-[#f3f4f5] text-[#444652]">
+                              <UserRound className="h-4 w-4" />
+                            </span>
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-extrabold text-[#191c1d]">
+                                {question.student}
+                              </p>
+                              <p className="truncate text-xs font-semibold text-[#747683]">
+                                {question.ago}
+                              </p>
+                            </div>
+                          </div>
                           <span
-                            className={`text-sm font-black ${
-                              isActive ? "text-[#1a906b]" : "text-[#101828]"
-                            }`}
+                            className={`shrink-0 rounded-md border px-2 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] ${statusClass(
+                              question.status,
+                            )}`}
                           >
-                            {q.student}
+                            {question.status}
                           </span>
-                          <span className="text-[11px] font-bold text-[#667085]">{q.ago}</span>
                         </div>
-                        <p className="line-clamp-2 text-sm text-[#475467]">{q.preview}</p>
+
+                        <p className="mt-3 line-clamp-2 text-sm font-medium leading-5 text-[#444652]">
+                          {question.preview}
+                        </p>
                       </button>
                     );
                   })}
                 </div>
-              ))}
-              {filtered.length === 0 && (
-                <p className="rounded-xl border border-dashed border-[#d0d5dd] bg-[#f9fafb] p-6 text-center text-sm font-semibold text-[#667085]">
-                  No questions match this filter.
-                </p>
-              )}
-            </CardContent>
-          </Card>
+              </section>
+            ))}
 
-          <div className="space-y-5">
-            <Card className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-              <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 pb-3">
-                <div>
-                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#20b486]">
-                    Question
+            {filtered.length === 0 && (
+              <div className="rounded-lg border border-dashed border-[#c4c6d4] bg-[#f8f9fa] p-8 text-center">
+                <Search className="mx-auto h-6 w-6 text-[#747683]" />
+                <p className="mt-3 text-sm font-extrabold text-[#191c1d]">No matches</p>
+                <p className="mt-1 text-sm font-medium text-[#747683]">
+                  Try another student, lecture, or status.
+                </p>
+              </div>
+            )}
+          </div>
+        </aside>
+
+        <section className="min-w-0 space-y-4">
+          <article className="rounded-lg border border-[#d9dadb] bg-white shadow-[0_18px_40px_rgba(25,28,29,0.06)]">
+            <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[#e1e3e4] p-5">
+              <div className="min-w-0">
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#006e26]">
+                  Question
+                </p>
+                <h2 className="mt-1 truncate text-2xl font-extrabold tracking-tight text-[#111414]">
+                  From {active.student}
+                </h2>
+              </div>
+              <span className="inline-flex h-8 items-center gap-2 rounded-md border border-[#d9dadb] bg-[#f8f9fa] px-3 text-xs font-extrabold text-[#444652]">
+                <Clock3 className="h-3.5 w-3.5" />
+                {active.ago}
+              </span>
+            </div>
+
+            <div className="space-y-4 p-5">
+              <div className="flex items-center gap-3 rounded-lg border border-[#d9dadb] bg-[#f8f9fa] p-3">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#001d59] text-white shadow-[0_10px_20px_rgba(0,29,89,0.18)]">
+                  <PlayCircle className="block h-6 w-6" strokeWidth={2.3} />
+                </span>
+                <div className="min-w-0 flex-1 self-center">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#747683]">
+                    Related video
                   </p>
-                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
-                    From {active.student}
-                  </CardTitle>
+                  <p className="mt-0.5 truncate text-sm font-extrabold text-[#191c1d]">
+                    {active.videoTitle}
+                  </p>
                 </div>
-                <Badge className="rounded-full bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
-                  {active.ago}
-                </Badge>
-              </CardHeader>
-              <CardContent className="space-y-5">
-                <div className="flex items-center gap-3 rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-3">
-                  <span
-                    className="material-symbols-outlined grid h-11 w-11 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    play_circle
+                <button
+                  type="button"
+                  className="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg border border-[#c4c6d4] bg-white px-3 text-xs font-extrabold text-[#001d59] transition hover:bg-[#edf1ff]"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  {active.videoMoment}
+                </button>
+              </div>
+
+              <div className="rounded-lg border border-[#d9dadb] bg-white p-5 shadow-[0_1px_0_rgba(25,28,29,0.05)]">
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <span className={`rounded-md border px-2.5 py-1 text-xs font-extrabold uppercase tracking-[0.1em] ${statusClass(active.status)}`}>
+                    {active.status}
                   </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[#667085]">
-                      Related video
-                    </p>
-                    <p className="truncate text-sm font-black text-[#101828]">
-                      {active.videoTitle}
-                    </p>
+                  <span className="rounded-md border border-[#d9dadb] bg-[#f8f9fa] px-2.5 py-1 text-xs font-bold text-[#444652]">
+                    {active.confidence}
+                  </span>
+                  <span className="rounded-md border border-[#d9dadb] bg-[#f8f9fa] px-2.5 py-1 text-xs font-bold text-[#444652]">
+                    {active.attempts} attempts
+                  </span>
+                </div>
+
+                <p className="text-lg font-semibold leading-8 text-[#191c1d]">{active.full}</p>
+
+                {active.hasAttachment && (
+                  <div className="mt-5 overflow-hidden rounded-lg border border-[#c4c6d4] bg-[#fbfdfb]">
+                    <div className="grid min-h-44 place-items-center bg-[linear-gradient(135deg,#fbfdfb_0%,#edf1ff_48%,#f4fff1_100%)] p-5">
+                      <div className="relative h-32 w-full max-w-md rounded-lg border border-[#747683] bg-white shadow-[0_12px_28px_rgba(25,28,29,0.10)]">
+                        <div className="absolute left-5 top-1/2 h-12 w-12 -translate-y-1/2 rounded-md border-2 border-[#93000a] bg-[#ffdad6]" />
+                        <div className="absolute right-5 top-1/2 h-14 w-14 -translate-y-1/2 rounded-full border-2 border-[#001d59] bg-[#dbe1ff]" />
+                        <div className="absolute left-[35%] top-1/2 h-1 w-[30%] -translate-y-1/2 bg-[#006e26]" />
+                        <div className="absolute left-[62%] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[8px] border-l-[14px] border-y-transparent border-l-[#006e26]" />
+                        <p className="absolute bottom-3 left-4 text-xs font-bold text-[#747683]">
+                          induced field sketch
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 border-t border-[#d9dadb] px-4 py-2 text-xs font-bold text-[#444652]">
+                      <Paperclip className="h-3.5 w-3.5" />
+                      textbook_diagram_ch3.jpg
+                    </div>
                   </div>
-                  <button className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#d0d5dd] bg-white px-4 text-xs font-black text-[#101828] transition hover:border-[#20b486] hover:text-[#20b486]">
-                    <span className="material-symbols-outlined text-[16px]">open_in_new</span>
-                    {active.videoMoment}
+                )}
+              </div>
+            </div>
+          </article>
+
+          <section className="rounded-lg border border-[#001d59]/20 bg-white shadow-[0_18px_40px_rgba(25,28,29,0.06)]">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e1e3e4] p-5">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#006e26]">
+                  Compose
+                </p>
+                <h2 className="mt-1 text-lg font-extrabold tracking-tight">Instructor response</h2>
+              </div>
+              <span className="rounded-md border border-[#d9dadb] bg-[#f8f9fa] px-2.5 py-1 text-xs font-bold text-[#444652]">
+                Markdown enabled
+              </span>
+            </div>
+
+            <div className="p-5">
+              <textarea
+                value={reply}
+                onChange={(event) => setReply(event.target.value)}
+                rows={7}
+                placeholder="Start with the core correction, then give the exam shortcut."
+                className="w-full resize-y rounded-lg border border-[#c4c6d4] bg-[#fbfdfb] p-4 text-base font-medium leading-7 text-[#191c1d] outline-none transition placeholder:text-[#747683] focus:border-[#001d59] focus:bg-white focus:ring-2 focus:ring-[#b4c5ff]"
+              />
+
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-1">
+                  {TOOLS.map((tool) => (
+                    <button
+                      key={tool.label}
+                      type="button"
+                      title={tool.label}
+                      aria-label={tool.label}
+                      className="grid h-9 w-9 place-items-center rounded-lg border border-[#c4c6d4] bg-white text-[#444652] transition hover:border-[#001d59] hover:bg-[#edf1ff] hover:text-[#001d59]"
+                    >
+                      <tool.icon className="h-4 w-4" />
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setReply("")}
+                    className="inline-flex h-10 items-center gap-2 rounded-lg border border-[#c4c6d4] bg-white px-4 text-sm font-extrabold text-[#2e3132] transition hover:border-[#747683] hover:bg-[#f8f9fa]"
+                  >
+                    Save draft
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setReply("")}
+                    className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#006e26] px-4 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(0,110,38,0.18)] transition hover:bg-[#00531b]"
+                  >
+                    <Send className="h-4 w-4" />
+                    Send and pin
                   </button>
                 </div>
+              </div>
+            </div>
+          </section>
+        </section>
 
-                <div className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-5">
-                  <p className="text-sm leading-7 text-[#101828]">{active.full}</p>
-                  {active.hasAttachment && (
-                    <div className="mt-4 overflow-hidden rounded-lg border border-[rgba(216,216,216,0.55)] bg-white">
-                      <img
-                        alt="Attachment"
-                        className="h-44 w-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAsrVh1jTDDMQaBwtDJM13DD0B-gOIOh37cSYCuP9rB6FIfeYgSJy_VnD03FU5LrTUU-M0qJod15XY-hjaHyA3gjz6zqAF6KsqKbCwCggsWrvwh6p_bhUSStakmgbbscldtnNDhU9S1LLAgQpLKUF_LisqX4IPbXV8cJfrgqOjj0PwxO2mA_StD5XITAb5kvCmZ_oAA6hizj39FeKgDW7Wxup56g_Lp5AAedJ9yZbfDQxOeakXCfR_2HwNmOSgr1_f8HgLjLmZjYk"
-                      />
-                      <p className="border-t border-[rgba(216,216,216,0.55)] bg-[#f9fafb] px-4 py-2 text-xs font-bold text-[#667085]">
-                        textbook_diagram_ch3.jpg
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
-              <CardHeader className="pb-3">
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#20b486]">
-                  Compose reply
+        <aside className="space-y-4 xl:sticky xl:top-[178px] xl:self-start">
+          <section className="rounded-lg border border-[#d9dadb] bg-[#111414] p-4 text-white shadow-[0_18px_40px_rgba(25,28,29,0.16)]">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#99f89e]">
+                  Student preview
                 </p>
-                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
-                  Instructor response
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <textarea
-                  value={reply}
-                  onChange={(e) => setReply(e.target.value)}
-                  rows={6}
-                  placeholder="Explain the concept clearly. Markdown supported."
-                  className="w-full rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4 text-sm leading-6 text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
-                />
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex gap-1">
-                    {TOOLBAR_ICONS.map((tool) => (
-                      <button
-                        key={tool.icon}
-                        title={tool.label}
-                        className="grid h-9 w-9 place-items-center rounded-full border border-[#d0d5dd] bg-white text-[#667085] transition hover:border-[#20b486] hover:text-[#20b486]"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">{tool.icon}</span>
-                      </button>
-                    ))}
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setReply("")}
-                      className="inline-flex h-11 items-center gap-2 rounded-full border border-[#d0d5dd] bg-white px-6 text-sm font-black text-[#101828] transition hover:bg-[#f0faf7]"
-                    >
-                      <span className="material-symbols-outlined text-[20px]">drafts</span>
-                      Save draft
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setReply("")}
-                      className="inline-flex h-11 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-black text-white shadow-[0_10px_24px_rgba(32,180,134,0.24)] transition hover:bg-[#1a906b]"
-                    >
-                      <span className="material-symbols-outlined text-[20px]">send</span>
-                      Send & pin
-                    </button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                <h2 className="mt-1 text-lg font-extrabold">Pinned highlight</h2>
+              </div>
+              <Pin className="h-5 w-5 text-[#99f89e]" />
+            </div>
 
-            <Card className="border-dashed border-[#dce8e2] bg-[#f2fffb] shadow-none">
-              <CardContent className="space-y-3 p-5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-[#1a906b]">
-                    <span
-                      className="material-symbols-outlined text-[18px]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      push_pin
-                    </span>
-                    <p className="text-xs font-black uppercase tracking-[0.16em]">
-                      Student-side preview
-                    </p>
-                  </div>
-                  <Badge className="rounded-full bg-white px-3 py-1 text-[#1a906b] hover:bg-white">
-                    Pinned highlight
-                  </Badge>
-                </div>
-                <div className="rounded-lg border-l-4 border-[#20b486] bg-white p-4 shadow-[0_8px_18px_rgba(16,24,40,0.04)]">
-                  <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#1a906b]">
+            <div className="mt-4 rounded-lg border border-white/12 bg-white p-4 text-[#191c1d]">
+              <div className="mb-3 flex items-center gap-2">
+                <span className="grid h-8 w-8 place-items-center rounded-md bg-[#99f89e] text-[#002106]">
+                  <MessageSquareText className="h-4 w-4" />
+                </span>
+                <div>
+                  <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-[#006e26]">
                     Instructor response
                   </p>
-                  <p className="text-sm italic leading-6 text-[#101828]">
-                    {reply.trim()
-                      ? `"${reply.trim()}"`
-                      : '"Excellent question! The textbook is referring to the polarity of the induced EMF, whereas I focus on the physical force interaction. Nature always tries to maintain the status quo..."'}
-                  </p>
+                  <p className="text-xs font-semibold text-[#747683]">Pinned at {active.videoMoment}</p>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+              </div>
+              <p className="text-sm font-semibold leading-6 text-[#191c1d]">
+                {reply.trim() ||
+                  "Excellent question. Lenz's law opposes the change in flux. First decide whether flux is increasing or decreasing, then choose the induced field direction that fights that change."}
+              </p>
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-[#d9dadb] bg-white p-4 shadow-[0_18px_40px_rgba(25,28,29,0.06)]">
+            <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#006e26]">
+              Reply checklist
+            </h2>
+            <div className="mt-4 space-y-3">
+              {[
+                "Answer the misconception directly",
+                "Reference the lecture timestamp",
+                "Add exam-level shortcut",
+                "Pin only if reusable",
+              ].map((item, index) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span
+                    className={
+                      index < 2
+                        ? "mt-0.5 grid h-5 w-5 place-items-center rounded-md bg-[#006e26] text-white"
+                        : "mt-0.5 grid h-5 w-5 place-items-center rounded-md border border-[#c4c6d4] text-[#747683]"
+                    }
+                  >
+                    {index < 2 ? <Check className="h-3.5 w-3.5" /> : null}
+                  </span>
+                  <p className="text-sm font-semibold leading-5 text-[#444652]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </aside>
       </main>
     </div>
   );
