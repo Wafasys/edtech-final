@@ -101,28 +101,60 @@ const stats = [
 
 const answerPattern = [
   {
+    subject: "Chemistry",
     question: "Which reagent identifies unsaturation in hydrocarbons?",
     selected: "Bromine water",
     correct: "Bromine water",
     result: "correct",
   },
   {
+    subject: "Chemistry",
     question: "The hybridization of carbon in benzene is-",
     selected: "sp2",
     correct: "sp2",
     result: "correct",
   },
   {
+    subject: "Physics",
     question: "Maximum projectile range occurs at which angle?",
     selected: "30 degrees",
     correct: "45 degrees",
     result: "wrong",
   },
   {
+    subject: "Physics",
     question: "Which condition gives translational equilibrium?",
     selected: "Net force is zero",
     correct: "Net force is zero",
     result: "correct",
+  },
+  {
+    subject: "Biology",
+    question: "Which organelle is responsible for ATP synthesis?",
+    selected: "Mitochondria",
+    correct: "Mitochondria",
+    result: "correct",
+  },
+  {
+    subject: "English",
+    question: "Choose the correct synonym of 'meticulous'.",
+    selected: "Careful",
+    correct: "Careful",
+    result: "correct",
+  },
+  {
+    subject: "Math",
+    question: "If f(x)=x^2, then f'(3) equals-",
+    selected: "6",
+    correct: "6",
+    result: "correct",
+  },
+  {
+    subject: "General",
+    question: "Which law explains inertia?",
+    selected: "Newton's Second Law",
+    correct: "Newton's First Law",
+    result: "wrong",
   },
 ];
 
@@ -146,7 +178,7 @@ export default function LeaderboardPage() {
                   </h1>
                   <p className="mt-4 max-w-xl text-sm leading-6 text-[#646464]">
                     See where you stand this exam, compare weekly movement, and study
-                    the answer patterns of top performers.
+                    the answer analysis of top performers.
                   </p>
                 </div>
                 <Button
@@ -154,7 +186,7 @@ export default function LeaderboardPage() {
                   onClick={() => setSelectedPattern(podium[1])}
                   className="h-11 rounded-md bg-[#20b486] !px-6 font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.22)] hover:bg-[#1a906b]"
                 >
-                  View answer pattern
+                  View analysis
                   <ArrowUpRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -320,11 +352,11 @@ function Podium({ onViewPattern }: { onViewPattern: (student: any) => void }) {
             <p className="mt-1 text-xs font-bold uppercase text-[#98a2b3]">score</p>
             <Button
               type="button"
-              variant="ghost"
+              variant="default"
               onClick={() => onViewPattern(student)}
-              className="mt-5 h-10 rounded-md !px-5 text-sm font-extrabold text-[#1a906b] hover:bg-[#edfff9] hover:text-[#1a906b]"
+              className="mt-10 h-11 rounded-md bg-[#20b486] !px-6 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.18)] hover:bg-[#1a906b]"
             >
-              Pattern
+              Analysis
               <ArrowUpRight className="h-4 w-4" />
             </Button>
           </CardContent>
@@ -404,7 +436,7 @@ function LeaderboardTable({ onViewPattern }: { onViewPattern: (student: any) => 
                 className="col-span-3 h-10 rounded-md border-[#d0d5dd] bg-white !px-5 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb] sm:col-span-1"
               >
                 <Eye className="h-4 w-4" />
-                View pattern
+                Analysis
               </Button>
             </div>
           ))}
@@ -461,6 +493,8 @@ function PatternAnalysisModal({
   onClose: () => void;
 }) {
   const correctCount = answerPattern.filter((item) => item.result === "correct").length;
+  const wrongCount = answerPattern.length - correctCount;
+  const accuracy = Math.round((correctCount / answerPattern.length) * 100);
   const initials = student.name
     .split(" ")
     .map((part: string) => part[0])
@@ -469,10 +503,10 @@ function PatternAnalysisModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
-      <Card className="max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-2xl">
-        <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 bg-[#f9fafb] p-5 sm:p-6">
-          <div className="flex min-w-0 items-center gap-4">
-            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-[#edfff9] text-[#1a906b]">
+      <Card className="max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-2xl">
+        <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 bg-[#101828] p-6 text-white sm:p-7">
+          <div className="flex min-w-0 items-center gap-5">
+            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white/10 text-white ring-4 ring-white/10">
               {student.img ? (
                 <img
                   src={student.img}
@@ -486,13 +520,13 @@ function PatternAnalysisModal({
               )}
             </div>
             <div className="min-w-0">
-              <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
-                Answer pattern analysis
+              <CardDescription className="text-xs font-extrabold uppercase text-[#f5c542]">
+                Performance report
               </CardDescription>
-              <CardTitle className="mt-1 truncate text-2xl font-black text-[#101828]">
+              <CardTitle className="mt-2 truncate text-3xl font-black text-white">
                 {student.name}
               </CardTitle>
-              <p className="mt-1 text-sm font-semibold text-[#667085]">
+              <p className="mt-2 text-sm font-semibold text-white/70">
                 Rank #{student.rank} - {student.unit} - Score {student.score}
               </p>
             </div>
@@ -502,79 +536,146 @@ function PatternAnalysisModal({
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="h-10 w-10 shrink-0 rounded-md text-[#667085] hover:bg-white"
-            aria-label="Close answer pattern"
+            className="h-10 w-10 shrink-0 rounded-md text-white hover:bg-white/12 hover:text-white"
+            aria-label="Close answer analysis"
           >
             <X className="h-5 w-5" />
           </Button>
         </CardHeader>
 
-        <CardContent className="max-h-[calc(88vh-116px)] overflow-y-auto p-5 sm:p-6">
-          <div className="mb-5 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-lg bg-[#f2fffb] p-4">
-              <p className="text-2xl font-black text-[#101828]">{correctCount}/4</p>
-              <p className="mt-1 text-xs font-bold text-[#667085]">correct answers</p>
-            </div>
-            <div className="rounded-lg bg-[#fff9f3] p-4">
-              <p className="text-2xl font-black text-[#101828]">1</p>
-              <p className="mt-1 text-xs font-bold text-[#667085]">missed concept</p>
-            </div>
-            <div className="rounded-lg bg-[#f9fafb] p-4">
-              <p className="text-2xl font-black text-[#101828]">24m</p>
-              <p className="mt-1 text-xs font-bold text-[#667085]">completion time</p>
-            </div>
-          </div>
+        <CardContent className="max-h-[calc(90vh-144px)] overflow-y-auto bg-[#f8fbfa] p-5 sm:p-6">
+          <div className="grid gap-5 lg:grid-cols-[300px_minmax(0,1fr)]">
+            <aside className="space-y-4">
+              <div className="rounded-lg border border-[#eaecf0] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <p className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Summary
+                </p>
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="rounded-lg bg-[#f2fffb] px-4 py-3">
+                    <p className="text-3xl font-black text-[#101828]">{accuracy}%</p>
+                    <p className="mt-1 text-xs font-bold text-[#667085]">accuracy</p>
+                  </div>
+                  <div className="rounded-lg bg-[#f9fafb] px-4 py-3">
+                    <p className="text-3xl font-black text-[#101828]">24m</p>
+                    <p className="mt-1 text-xs font-bold text-[#667085]">time</p>
+                  </div>
+                  <div className="rounded-lg bg-[#f2fffb] px-4 py-3">
+                    <p className="text-3xl font-black text-[#101828]">{correctCount}</p>
+                    <p className="mt-1 text-xs font-bold text-[#667085]">correct</p>
+                  </div>
+                  <div className="rounded-lg bg-[#fff9f3] px-4 py-3">
+                    <p className="text-3xl font-black text-[#101828]">{wrongCount}</p>
+                    <p className="mt-1 text-xs font-bold text-[#667085]">wrong</p>
+                  </div>
+                </div>
+              </div>
 
-          <div className="space-y-3">
-            {answerPattern.map((item, index) => (
-              <article
-                key={item.question}
-                className="rounded-lg border border-[rgba(216,216,216,0.65)] bg-white p-4"
-              >
-                <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-extrabold uppercase text-[#98a2b3]">
-                      Question {index + 1}
-                    </p>
-                    <h3 className="mt-1 text-base font-black leading-snug text-[#101828]">
-                      {item.question}
-                    </h3>
-                  </div>
-                  <Badge
-                    className={
-                      item.result === "correct"
-                        ? "rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]"
-                        : "rounded-md border-0 bg-[#fff5f4] text-[#ba1a1a] hover:bg-[#fff5f4]"
-                    }
-                  >
-                    {item.result === "correct" ? "Correct" : "Wrong"}
-                  </Badge>
+              <div className="rounded-lg border border-[#eaecf0] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+                <p className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Insight
+                </p>
+                <h3 className="mt-2 text-lg font-black leading-6 text-[#101828]">
+                  Strong recall, one conceptual trap.
+                </h3>
+                <p className="mt-3 text-sm font-semibold leading-6 text-[#667085]">
+                  Fast on direct recall, but loses marks when similar physics laws
+                  compete. Review conceptual mechanics before the next mock.
+                </p>
+              </div>
+
+              <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-5">
+                <p className="text-xs font-extrabold uppercase text-[#20b486]">
+                  Subject spread
+                </p>
+                <div className="mt-4 space-y-3">
+                  {["Chemistry", "Physics", "Biology", "English", "Math"].map((subject) => (
+                    <div
+                      key={subject}
+                      className="flex items-center justify-between rounded-md bg-white px-3 py-2"
+                    >
+                      <span className="text-sm font-bold text-[#101828]">{subject}</span>
+                      <span className="text-xs font-bold text-[#20b486]">Reviewed</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-lg bg-[#f9fafb] p-3">
-                    <p className="text-xs font-bold uppercase text-[#667085]">
-                      Selected answer
-                    </p>
-                    <p className="mt-1 text-sm font-black text-[#101828]">{item.selected}</p>
-                  </div>
-                  <div
-                    className={
-                      item.result === "correct"
-                        ? "rounded-lg bg-[#f2fffb] p-3"
-                        : "rounded-lg bg-[#fff9f3] p-3"
-                    }
-                  >
-                    <p className="text-xs font-bold uppercase text-[#667085]">
-                      Correct answer
-                    </p>
-                    <p className="mt-1 flex items-center gap-2 text-sm font-black text-[#101828]">
-                      <CheckCircle2 className="h-4 w-4 text-[#20b486]" />
-                      {item.correct}
-                    </p>
-                  </div>
+              </div>
+            </aside>
+
+            <section className="min-w-0">
+              <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <p className="text-xs font-extrabold uppercase text-[#20b486]">
+                    Question review
+                  </p>
+                  <h3 className="mt-1 text-2xl font-black text-[#101828]">
+                    Selected answers vs correct answers
+                  </h3>
                 </div>
-              </article>
-            ))}
+                <Badge className="rounded-md border-0 bg-white px-3 py-1.5 text-[#667085] hover:bg-white">
+                  {answerPattern.length} questions
+                </Badge>
+              </div>
+
+              <div className="space-y-3">
+                {answerPattern.map((item, index) => (
+                  <article
+                    key={item.question}
+                    className="rounded-lg border border-[#eaecf0] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,0.04)] sm:p-5"
+                  >
+                    <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge className="rounded-md border-0 bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
+                            Q{index + 1}
+                          </Badge>
+                          <span className="text-xs font-extrabold uppercase text-[#98a2b3]">
+                            {item.subject}
+                          </span>
+                        </div>
+                        <h3 className="mt-3 text-base font-black leading-6 text-[#101828]">
+                          {item.question}
+                        </h3>
+                      </div>
+                      <Badge
+                        className={
+                          item.result === "correct"
+                            ? "rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]"
+                            : "rounded-md border-0 bg-[#fff5f4] text-[#ba1a1a] hover:bg-[#fff5f4]"
+                        }
+                      >
+                        {item.result === "correct" ? "Correct" : "Wrong"}
+                      </Badge>
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <div className="rounded-lg bg-[#f9fafb] px-4 py-3">
+                        <p className="text-xs font-extrabold uppercase text-[#667085]">
+                          Selected
+                        </p>
+                        <p className="mt-1 text-sm font-black text-[#101828]">
+                          {item.selected}
+                        </p>
+                      </div>
+                      <div
+                        className={
+                          item.result === "correct"
+                            ? "rounded-lg bg-[#f2fffb] px-4 py-3"
+                            : "rounded-lg bg-[#fff9f3] px-4 py-3"
+                        }
+                      >
+                        <p className="text-xs font-extrabold uppercase text-[#667085]">
+                          Correct
+                        </p>
+                        <p className="mt-1 flex items-center gap-2 text-sm font-black text-[#101828]">
+                          <CheckCircle2 className="h-4 w-4 text-[#20b486]" />
+                          {item.correct}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
           </div>
         </CardContent>
       </Card>
