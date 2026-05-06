@@ -7,11 +7,13 @@ import {
   BarChart3,
   CheckCircle2,
   Crown,
+  Eye,
   Search,
   Sparkles,
   Target,
   Trophy,
   Users,
+  X,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -97,8 +99,36 @@ const stats = [
   { label: "Candidates", value: "2,248", detail: "Active in batch", icon: Users },
 ];
 
+const answerPattern = [
+  {
+    question: "Which reagent identifies unsaturation in hydrocarbons?",
+    selected: "Bromine water",
+    correct: "Bromine water",
+    result: "correct",
+  },
+  {
+    question: "The hybridization of carbon in benzene is-",
+    selected: "sp2",
+    correct: "sp2",
+    result: "correct",
+  },
+  {
+    question: "Maximum projectile range occurs at which angle?",
+    selected: "30 degrees",
+    correct: "45 degrees",
+    result: "wrong",
+  },
+  {
+    question: "Which condition gives translational equilibrium?",
+    selected: "Net force is zero",
+    correct: "Net force is zero",
+    result: "correct",
+  },
+];
+
 export default function LeaderboardPage() {
   const [tab, setTab] = useState("exam");
+  const [selectedPattern, setSelectedPattern] = useState<any>(null);
 
   return (
     <main className="min-h-screen bg-[#f8fbfa] px-4 py-5 pb-28 text-[#101828] sm:px-6 lg:px-8 lg:py-8 md:pb-8">
@@ -119,7 +149,11 @@ export default function LeaderboardPage() {
                     the answer patterns of top performers.
                   </p>
                 </div>
-                <Button className="h-11 rounded-md bg-[#20b486] !px-6 font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.22)] hover:bg-[#1a906b]">
+                <Button
+                  type="button"
+                  onClick={() => setSelectedPattern(podium[1])}
+                  className="h-11 rounded-md bg-[#20b486] !px-6 font-extrabold text-white shadow-[0_12px_24px_rgba(32,180,134,0.22)] hover:bg-[#1a906b]"
+                >
                   View answer pattern
                   <ArrowUpRight className="h-4 w-4" />
                 </Button>
@@ -205,8 +239,8 @@ export default function LeaderboardPage() {
           </Card>
 
           <TabsContent value="exam" className="m-0 space-y-5">
-            <Podium />
-            <LeaderboardTable />
+            <Podium onViewPattern={setSelectedPattern} />
+            <LeaderboardTable onViewPattern={setSelectedPattern} />
           </TabsContent>
 
           <TabsContent value="weekly" className="m-0 space-y-5">
@@ -231,16 +265,22 @@ export default function LeaderboardPage() {
                 </Button>
               </CardContent>
             </Card>
-            <Podium />
-            <LeaderboardTable />
+            <Podium onViewPattern={setSelectedPattern} />
+            <LeaderboardTable onViewPattern={setSelectedPattern} />
           </TabsContent>
         </Tabs>
       </div>
+      {selectedPattern && (
+        <PatternAnalysisModal
+          student={selectedPattern}
+          onClose={() => setSelectedPattern(null)}
+        />
+      )}
     </main>
   );
 }
 
-function Podium() {
+function Podium({ onViewPattern }: { onViewPattern: (student: any) => void }) {
   return (
     <section className="grid gap-4 md:grid-cols-3 md:items-end">
       {podium.map((student) => (
@@ -279,7 +319,9 @@ function Podium() {
             </p>
             <p className="mt-1 text-xs font-bold uppercase text-[#98a2b3]">score</p>
             <Button
+              type="button"
               variant="ghost"
+              onClick={() => onViewPattern(student)}
               className="mt-5 h-10 rounded-md !px-5 text-sm font-extrabold text-[#1a906b] hover:bg-[#edfff9] hover:text-[#1a906b]"
             >
               Pattern
@@ -292,7 +334,7 @@ function Podium() {
   );
 }
 
-function LeaderboardTable() {
+function LeaderboardTable({ onViewPattern }: { onViewPattern: (student: any) => void }) {
   const [page, setPage] = useState(1);
   const rows = leaderboardPages[page - 1];
   const firstRank = rows[0].rank;
@@ -316,7 +358,15 @@ function LeaderboardTable() {
           {rows.map((student) => (
             <div
               key={student.rank}
-              className="grid grid-cols-[56px_minmax(0,1fr)_86px] items-center gap-3 px-5 py-4 transition hover:bg-[#f8fbfa] sm:grid-cols-[64px_minmax(0,1fr)_120px_86px] sm:px-6"
+              role="button"
+              tabIndex={0}
+              onClick={() => onViewPattern(student)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  onViewPattern(student);
+                }
+              }}
+              className="grid cursor-pointer grid-cols-[56px_minmax(0,1fr)_86px] items-center gap-3 px-5 py-4 transition hover:bg-[#f8fbfa] sm:grid-cols-[64px_minmax(0,1fr)_120px_86px_132px] sm:px-6"
             >
               <div className="text-sm font-black text-[#20b486]">#{student.rank}</div>
               <div className="flex min-w-0 items-center gap-3">
@@ -344,6 +394,18 @@ function LeaderboardTable() {
                 {student.delta === "0" ? "No change" : student.delta}
               </Badge>
               <div className="text-right text-lg font-black text-[#101828]">{student.score}</div>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onViewPattern(student);
+                }}
+                className="col-span-3 h-10 rounded-md border-[#d0d5dd] bg-white !px-5 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb] sm:col-span-1"
+              >
+                <Eye className="h-4 w-4" />
+                View pattern
+              </Button>
             </div>
           ))}
         </div>
@@ -388,5 +450,134 @@ function LeaderboardTable() {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function PatternAnalysisModal({
+  student,
+  onClose,
+}: {
+  student: any;
+  onClose: () => void;
+}) {
+  const correctCount = answerPattern.filter((item) => item.result === "correct").length;
+  const initials = student.name
+    .split(" ")
+    .map((part: string) => part[0])
+    .join("")
+    .slice(0, 2);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+      <Card className="max-h-[88vh] w-full max-w-4xl overflow-hidden rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-2xl">
+        <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 bg-[#f9fafb] p-5 sm:p-6">
+          <div className="flex min-w-0 items-center gap-4">
+            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-[#edfff9] text-[#1a906b]">
+              {student.img ? (
+                <img
+                  src={student.img}
+                  alt={student.name}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="grid h-full w-full place-items-center text-sm font-black">
+                  {initials}
+                </div>
+              )}
+            </div>
+            <div className="min-w-0">
+              <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                Answer pattern analysis
+              </CardDescription>
+              <CardTitle className="mt-1 truncate text-2xl font-black text-[#101828]">
+                {student.name}
+              </CardTitle>
+              <p className="mt-1 text-sm font-semibold text-[#667085]">
+                Rank #{student.rank} - {student.unit} - Score {student.score}
+              </p>
+            </div>
+          </div>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="h-10 w-10 shrink-0 rounded-md text-[#667085] hover:bg-white"
+            aria-label="Close answer pattern"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </CardHeader>
+
+        <CardContent className="max-h-[calc(88vh-116px)] overflow-y-auto p-5 sm:p-6">
+          <div className="mb-5 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-lg bg-[#f2fffb] p-4">
+              <p className="text-2xl font-black text-[#101828]">{correctCount}/4</p>
+              <p className="mt-1 text-xs font-bold text-[#667085]">correct answers</p>
+            </div>
+            <div className="rounded-lg bg-[#fff9f3] p-4">
+              <p className="text-2xl font-black text-[#101828]">1</p>
+              <p className="mt-1 text-xs font-bold text-[#667085]">missed concept</p>
+            </div>
+            <div className="rounded-lg bg-[#f9fafb] p-4">
+              <p className="text-2xl font-black text-[#101828]">24m</p>
+              <p className="mt-1 text-xs font-bold text-[#667085]">completion time</p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {answerPattern.map((item, index) => (
+              <article
+                key={item.question}
+                className="rounded-lg border border-[rgba(216,216,216,0.65)] bg-white p-4"
+              >
+                <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-extrabold uppercase text-[#98a2b3]">
+                      Question {index + 1}
+                    </p>
+                    <h3 className="mt-1 text-base font-black leading-snug text-[#101828]">
+                      {item.question}
+                    </h3>
+                  </div>
+                  <Badge
+                    className={
+                      item.result === "correct"
+                        ? "rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]"
+                        : "rounded-md border-0 bg-[#fff5f4] text-[#ba1a1a] hover:bg-[#fff5f4]"
+                    }
+                  >
+                    {item.result === "correct" ? "Correct" : "Wrong"}
+                  </Badge>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-lg bg-[#f9fafb] p-3">
+                    <p className="text-xs font-bold uppercase text-[#667085]">
+                      Selected answer
+                    </p>
+                    <p className="mt-1 text-sm font-black text-[#101828]">{item.selected}</p>
+                  </div>
+                  <div
+                    className={
+                      item.result === "correct"
+                        ? "rounded-lg bg-[#f2fffb] p-3"
+                        : "rounded-lg bg-[#fff9f3] p-3"
+                    }
+                  >
+                    <p className="text-xs font-bold uppercase text-[#667085]">
+                      Correct answer
+                    </p>
+                    <p className="mt-1 flex items-center gap-2 text-sm font-black text-[#101828]">
+                      <CheckCircle2 className="h-4 w-4 text-[#20b486]" />
+                      {item.correct}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
