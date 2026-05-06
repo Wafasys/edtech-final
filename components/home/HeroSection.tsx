@@ -3,39 +3,40 @@ export default function HeroSection() {
     <section className="hp-hero">
       <div className="hp-shell hp-hero-grid">
         <div className="hp-hero-copy">
-          <span className="hp-eyebrow">Admission engine · 2026 cohort</span>
+          <span className="hp-eyebrow">HSC &apos;26 batch · Admission prep</span>
           <h1 className="hp-hero-headline">
-            Up your <span className="hp-emph">skills</span> to{" "}
-            <span className="hp-emph">advance</span> the path you&apos;re on.
+            Crack <span className="hp-emph">admission</span>, secure the{" "}
+            <span className="hp-emph">seat</span>, start the{" "}
+            <span className="hp-emph">career</span> you came for.
           </h1>
           <p className="hp-hero-lede">
-            A focused learning system for ambitious candidates — modern
-            material, practiced mentors, and a study cadence designed around
-            results.
+            A focused prep system for Bangladeshi admission seekers — daily
+            live classes from BUET, DU and DMC alumni, weekly model tests, and
+            a study cadence built around your target unit.
           </p>
 
           <div className="hp-hero-actions">
             <a href="/signup" className="hp-btn hp-btn-primary">
-              Get started
+              Start free week
               <span className="hp-btn-arrow">→</span>
             </a>
             <a href="#programs" className="hp-btn hp-btn-ghost">
-              Get free trial
+              Browse all tracks
             </a>
           </div>
 
           <div className="hp-hero-tags">
             <span className="hp-chip">
               <img src="/home/Group-518.svg" alt="" />
-              Public Speaking
+              Engineering · BUET · RUET
             </span>
             <span className="hp-chip">
               <img src="/home/Briefcase.svg" alt="" />
-              Career-Oriented
+              MBBS · BDS
             </span>
             <span className="hp-chip">
               <img src="/home/idea.svg" alt="" />
-              Creative Thinking
+              GST · DU · JU
             </span>
           </div>
         </div>
@@ -51,12 +52,12 @@ export default function HeroSection() {
           </div>
 
           <div className="hp-stage-portrait">
-            <img src="/home/Mask-group@2x.png" alt="Featured student" />
+            <img src="/home/Mask-group@2x.png" alt="Stitch admission mentor" />
           </div>
 
           <span className="hp-stage-live">
             <span className="hp-stage-live-dot" />
-            Live cohort · 12 spots
+            Live batch · 24 seats left
           </span>
 
           <div className="hp-stat-card is-floating is-tutors">
@@ -64,8 +65,8 @@ export default function HeroSection() {
               <img src="/home/icon4.svg" alt="" />
             </div>
             <div className="hp-stat-text">
-              <p className="hp-stat-num">250+</p>
-              <p className="hp-stat-label">Expert tutors on call</p>
+              <p className="hp-stat-num">1,200+</p>
+              <p className="hp-stat-label">Mentors from BUET, DU, DMC</p>
             </div>
           </div>
 
@@ -75,7 +76,7 @@ export default function HeroSection() {
             </div>
             <div className="hp-stat-text">
               <p className="hp-stat-num">5,200</p>
-              <p className="hp-stat-label">Live courses today</p>
+              <p className="hp-stat-label">Hours of live class</p>
               <div className="hp-stat-avatars">
                 <img src="/home/Avatar@2x.png" alt="" />
                 <img src="/home/Avatar1@2x.png" alt="" />
@@ -98,7 +99,7 @@ export default function HeroSection() {
                 <img src="/home/Les-Pouilles.svg" alt="" />
                 <img src="/home/Les-Pouilles.svg" alt="" />
               </div>
-              <p className="hp-stat-label">From 16,325 learners</p>
+              <p className="hp-stat-label">From 16,325 admission seekers</p>
             </div>
           </div>
 

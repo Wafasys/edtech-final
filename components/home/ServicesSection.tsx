@@ -9,23 +9,23 @@ const SERVICES: Service[] = [
   {
     index: "01",
     icon: "/home/Icon2@2x.png",
-    title: "Interaction design",
+    title: "Live admission classes",
     description:
-      "Cohort-based lessons that mirror the way modern teams actually ship — from sketching flows to fine-tuning micro-interactions.",
+      "Daily evening classes from BUET, DU and DMC alumni — recorded, indexed by chapter, and replayable with synced notes for revision.",
   },
   {
     index: "02",
     icon: "/home/Icon.svg",
-    title: "UX design course",
+    title: "Weekly model tests",
     description:
-      "Pragmatic UX classes covering recent advancements in web. Heavy on case studies, light on lecture-hall fluff.",
+      "Real-pattern mocks for BUET, GST, DU and DGHS units. Auto-graded with rank, percentile and chapter-wise weak-spot reports.",
   },
   {
     index: "03",
     icon: "/home/Icon1@2x.png",
-    title: "User interface design",
+    title: "24/7 doubt solving",
     description:
-      "Sharpen your eye for type, color and grid. Learn the visual systems thinking that distinguishes professional product work.",
+      "Snap a question, get a worked-out solution from a verified mentor within minutes — even at 2 a.m. the night before exam day.",
   },
 ];
 
@@ -34,15 +34,15 @@ export default function ServicesSection() {
     <section className="hp-services">
       <div className="hp-shell">
         <div className="hp-section-head">
-          <span className="hp-eyebrow">Our services</span>
+          <span className="hp-eyebrow">What you get</span>
           <h2 className="hp-section-title">
-            A playful, engaging place
+            Everything you need to crack admission,
             <br />
-            for serious learning.
+            in one place.
           </h2>
           <p className="hp-section-lede">
-            Three specialisations built around the careers our learners
-            actually walk into — taught by people who&apos;ve done the work.
+            Three things you&apos;ll use every single day — live class, model
+            test, and a mentor on call when a question won&apos;t budge.
           </p>
         </div>
 

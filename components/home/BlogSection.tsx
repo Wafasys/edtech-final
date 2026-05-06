@@ -9,34 +9,34 @@ type Post = {
 
 const POSTS: Post[] = [
   {
-    date: "Nov 16, 2024",
-    readTime: "5 min read",
-    title: "Three pillars of user delight",
+    date: "Apr 02, 2026",
+    readTime: "8 min read",
+    title: "Planning the last 60 days before BUET admission",
     description:
-      "Delight is felt viscerally, behaviourally and reflectively. A great design earns it on all three fronts.",
+      "A week-by-week breakdown that mid-tier students have used to push past their HSC plateau — built from data on 480 admits.",
     image: "/home/Image3@2x.png",
-    tags: [{ label: "Research" }, { label: "UI · UX", tone: "ink" }],
+    tags: [{ label: "Engineering" }, { label: "Strategy", tone: "ink" }],
   },
   {
-    date: "Sep 24, 2024",
-    readTime: "7 min read",
-    title: "UX mapping methods, refined",
+    date: "Mar 18, 2026",
+    readTime: "6 min read",
+    title: "Why MBBS aspirants keep losing marks in Biology MCQs",
     description:
-      "Visual-design principles, applied consistently, are what turn a rough UX map into a tool the team can trust.",
+      "Three patterns we see in DGHS papers every cycle — and the chapters where the gap usually shows up first.",
     image: "/home/Image21@2x.png",
-    tags: [{ label: "Research" }, { label: "UI design", tone: "amber" }],
+    tags: [{ label: "Medical" }, { label: "Biology", tone: "amber" }],
   },
   {
-    date: "Mar 13, 2024",
+    date: "Feb 10, 2026",
     readTime: "9 min read",
-    title: "Agile development &amp; usability",
+    title: "Cracking the GST cluster: pattern, demystified",
     description:
-      "Agile aims to overcome the usability gaps in traditional development — but introduces new threats to UX quality.",
+      "GST has its quirks. What&apos;s actually being asked, what&apos;s noise, and how to pace 100 minutes across 100 marks.",
     image: "/home/Image4@2x.png",
     tags: [
-      { label: "Programming", tone: "amber" },
-      { label: "Research" },
-      { label: "Engineering", tone: "ink" },
+      { label: "GST", tone: "amber" },
+      { label: "Pattern" },
+      { label: "Strategy", tone: "ink" },
     ],
   },
 ];
@@ -48,7 +48,7 @@ export default function BlogSection() {
         <div className="hp-blog-head">
           <div>
             <span className="hp-eyebrow">From the journal</span>
-            <h2 className="hp-section-title">Recent reading.</h2>
+            <h2 className="hp-section-title">Reading for the prep grind.</h2>
           </div>
           <a href="#" className="hp-btn hp-btn-ghost">
             View all posts
@@ -71,7 +71,10 @@ export default function BlogSection() {
                   className="hp-post-title"
                   dangerouslySetInnerHTML={{ __html: post.title }}
                 />
-                <p className="hp-post-desc">{post.description}</p>
+                <p
+                  className="hp-post-desc"
+                  dangerouslySetInnerHTML={{ __html: post.description }}
+                />
                 <div className="hp-post-tags">
                   {post.tags.map((tag) => (
                     <span

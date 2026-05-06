@@ -8,15 +8,16 @@ export default function QuoteSection() {
           </span>
           <div className="hp-quote-body">
             <p className="hp-quote-text">
-              Stitch was fantastic — a master platform for anyone starting a
-              new career, or re-skilling after a break. The cohorts, the
-              pacing, the feedback loop: all of it just works.
+              The Engineering Private Batch was the only thing that made me
+              believe BUET was within reach. The model tests were brutal —
+              exactly like the real one — and the doubt-solver replied even
+              at midnight before exam day. I got CSE on first try.
             </p>
             <div className="hp-quote-author">
-              <img src="/home/Avatar4@2x.png" alt="Jacob Jones" />
+              <img src="/home/Avatar4@2x.png" alt="Asif Iqbal" />
               <div className="hp-quote-author-meta">
-                <strong>Jacob Jones</strong>
-                <span>Student, National University</span>
+                <strong>Asif Iqbal</strong>
+                <span>Student, BUET CSE &apos;26</span>
               </div>
             </div>
           </div>

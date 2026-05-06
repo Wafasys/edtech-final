@@ -43,9 +43,9 @@
 
 .hp-shell {
   width: 100%;
-  max-width: 1240px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 56px;
   box-sizing: border-box;
 }
 
@@ -116,8 +116,8 @@
 
 .hp-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 80px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 48px;
   align-items: center;
 }
 
@@ -253,7 +253,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  max-width: 560px;
+  max-width: 600px;
   margin-left: auto;
   isolation: isolate;
 }
@@ -988,11 +988,12 @@
 }
 
 /* =======================================================================
-   TUTORS
+   TUTORS — auto-sliding marquee
    ======================================================================= */
 .hp-tutors {
   padding: 120px 0;
   background: var(--hp-surface);
+  overflow: hidden;
 }
 
 .hp-tutors-head {
@@ -1003,84 +1004,132 @@
   margin-bottom: 64px;
 }
 
-.hp-tutors-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+.hp-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0 28px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
 }
 
-.hp-tutor {
-  background: var(--hp-surface);
+.hp-marquee-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: hp-marquee 60s linear infinite;
+}
+
+.hp-marquee:hover .hp-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes hp-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-50% - 12px), 0, 0); }
+}
+
+/* Mentor card --------------------------------------------------------- */
+.hp-mentor-card {
+  --mentor-tint: rgba(32, 180, 134, 0.10);
+  --mentor-ink: var(--hp-green-ink);
+  --mentor-band: var(--hp-mint-deep);
+  flex-shrink: 0;
+  width: 300px;
+  background: #ffffff;
   border: 1px solid var(--hp-line);
-  border-radius: var(--hp-radius-lg);
+  border-radius: 22px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.hp-tutor:hover {
-  transform: translateY(-4px);
-  border-color: rgba(32, 180, 134, 0.3);
+.hp-mentor-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(32, 180, 134, 0.35);
   box-shadow: var(--hp-shadow-float);
 }
 
-.hp-tutor-photo {
-  aspect-ratio: 4 / 5;
-  background: linear-gradient(135deg, var(--hp-mint-deep), var(--hp-mint));
+.hp-mentor-photo {
   position: relative;
+  aspect-ratio: 4 / 3.4;
+  background: linear-gradient(135deg, var(--mentor-band) 0%, #ffffff 100%);
   overflow: hidden;
 }
 
-.hp-tutor-photo img {
+.hp-mentor-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 110%,
+    var(--mentor-tint),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.hp-mentor-photo img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 22%;
+  transition: transform 0.6s ease;
 }
 
-.hp-tutor-socials {
+.hp-mentor-card:hover .hp-mentor-photo img {
+  transform: scale(1.04);
+}
+
+.hp-mentor-subject {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  opacity: 0;
-  transform: translateX(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.hp-tutor:hover .hp-tutor-socials {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.hp-tutor-socials a {
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
+  top: 14px;
+  left: 14px;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
+  gap: 7px;
+  padding: 6px 12px 6px 10px;
+  background: #ffffff;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mentor-ink);
+  box-shadow: 0 6px 16px -8px rgba(11, 31, 23, 0.22);
 }
 
-.hp-tutor-socials a img {
-  width: 16px;
-  height: 16px;
+.hp-mentor-subject-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--mentor-ink);
+  border-radius: 50%;
 }
 
-.hp-tutor-body {
+.hp-mentor-body {
   padding: 22px 22px 26px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 }
 
-.hp-tutor-name {
+.hp-mentor-name {
   font-size: 18px;
   font-weight: 700;
   color: var(--hp-ink);
@@ -1088,17 +1137,71 @@
   letter-spacing: -0.015em;
 }
 
-.hp-tutor-role {
+.hp-mentor-inst {
   font-size: 13px;
-  color: var(--hp-green-ink);
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--mentor-ink);
+  letter-spacing: -0.005em;
+  margin-top: 2px;
 }
 
-.hp-tutor-bio {
+.hp-mentor-founder {
+  font-size: 12px;
+  color: var(--hp-muted);
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.hp-mentor-bio {
   font-size: 13px;
   color: var(--hp-muted);
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.55;
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--hp-line);
+}
+
+/* Subject color variants ----------------------------------------------- */
+.hp-subject-physics {
+  --mentor-tint: rgba(32, 180, 134, 0.18);
+  --mentor-ink: #168a64;
+  --mentor-band: #d6f4e6;
+}
+
+.hp-subject-chemistry {
+  --mentor-tint: rgba(255, 155, 38, 0.20);
+  --mentor-ink: #b25b00;
+  --mentor-band: #ffe9cf;
+}
+
+.hp-subject-biology {
+  --mentor-tint: rgba(193, 21, 116, 0.16);
+  --mentor-ink: #c11574;
+  --mentor-band: #fce7f6;
+}
+
+.hp-subject-math {
+  --mentor-tint: rgba(53, 56, 205, 0.16);
+  --mentor-ink: #3538cd;
+  --mentor-band: #e0eaff;
+}
+
+.hp-subject-english {
+  --mentor-tint: rgba(2, 106, 162, 0.16);
+  --mentor-ink: #026aa2;
+  --mentor-band: #eafff9;
+}
+
+.hp-subject-bangla {
+  --mentor-tint: rgba(255, 155, 38, 0.14);
+  --mentor-ink: #1a906b;
+  --mentor-band: #fff9f3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-marquee-track {
+    animation: none;
+  }
 }
 
 /* =======================================================================
@@ -1316,13 +1419,13 @@
     max-width: 480px;
   }
 
-  .hp-tutors-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .hp-tutors-head {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  .hp-mentor-card {
+    width: 280px;
   }
 
   .hp-blog-grid,

@@ -12,40 +12,40 @@ type Course = {
 
 const COURSES: Course[] = [
   {
-    category: "Design",
-    title: "Figma UI · UX Design",
+    category: "Engineering",
+    title: "Engineering Private Batch 2026 (Full Syllabus)",
     description:
-      "Use Figma to land a job in UI design — practical lessons covering interface, interaction and user experience.",
-    duration: "08 hr 12 mins",
-    author: "Jane Cooper",
+      "Full BUET, RUET, CUET and KUET prep — Physics, Chemistry and Math drilled to the latest admission MCQ pattern, with weekly model tests and answer-key review.",
+    duration: "Full year · live",
+    author: "Apurbo Mashrur",
     authorImg: "/home/Avatar@2x.png",
-    enrolled: "2,001 enrolled",
-    rating: "4.3",
-    price: "$17.84",
+    enrolled: "12,420 enrolled",
+    rating: "4.9",
+    price: "৳ 8,500",
   },
   {
-    category: "Product",
-    title: "Learn With Shoaib",
+    category: "Medical",
+    title: "Pre-Medical Batch 2026",
     description:
-      "Design websites and mobile apps that users love — and keep coming back to. A pragmatic, project-led course.",
-    duration: "06 hr 03 mins",
-    author: "Jenny Wilson",
+      "Six-month intensive on Biology, Chemistry, Physics, English and General Knowledge — fully aligned with the latest DGHS syllabus and DMC pattern.",
+    duration: "180 days · live",
+    author: "Dr. Tofael Ahmed",
     authorImg: "/home/Avatar6@2x.png",
-    enrolled: "1,520 enrolled",
-    rating: "3.9",
-    price: "$8.99",
+    enrolled: "9,850 enrolled",
+    rating: "4.9",
+    price: "৳ 7,500",
   },
   {
-    category: "Research",
-    title: "Building User Interfaces",
+    category: "Public Unit",
+    title: "Varsity + GST Special Programme 2026",
     description:
-      "Apply UX principles directly to your interface work, from foundational research through final visual polish.",
-    duration: "01 hr 02 mins",
-    author: "Esther Howard",
+      "Full coverage of the GST cluster plus DU, JU and RU patterns — weekly model tests, rank reports and chapter-wise weak-spot analysis.",
+    duration: "150 days · hybrid",
+    author: "Mottasin Pahlovi",
     authorImg: "/home/Avatar2@2x.png",
-    enrolled: "832 enrolled",
-    rating: "4.2",
-    price: "$11.70",
+    enrolled: "6,210 enrolled",
+    rating: "4.8",
+    price: "৳ 5,500",
   },
 ];
 
@@ -54,11 +54,11 @@ export default function ProgramsSection() {
     <section id="programs" className="hp-programs">
       <div className="hp-shell">
         <div className="hp-section-head is-center">
-          <span className="hp-eyebrow">Explore programs</span>
-          <h2 className="hp-section-title">Our most popular classes</h2>
+          <span className="hp-eyebrow">Explore tracks</span>
+          <h2 className="hp-section-title">Most-enrolled admission tracks.</h2>
           <p className="hp-section-lede">
-            Hand-picked programs from instructors who&apos;ve actually shipped
-            work — chosen for relevance, not popularity.
+            Hand-picked tracks for the units our students actually target —
+            live classes, weekly mocks and a mentor on call.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export default function ProgramsSection() {
 
         <div className="hp-programs-cta">
           <a href="#" className="hp-btn hp-btn-primary">
-            Explore all programs
+            Browse all admission tracks
             <span className="hp-btn-arrow">→</span>
           </a>
         </div>
