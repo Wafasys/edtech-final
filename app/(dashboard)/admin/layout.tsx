@@ -41,7 +41,7 @@ export default function AdminPanelLayout({
                 Admin Panel
               </h2>
               <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#20b486]">
-                Admission LMS
+                EdTech LMS
               </p>
             </div>
           </Link>

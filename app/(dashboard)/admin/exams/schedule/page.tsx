@@ -1,277 +1,458 @@
 "use client";
 
+import Link from "next/link";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const upcomingExams = [
+  {
+    id: "ex-1",
+    icon: "biotech",
+    title: "Biology Chapter Test 04",
+    subtitle: "Cell Structure & Function",
+    date: "22 Jun 2024",
+    time: "09:00 AM",
+    enrolled: 842,
+    status: "Ready",
+  },
+  {
+    id: "ex-2",
+    icon: "science",
+    title: "Organic Chemistry Intro",
+    subtitle: "Chemistry Unit 1",
+    date: "24 Jun 2024",
+    time: "02:30 PM",
+    enrolled: 512,
+    status: "Draft",
+  },
+  {
+    id: "ex-3",
+    icon: "calculate",
+    title: "Engineering Math Mock",
+    subtitle: "Linear Algebra & Calculus",
+    date: "27 Jun 2024",
+    time: "06:00 PM",
+    enrolled: 1284,
+    status: "Review",
+  },
+];
+
+const subjects = ["Full Mock", "Biology", "Chemistry", "Physics", "Mathematics"];
+
 export default function ExamSchedulePage() {
+  const [negativeMarking, setNegativeMarking] = useState(true);
+  const [secureMode, setSecureMode] = useState(true);
+  const [autoPublish, setAutoPublish] = useState(false);
+
   return (
-    <div className="bg-surface text-on-surface min-h-screen">
-      <header className="sticky top-0 z-30 flex justify-between items-center px-5 h-16 bg-white border-b border-slate-200">
-        <div className="flex items-center gap-4">
-          <span className="material-symbols-outlined text-slate-600 cursor-pointer md:hidden">menu</span>
-          <h1 className="text-lg font-bold text-[#003087]">Exam Management</h1>
-        </div>
-        <div className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant">
-          <img
-            alt="Admin User Profile"
-            className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ2HcgQZoEzXPStArep7GNz3vss0s-IK4Y_nXLEI7o47SGKEwiJ9zhXdDV5LWmw3do-vvnCl1YXGivbVCovf5PHgUuyDWgg8MOgWfh60fTpSThUkXe-MPussDaFRkmrgwZ_W0GVElUnaXxBkw24oHw4A1uhA1zQmPrHv2y5TUK3Nr7KGIX8Ejl7RFgwYW7rz_cZRVa5orZWneDAj8x7i3ffeIkRqviapjofZ186lEn7gBFyagRXb60cruTYXY7jhLq4L8uw4s81k8"
-          />
+    <div className="min-h-screen bg-[#f8fbfa] text-[#101828] pb-20 md:pb-0">
+      <header className="sticky top-0 z-50 border-b border-[rgba(216,216,216,0.5)] bg-white/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <div className="flex items-center gap-4">
+            <Link
+              href="/admin/dashboard"
+              className="grid h-10 w-10 place-items-center rounded-full border border-[#d0d5dd] text-[#1a906b] transition hover:bg-[#f0faf7]"
+            >
+              <span className="material-symbols-outlined">arrow_back</span>
+            </Link>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#20b486]">
+                Exam Operations
+              </p>
+              <h1 className="text-xl font-black tracking-tight text-[#101828]">
+                Schedule a new exam
+              </h1>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              className="hidden h-11 items-center gap-2 rounded-full border border-[#d0d5dd] bg-white px-6 text-sm font-bold text-[#101828] transition hover:bg-[#f0faf7] md:inline-flex"
+            >
+              <span className="material-symbols-outlined text-[20px]">history</span>
+              Past exams
+            </button>
+            <button
+              type="button"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(32,180,134,0.24)] transition hover:bg-[#1a906b]"
+            >
+              <span className="material-symbols-outlined text-[20px]">add</span>
+              New exam
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="p-10">
-        <div className="flex justify-between items-center mb-10">
-          <div>
-            <h2 className="text-display-lg font-display-lg text-primary">Exam Management</h2>
-            <p className="text-body-md font-body-md text-outline">
-              Configure and schedule upcoming admission tests
-            </p>
-          </div>
-          <button className="bg-primary-container text-on-primary px-8 h-12 flex items-center gap-2 font-label-sm shadow-md hover:bg-primary transition-colors">
-            <span className="material-symbols-outlined">add</span>
-            Create New Exam
-          </button>
-        </div>
-
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-8 space-y-8">
-            <div className="bg-white border border-outline-variant p-card-padding">
-              <div className="flex items-center gap-2 mb-8 border-b border-surface-container-low pb-4">
-                <span className="material-symbols-outlined text-primary-container">event_note</span>
-                <h3 className="text-headline-md font-headline-md text-primary">Schedule Details</h3>
+      <main className="mx-auto max-w-7xl px-5 py-8">
+        <section className="grid gap-5 xl:grid-cols-[1.05fr_0.95fr]">
+          <Card className="overflow-hidden border-[#101828] bg-[#101828] text-white shadow-[0_22px_70px_rgba(16,24,40,0.22)]">
+            <CardContent className="p-6 sm:p-8">
+              <Badge className="mb-6 border-white/10 bg-white/10 px-3 py-1.5 text-[#99f3d6] hover:bg-white/10">
+                <span className="material-symbols-outlined mr-1 text-[16px]">event_available</span>
+                Schedule queue healthy
+              </Badge>
+              <h2 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+                Plan the next mock test, lock the rules, ship it to students.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-white/68">
+                Configure timing, marking, and security in one pass. Saving a draft keeps the
+                exam off the student feed until you publish.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-black text-white transition hover:bg-[#1a906b]"
+                >
+                  <span className="material-symbols-outlined text-[20px]">save</span>
+                  Save & schedule
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex h-12 items-center gap-2 rounded-full border border-white/15 bg-white/8 px-6 text-sm font-black text-white transition hover:bg-white/14"
+                >
+                  <span className="material-symbols-outlined text-[20px]">content_copy</span>
+                  Duplicate template
+                </button>
               </div>
+            </CardContent>
+          </Card>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+          <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+            {[
+              { label: "Scheduled this month", value: "14", delta: "+3 vs May", icon: "event_note" },
+              { label: "Avg participation", value: "72%", delta: "+5.4%", icon: "groups" },
+              { label: "Drafts pending", value: "3", delta: "Review", icon: "edit_note" },
+            ].map((item) => (
+              <Card
+                key={item.label}
+                className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]"
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-4">
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                      <span className="material-symbols-outlined">{item.icon}</span>
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="truncate text-sm font-bold text-[#667085]">{item.label}</p>
+                        <Badge
+                          variant="outline"
+                          className="shrink-0 rounded-full border-[#dce8e2] bg-[#f2fffb] text-[#1a906b]"
+                        >
+                          {item.delta}
+                        </Badge>
+                      </div>
+                      <p className="mt-1 text-3xl font-black text-[#101828]">{item.value}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-6 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+          <Card className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 pb-3">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#20b486]">
+                  Schedule details
+                </p>
+                <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                  Configure the exam
+                </CardTitle>
+              </div>
+              <Badge className="rounded-full bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
+                Draft
+              </Badge>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid gap-5 md:grid-cols-2">
                 <div className="md:col-span-2">
-                  <label className="block text-label-sm font-label-sm text-on-surface-variant mb-2">
-                    Exam Title
+                  <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    Exam title
                   </label>
                   <input
-                    className="w-full h-12 px-4 border border-outline-variant focus:border-primary-container focus:ring-0 text-body-md bg-white"
                     type="text"
                     defaultValue="Medical Admission Mock Test - Batch 2027"
+                    className="h-12 w-full rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] px-4 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-label-sm font-label-sm text-on-surface-variant mb-2">
-                    Subject Selection
+                  <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    Subject
                   </label>
                   <div className="relative">
-                    <select className="w-full h-12 px-4 border border-outline-variant focus:border-primary-container focus:ring-0 text-body-md appearance-none bg-white">
-                      <option>Full Mock</option>
-                      <option>Biology</option>
-                      <option>Chemistry</option>
-                      <option>Physics</option>
+                    <select className="h-12 w-full appearance-none rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] pl-4 pr-10 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20">
+                      {subjects.map((s) => (
+                        <option key={s}>{s}</option>
+                      ))}
                     </select>
-                    <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">
+                    <span className="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[20px] text-[#667085]">
                       expand_more
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-label-sm font-label-sm text-on-surface-variant mb-2">
-                    Duration (minutes)
+                  <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    Duration
                   </label>
-                  <div className="flex">
+                  <div className="flex h-12 overflow-hidden rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] focus-within:border-[#20b486] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#20b486]/20">
                     <input
-                      className="w-full h-12 px-4 border border-outline-variant focus:border-primary-container focus:ring-0 text-body-md bg-white"
                       type="number"
-                      defaultValue="60"
+                      defaultValue={60}
+                      className="w-full bg-transparent px-4 text-sm font-semibold text-[#101828] outline-none"
                     />
-                    <div className="h-12 px-4 flex items-center bg-surface-container text-outline border border-l-0 border-outline-variant text-label-sm">
+                    <span className="grid place-items-center bg-[#edfff9] px-4 text-xs font-black uppercase tracking-[0.16em] text-[#1a906b]">
                       min
-                    </div>
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    Date
+                  </label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-[#20b486]">
+                      calendar_today
+                    </span>
+                    <input
+                      type="text"
+                      defaultValue="June 25, 2024"
+                      className="h-12 w-full rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] pl-11 pr-4 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    Start time
+                  </label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[20px] text-[#20b486]">
+                      schedule
+                    </span>
+                    <input
+                      type="text"
+                      defaultValue="10:00 AM"
+                      className="h-12 w-full rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] pl-11 pr-4 text-sm font-semibold text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
+                    />
                   </div>
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-label-sm font-label-sm text-on-surface-variant mb-2">
-                    Exam Commencement
+                  <label className="mb-2 block text-xs font-black uppercase tracking-[0.14em] text-[#667085]">
+                    Description for students
                   </label>
-                  <div className="flex gap-4">
-                    <div className="relative flex-1">
-                      <input
-                        className="w-full h-12 px-4 pl-12 border border-outline-variant focus:border-primary-container focus:ring-0 text-body-md bg-white"
-                        type="text"
-                        defaultValue="June 25, 2024"
-                      />
-                      <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">
-                        calendar_today
-                      </span>
-                    </div>
-                    <div className="relative flex-1">
-                      <input
-                        className="w-full h-12 px-4 pl-12 border border-outline-variant focus:border-primary-container focus:ring-0 text-body-md bg-white"
-                        type="text"
-                        defaultValue="10:00 AM"
-                      />
-                      <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">
-                        schedule
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-10 space-y-6 pt-8 border-t border-surface-container-low">
-                <div className="flex items-center justify-between p-4 bg-surface-container-low">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-error-container flex items-center justify-center">
-                      <span className="material-symbols-outlined text-error">remove_circle</span>
-                    </div>
-                    <div>
-                      <p className="text-label-sm font-label-sm text-primary">Negative Marking</p>
-                      <p className="text-xs text-outline">Deduct marks for incorrect answers</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-body-md font-bold text-error">-0.25</span>
-                    <button className="w-12 h-6 rounded-full bg-secondary relative">
-                      <div className="absolute right-1 top-1 w-4 h-4 rounded-full bg-white" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between p-4 bg-surface-container-low">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
-                      <span className="material-symbols-outlined text-primary-container">lock</span>
-                    </div>
-                    <div>
-                      <p className="text-label-sm font-label-sm text-primary">Secure Locked Mode</p>
-                      <p className="text-xs text-outline">Prevents tab switching and screen recording</p>
-                    </div>
-                  </div>
-                  <button className="w-12 h-6 rounded-full bg-secondary relative">
-                    <div className="absolute right-1 top-1 w-4 h-4 rounded-full bg-white" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-10 flex gap-4">
-                <button className="flex-1 h-tap-target-min bg-primary-container text-on-primary font-label-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-                  <span className="material-symbols-outlined">save</span>
-                  Save &amp; Schedule
-                </button>
-                <button className="flex-1 h-tap-target-min border border-primary-container text-primary-container font-label-sm flex items-center justify-center gap-2 hover:bg-primary-fixed transition-colors">
-                  <span className="material-symbols-outlined">content_copy</span>
-                  Duplicate
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-span-12 lg:col-span-4 space-y-8">
-            <div className="bg-white border border-outline-variant p-6 h-full">
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-label-sm font-label-sm text-primary uppercase tracking-wider">
-                  Upcoming Exams
-                </h3>
-                <span className="text-xs font-bold text-secondary bg-secondary-container px-2 py-1">
-                  Active
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <div className="group border border-surface-container-high p-4 hover:border-primary-container transition-colors">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="w-10 h-10 bg-surface-container-low flex items-center justify-center text-primary-container">
-                      <span className="material-symbols-outlined">biotech</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-bold text-outline">22 June, 2024</p>
-                      <p className="text-xs font-medium text-primary">09:00 AM</p>
-                    </div>
-                  </div>
-                  <h4 className="text-label-sm font-label-sm text-on-surface mb-1">
-                    Biology Chapter Test 04
-                  </h4>
-                  <p className="text-xs text-outline mb-4">Cell Structure &amp; Function</p>
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className="flex -space-x-2">
-                      <div className="w-6 h-6 rounded-full border border-white bg-slate-200 overflow-hidden">
-                        <img
-                          alt="student"
-                          className="w-full h-full object-cover"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB64uv9khMGA6H55gGPcIRlCyVkc4EPeJK4VG4bonRhyloCyLSp4o1thSiQcLdMARPE8bl8s0B2lTsr7U68A0xt2xtPDaFJVvGcbJCZNf7M65Ci4eofyXSFQXMFCXbH2uZhGdYRwqa8uQz6ol26fG5j6gM90eg2-Kxw_oGefSVtW3CS6qaDnGGsToWHjMDo6JtHuxAeATtc3OSwnxoARkos_aF5OU3lRIJbC5CkKOVS3K-77Go6CgKnSwgfF_6rrL26UUJVmkkMuWY"
-                        />
-                      </div>
-                      <div className="w-6 h-6 rounded-full border border-white bg-slate-200 overflow-hidden">
-                        <img
-                          alt="student"
-                          className="w-full h-full object-cover"
-                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0wuka4jtB_ZNeP_mr2S-Wm96gaVlBcu2rWmnSFB7VXC4JoY29ch--Yo4_Et-XWD8iU5sFEu2pzc1EVum42eJAsiGHt_OLNeCIXCbDgsbY6G9e4UCrFKnBAdm5e8-7Ww-9DHK6qedoLcL3NnkEXRESrFRMws5yNgg7RFQ7PefYOHG0br_j15v6eKtiPKYkHW1rr5jzqEVZkq4sFmD3h4SenS_wB9f3viwhdrkFNtkVFjScHoZL9f8a4fWf0-d81Jsnb72MyYcuGfc"
-                        />
-                      </div>
-                    </div>
-                    <span className="text-xs font-semibold text-outline">842 Enrolled</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <button className="flex-1 h-9 bg-surface-container-high text-primary font-label-sm text-[12px] flex items-center justify-center hover:bg-primary-fixed transition-colors">
-                      Edit
-                    </button>
-                    <button className="flex-1 h-9 bg-secondary text-on-secondary font-label-sm text-[12px] flex items-center justify-center hover:opacity-90 transition-opacity">
-                      Start Now
-                    </button>
-                  </div>
-                </div>
-
-                <div className="group border border-surface-container-high p-4 hover:border-primary-container transition-colors">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="w-10 h-10 bg-surface-container-low flex items-center justify-center text-primary-container">
-                      <span className="material-symbols-outlined">science</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-bold text-outline">24 June, 2024</p>
-                      <p className="text-xs font-medium text-primary">02:30 PM</p>
-                    </div>
-                  </div>
-                  <h4 className="text-label-sm font-label-sm text-on-surface mb-1">
-                    Organic Chemistry Intro
-                  </h4>
-                  <p className="text-xs text-outline mb-4">Chemistry Unit 1</p>
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className="flex -space-x-2">
-                      <div className="w-6 h-6 rounded-full border border-white flex items-center justify-center text-[10px] font-bold text-primary bg-primary-fixed">
-                        JS
-                      </div>
-                      <div className="w-6 h-6 rounded-full border border-white flex items-center justify-center text-[10px] font-bold text-secondary bg-secondary-fixed">
-                        RA
-                      </div>
-                    </div>
-                    <span className="text-xs font-semibold text-outline">512 Enrolled</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <button className="flex-1 h-9 bg-surface-container-high text-primary font-label-sm text-[12px] flex items-center justify-center hover:bg-primary-fixed transition-colors">
-                      Edit
-                    </button>
-                    <button className="flex-1 h-9 bg-secondary text-on-secondary font-label-sm text-[12px] flex items-center justify-center hover:opacity-90 transition-opacity">
-                      Start Now
-                    </button>
-                  </div>
-                </div>
-
-                <div className="relative h-48 bg-primary-container overflow-hidden p-6 flex flex-col justify-end">
-                  <img
-                    alt="Learning"
-                    className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfeJGDUdBGFenbN9PnlVDGZNHaehoj-UaIh50gq2N8odDLJZoURINLlUHCq2tHp-o-htdx1UKrnPzVxb2hq5_qypztbYTZs-nZxCQz4KkgwYlzLc1EE9VmyfMvQ50m5MG5WXT7Y6hvavECmcXsO6QwNYwX0kehLCfen8iQPfeQEgzOClld5h4QFBZ-1SpM25mv5fpqYm-eWNYf0sIf4JXzCSSbfqMZh7vK6bmfDi9y8QYIuEqjYp2B2IYu34Ssma8wvQCEabSx5aE"
+                  <textarea
+                    rows={3}
+                    defaultValue="Comprehensive mock covering full Biology syllabus. Negative marking applies; bring a stable internet connection."
+                    className="w-full rounded-lg border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4 text-sm leading-6 text-[#101828] outline-none transition focus:border-[#20b486] focus:bg-white focus:ring-2 focus:ring-[#20b486]/20"
                   />
-                  <div className="relative z-10">
-                    <p className="text-white text-label-sm font-label-sm mb-2">Monitor Live Exams</p>
-                    <p className="text-white/80 text-xs mb-4">
-                      View real-time student activity and server health metrics.
-                    </p>
-                    <button className="text-white border border-white/50 px-4 py-2 text-xs font-bold hover:bg-white/10 transition-colors">
-                      Go to Dashboard
-                    </button>
-                  </div>
                 </div>
               </div>
-            </div>
+
+              <div className="space-y-3">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#20b486]">
+                  Exam rules
+                </p>
+
+                <RuleRow
+                  icon="remove_circle"
+                  iconBg="bg-[#fff1ee]"
+                  iconColor="text-[#ba1a1a]"
+                  title="Negative marking"
+                  description="Deduct 0.25 for incorrect answers"
+                  trailing={<span className="text-sm font-black text-[#ba1a1a]">-0.25</span>}
+                  enabled={negativeMarking}
+                  onToggle={() => setNegativeMarking((v) => !v)}
+                />
+                <RuleRow
+                  icon="lock"
+                  iconBg="bg-[#edfff9]"
+                  iconColor="text-[#20b486]"
+                  title="Secure locked mode"
+                  description="Prevents tab switching and screen recording"
+                  enabled={secureMode}
+                  onToggle={() => setSecureMode((v) => !v)}
+                />
+                <RuleRow
+                  icon="rocket_launch"
+                  iconBg="bg-[#fff5e6]"
+                  iconColor="text-[#b25b00]"
+                  title="Auto-publish results"
+                  description="Release scores the moment the window closes"
+                  enabled={autoPublish}
+                  onToggle={() => setAutoPublish((v) => !v)}
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-3 border-t border-[rgba(216,216,216,0.55)] pt-5">
+                <button
+                  type="button"
+                  className="inline-flex h-11 items-center gap-2 rounded-full bg-[#20b486] px-6 text-sm font-black text-white shadow-[0_10px_24px_rgba(32,180,134,0.24)] transition hover:bg-[#1a906b]"
+                >
+                  <span className="material-symbols-outlined text-[20px]">save</span>
+                  Save & schedule
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex h-11 items-center gap-2 rounded-full border border-[#d0d5dd] bg-white px-6 text-sm font-black text-[#101828] transition hover:bg-[#f0faf7]"
+                >
+                  <span className="material-symbols-outlined text-[20px]">drafts</span>
+                  Save as draft
+                </button>
+                <button
+                  type="button"
+                  className="inline-flex h-11 items-center rounded-full px-4 text-sm font-black text-[#667085] transition hover:text-[#101828]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="space-y-5">
+            <Card className="border-[rgba(216,216,216,0.55)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+              <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 pb-3">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#20b486]">
+                    Pipeline
+                  </p>
+                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                    Upcoming exams
+                  </CardTitle>
+                </div>
+                <Badge className="rounded-full bg-[#edfff9] px-3 py-1 text-[#1a906b] hover:bg-[#edfff9]">
+                  {upcomingExams.length} active
+                </Badge>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {upcomingExams.map((exam) => (
+                  <div
+                    key={exam.id}
+                    className="rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4 transition hover:border-[#20b486] hover:bg-white"
+                  >
+                    <div className="mb-3 flex items-start justify-between gap-3">
+                      <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#edfff9] text-[#20b486]">
+                        <span className="material-symbols-outlined">{exam.icon}</span>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs font-black text-[#101828]">{exam.date}</p>
+                        <p className="text-xs font-semibold text-[#667085]">{exam.time}</p>
+                      </div>
+                    </div>
+                    <h4 className="text-sm font-black text-[#101828]">{exam.title}</h4>
+                    <p className="text-xs text-[#667085]">{exam.subtitle}</p>
+                    <div className="mt-3 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5 text-xs font-bold text-[#667085]">
+                        <span className="material-symbols-outlined text-[14px]">group</span>
+                        {exam.enrolled.toLocaleString()} enrolled
+                      </span>
+                      <Badge className="rounded-full bg-[#edfff9] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wide text-[#1a906b] hover:bg-[#edfff9]">
+                        {exam.status}
+                      </Badge>
+                    </div>
+                    <div className="mt-4 flex gap-2">
+                      <button className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full border border-[#d0d5dd] bg-white px-4 text-xs font-black text-[#101828] transition hover:border-[#20b486] hover:text-[#20b486]">
+                        <span className="material-symbols-outlined text-[16px]">edit</span>
+                        Edit
+                      </button>
+                      <button className="inline-flex h-10 flex-1 items-center justify-center gap-1.5 rounded-full bg-[#20b486] px-4 text-xs font-black text-white shadow-[0_8px_18px_rgba(32,180,134,0.24)] transition hover:bg-[#1a906b]">
+                        <span className="material-symbols-outlined text-[16px]">play_arrow</span>
+                        Start now
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card className="overflow-hidden border-[#101828] bg-[#101828] text-white shadow-[0_22px_70px_rgba(16,24,40,0.22)]">
+              <CardContent className="p-6">
+                <Badge className="mb-4 border-white/10 bg-white/10 px-3 py-1 text-[#99f3d6] hover:bg-white/10">
+                  <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#99f3d6]" />
+                  Live monitor
+                </Badge>
+                <h3 className="text-2xl font-black leading-tight tracking-tight">
+                  Switch to live exam control room
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-white/68">
+                  Watch real-time student activity, server health, and proctor alerts on running
+                  sessions.
+                </p>
+                <Link
+                  href="/admin/exams/monitor"
+                  className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-[#20b486] text-sm font-black text-white transition hover:bg-[#1a906b]"
+                >
+                  <span className="material-symbols-outlined text-[20px]">monitoring</span>
+                  Open live monitor
+                </Link>
+              </CardContent>
+            </Card>
           </div>
-        </div>
+        </section>
       </main>
+    </div>
+  );
+}
+
+function RuleRow({
+  icon,
+  iconBg,
+  iconColor,
+  title,
+  description,
+  trailing,
+  enabled,
+  onToggle,
+}: {
+  icon: string;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  description: string;
+  trailing?: React.ReactNode;
+  enabled: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-xl border border-[rgba(216,216,216,0.55)] bg-[#f9fafb] p-4">
+      <div className="flex items-center gap-3">
+        <span className={`grid h-11 w-11 place-items-center rounded-lg ${iconBg} ${iconColor}`}>
+          <span className="material-symbols-outlined">{icon}</span>
+        </span>
+        <div>
+          <p className="text-sm font-black text-[#101828]">{title}</p>
+          <p className="text-xs text-[#667085]">{description}</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        {trailing}
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-pressed={enabled}
+          className={`relative h-6 w-11 rounded-full transition ${
+            enabled ? "bg-[#20b486]" : "bg-[#d0d5dd]"
+          }`}
+        >
+          <span
+            className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow-sm transition-all ${
+              enabled ? "left-6" : "left-1"
+            }`}
+          />
+        </button>
+      </div>
     </div>
   );
 }
