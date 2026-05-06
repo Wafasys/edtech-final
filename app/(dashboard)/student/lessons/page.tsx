@@ -1,294 +1,681 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { clearDemoUser } from "../../../../lib/demo-auth";
+import {
+  ArrowRight,
+  Bookmark,
+  CheckCircle2,
+  Clock3,
+  Download,
+  FileText,
+  Flag,
+  HelpCircle,
+  Image,
+  Maximize2,
+  MessageCircle,
+  NotebookPen,
+  Pause,
+  Play,
+  Send,
+  Settings,
+  Sparkles,
+  Star,
+  ThumbsDown,
+  ThumbsUp,
+  Volume2,
+} from "lucide-react";
 
-const FEEDBACK_OPTIONS = [
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const feedbackOptions = [
   "Concept explanation too fast",
   "Video quality issues",
-  "Lack of practical examples",
+  "Need more practical examples",
   "Other",
 ];
 
+const playlist = [
+  {
+    title: "Limits and continuity recap",
+    time: "18:20",
+    status: "Done",
+  },
+  {
+    title: "Derivatives of trig functions",
+    time: "45:00",
+    status: "Playing",
+  },
+  {
+    title: "Chain rule admission shortcuts",
+    time: "32:45",
+    status: "Next",
+  },
+  {
+    title: "Mixed derivative MCQ drill",
+    time: "22:10",
+    status: "Locked",
+  },
+];
+
+const resources = [
+  {
+    title: "Lecture_Notes_U4.pdf",
+    detail: "4.2 MB - Updated yesterday",
+    tone: "PDF",
+  },
+  {
+    title: "Practice_Problems.pdf",
+    detail: "1.8 MB - Updated 2 days ago",
+    tone: "Drill",
+  },
+];
+
+const timestamps = [
+  ["02:10", "Limit definition"],
+  ["12:45", "First principle"],
+  ["24:30", "Trig derivative table"],
+  ["36:10", "Admission shortcut"],
+];
+
+const savedNotes = [
+  {
+    time: "12:45",
+    body: "First principle setup before substituting h = 0.",
+  },
+  {
+    time: "24:30",
+    body: "Memorize sin, cos, tan derivative table before MCQ drill.",
+  },
+];
+
+const lessonPoster =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCWJefcI5HzVF9tJlWruGZbM4lPNq9BzJVYnQ0FcpROzGYR8i4eWhHWotL_o368ZsdKaAh35y8JOKOmARV8FZbFZYM3U6guX35Aph2Qyx1Zp7HfiWQ2auk9Hh8li_yOgOHleo3QVvmwk2yafLvfmLzETdUM3gpZ3pGPVkA3mrgGPwDlfRGmJ9-x02n4N7DtJ7aB93kG0rymM8DVYb3JV1fnpkwtQ73RK7C4zdORTeUD4OM2EybnFdF1_ZCKoAyAPUBirNWG9Mq2CWQ";
+
 export default function VideoLessonPage() {
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"ask" | "comments">("ask");
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
 
-  function handleSignOut() {
-    clearDemoUser();
-    router.push("/login");
-  }
-
   return (
-    <div className="bg-background text-on-surface font-body-md min-h-screen">
-      <header className="bg-white flex justify-between items-center w-full px-5 py-3 sticky top-0 z-40 border-b border-slate-100">
-        <div className="flex items-center gap-4">
-          <Link href="/student/dashboard" className="active:opacity-70 transition-all duration-200">
-            <span className="material-symbols-outlined text-blue-900">arrow_back</span>
-          </Link>
-          <h1 className="text-lg font-bold text-blue-900 tracking-tight">Admission Pro</h1>
-        </div>
-        <button
-          type="button"
-          onClick={handleSignOut}
-          title="Sign out"
-          className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden"
-        >
-          <img
-            alt="User Profile"
-            className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU10ND4wFzhd4D6gQWztHOfxL9A1pnKNiyZQpy-_T8DfP3L9dDOGroCUFNHU7HXa-xIp-GSa96MZ1We2XprsxQaL_fV9CJ-VzEj5NvzMxLsRAWOlYPWD8eZQQkU4fej_JE_k4CcY--vAAAwr7ShkxYz2EWQMz8lCATjNPDqyFSIvV5lu0F1Plx65ogbab2E83CCYJ1XPNtjm0aQNB6giL3EHXjWqB8B3k0BfeRrfU_p5v_Yibh2089PNJck5eOYRMzfsT2Rmf1dUs"
-          />
-        </button>
-      </header>
-
-      <main className="max-w-4xl mx-auto">
-        <section
-          className="relative aspect-video w-full bg-black overflow-hidden group"
-          style={{
-            backgroundImage:
-              "linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%)",
-          }}
-        >
-          <img
-            alt="Lecture"
-            className="w-full h-full object-cover opacity-80"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWJefcI5HzVF9tJlWruGZbM4lPNq9BzJVYnQ0FcpROzGYR8i4eWhHWotL_o368ZsdKaAh35y8JOKOmARV8FZbFZYM3U6guX35Aph2Qyx1Zp7HfiWQ2auk9Hh8li_yOgOHleo3QVvmwk2yafLvfmLzETdUM3gpZ3pGPVkA3mrgGPwDlfRGmJ9-x02n4N7DtJ7aB93kG0rymM8DVYb3JV1fnpkwtQ73RK7C4zdORTeUD4OM2EybnFdF1_ZCKoAyAPUBirNWG9Mq2CWQ"
-          />
-          <div
-            className="absolute inset-0 flex flex-col justify-end p-4"
-            style={{
-              background:
-                "linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 40%)",
-            }}
-          >
-            <div className="w-full h-1 bg-white/30 rounded-full mb-4 relative cursor-pointer">
-              <div className="absolute left-0 top-0 h-full w-1/3 bg-blue-500 rounded-full" />
-              <div className="absolute left-1/3 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg" />
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <button className="text-white flex items-center justify-center">
-                  <span
-                    className="material-symbols-outlined text-[32px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    play_arrow
-                  </span>
-                </button>
-                <button className="text-white">
-                  <span className="material-symbols-outlined">volume_up</span>
-                </button>
-                <span className="text-white text-xs font-medium">12:45 / 45:00</span>
-              </div>
-              <div className="flex items-center gap-4 text-white">
-                <button>
-                  <span className="material-symbols-outlined">closed_caption</span>
-                </button>
-                <button>
-                  <span className="material-symbols-outlined">settings</span>
-                </button>
-                <button>
-                  <span className="material-symbols-outlined">fullscreen</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-container-margin py-4 flex justify-between items-center bg-white border-b border-slate-100">
-          <div className="flex gap-2">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 active:bg-slate-50 transition-colors">
-              <span className="material-symbols-outlined text-[20px]">thumb_up</span>
-              <span className="font-label-sm text-label-sm">1.2k</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setFeedbackOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 active:bg-slate-50 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">thumb_down</span>
-              <span className="font-label-sm text-label-sm">Dislike</span>
-            </button>
-          </div>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-on-primary active:opacity-90 transition-opacity">
-            <span className="material-symbols-outlined text-[20px]">bookmark</span>
-            <span className="font-label-sm text-label-sm">Save</span>
-          </button>
-        </section>
-
-        <section className="px-container-margin py-6">
-          <h2 className="font-headline-md text-headline-md text-primary mb-2">
-            Advanced Calculus: Derivatives of Trigonometric Functions
-          </h2>
-          <div className="flex items-center gap-2 text-slate-500 text-sm mb-4">
-            <span>Unit 4: Calculus</span>
-            <span className="w-1 h-1 rounded-full bg-slate-300" />
-            <span>Dr. Ariful Islam</span>
-          </div>
-
-          <div className="flex border-b border-slate-200 mb-6">
-            <button
-              type="button"
-              onClick={() => setActiveTab("ask")}
-              className={
-                activeTab === "ask"
-                  ? "px-6 py-3 border-b-2 border-primary text-primary font-semibold text-sm"
-                  : "px-6 py-3 text-slate-500 font-medium text-sm"
-              }
-            >
-              Ask Instructor
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("comments")}
-              className={
-                activeTab === "comments"
-                  ? "px-6 py-3 border-b-2 border-primary text-primary font-semibold text-sm"
-                  : "px-6 py-3 text-slate-500 font-medium text-sm"
-              }
-            >
-              Comments (24)
-            </button>
-          </div>
-
-          {activeTab === "ask" ? (
-            <div className="bg-surface-container-low rounded-xl p-card-padding mb-8">
-              <p className="text-sm text-on-surface-variant mb-4">
-                Having trouble with a specific step? Ask Dr. Ariful directly.
-              </p>
-              <div className="relative">
-                <textarea
-                  rows={3}
-                  placeholder="Type your question here..."
-                  className="w-full rounded-xl border border-outline-variant p-4 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
+    <main className="min-h-screen bg-[#f8fbfa] px-4 py-5 pb-28 text-[#101828] sm:px-6 lg:px-8 lg:py-8 md:pb-8">
+      <div className="mx-auto grid w-full max-w-[1240px] gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="min-w-0 space-y-5">
+          <Card className="overflow-hidden rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_18px_44px_rgba(16,24,40,0.07)]">
+            <CardContent className="p-0">
+              <section className="relative aspect-video overflow-hidden bg-[#101828]">
+                <img
+                  alt="Lecture"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  src={lessonPoster}
                 />
-                <div className="absolute bottom-3 right-3 flex gap-2">
-                  <button className="p-2 text-slate-400 hover:text-primary">
-                    <span className="material-symbols-outlined text-sm">image</span>
-                  </button>
-                  <Link
-                    href="/student/lessons/ask"
-                    className="px-4 py-1.5 bg-primary text-on-primary text-sm rounded-lg font-semibold"
+                <div className="absolute inset-0 bg-[#101828]/28" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_24%,rgba(255,255,255,0.18),transparent_34%)]" />
+                <div className="absolute left-5 top-5 flex flex-wrap gap-2">
+                  <Badge className="rounded-md border-0 bg-white text-[#101828] hover:bg-white">
+                    1080p
+                  </Badge>
+                  <Badge className="rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]">
+                    Unit 4
+                  </Badge>
+                </div>
+
+                <button
+                  type="button"
+                  className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-[#20b486] shadow-[0_22px_50px_rgba(16,24,40,0.22)] transition hover:scale-105"
+                  aria-label="Play lesson"
+                >
+                  <Play className="h-9 w-9 fill-current" />
+                </button>
+
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/78 via-black/42 to-transparent p-5">
+                  <div className="mb-4 h-1.5 overflow-hidden rounded-full bg-white/28">
+                    <div className="h-full w-[35%] rounded-full bg-[#f5c542]" />
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-4 text-white">
+                    <div className="flex items-center gap-4">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-9 w-9 rounded-md text-white hover:bg-white/12 hover:text-white"
+                        aria-label="Pause"
+                      >
+                        <Pause className="h-5 w-5" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-9 w-9 rounded-md text-white hover:bg-white/12 hover:text-white"
+                        aria-label="Volume"
+                      >
+                        <Volume2 className="h-5 w-5" />
+                      </Button>
+                      <span className="text-xs font-bold">12:45 / 45:00</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-9 w-9 rounded-md text-white hover:bg-white/12 hover:text-white"
+                        aria-label="Settings"
+                      >
+                        <Settings className="h-5 w-5" />
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-9 w-9 rounded-md text-white hover:bg-white/12 hover:text-white"
+                        aria-label="Fullscreen"
+                      >
+                        <Maximize2 className="h-5 w-5" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardContent className="p-5 sm:p-6">
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                <div className="min-w-0">
+                  <Badge className="rounded-md border-0 bg-[#edfff9] px-3 py-1.5 text-[#1a906b] hover:bg-[#edfff9]">
+                    Advanced calculus
+                  </Badge>
+                  <h1 className="mt-4 max-w-3xl text-3xl font-black leading-tight text-[#101828]">
+                    Derivatives of Trigonometric Functions
+                  </h1>
+                  <div className="mt-3 flex flex-wrap items-center gap-2 text-sm font-semibold text-[#667085]">
+                    <span>Unit 4: Calculus</span>
+                    <span className="h-1 w-1 rounded-full bg-[#d0d5dd]" />
+                    <span>Dr. Ariful Islam</span>
+                    <span className="h-1 w-1 rounded-full bg-[#d0d5dd]" />
+                    <span>45 min lesson</span>
+                  </div>
+                </div>
+
+                <div className="flex shrink-0 flex-wrap gap-2">
+                  <Button
+                    variant="outline"
+                    className="h-10 rounded-md border-[#d0d5dd] bg-white px-4 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
                   >
-                    Post
-                  </Link>
+                    <ThumbsUp className="h-4 w-4" />
+                    1.2k
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setFeedbackOpen(true)}
+                    className="h-10 rounded-md border-[#d0d5dd] bg-white px-4 font-extrabold text-[#101828] hover:border-[#ba1a1a] hover:bg-[#fff5f4] hover:text-[#ba1a1a]"
+                  >
+                    <ThumbsDown className="h-4 w-4" />
+                    Feedback
+                  </Button>
+                  <Button className="h-10 rounded-md bg-[#20b486] px-4 font-extrabold text-white hover:bg-[#1a906b]">
+                    <Bookmark className="h-4 w-4" />
+                    Save
+                  </Button>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="bg-surface-container-low rounded-xl p-card-padding mb-8">
-              <p className="text-sm text-on-surface-variant">No public comments to display yet.</p>
-            </div>
-          )}
+            </CardContent>
+          </Card>
 
-          <div className="space-y-4">
-            <h3 className="font-label-sm text-label-sm uppercase tracking-wider text-slate-400">
-              Class Resources
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center justify-between p-4 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-primary/30 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center">
-                    <span
-                      className="material-symbols-outlined text-error"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      picture_as_pdf
-                    </span>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm">Lecture_Notes_U4.pdf</h4>
-                    <p className="text-xs text-slate-400">4.2 MB • Updated yesterday</p>
-                  </div>
-                </div>
-                <button className="text-primary active:scale-90 transition-transform">
-                  <span className="material-symbols-outlined">download</span>
-                </button>
-              </div>
+          <Tabs defaultValue="ask" className="space-y-5">
+            <Card className="overflow-hidden rounded-lg border-[#c9efe4] bg-white shadow-[0_14px_32px_rgba(16,24,40,0.06)]">
+              <CardContent className="p-2 sm:p-3">
+                <TabsList className="grid h-auto w-full grid-cols-2 gap-2 rounded-lg bg-[#f0faf7] p-1.5 lg:grid-cols-4">
+                  {[
+                    {
+                      value: "ask",
+                      label: "Ask Instructor",
+                      detail: "Send a question",
+                      icon: HelpCircle,
+                    },
+                    {
+                      value: "comments",
+                      label: "Comments",
+                      detail: "24 discussions",
+                      icon: MessageCircle,
+                    },
+                    {
+                      value: "resources",
+                      label: "Resources",
+                      detail: "Files and drills",
+                      icon: FileText,
+                    },
+                    {
+                      value: "notes",
+                      label: "Take Note",
+                      detail: "At 12:45",
+                      icon: NotebookPen,
+                    },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <TabsTrigger
+                        key={item.value}
+                        value={item.value}
+                        className="group min-h-[72px] justify-start rounded-lg border border-transparent px-3 py-3 text-left data-[state=active]:border-[#c9efe4] data-[state=active]:bg-white data-[state=active]:text-[#101828] data-[state=active]:shadow-[0_10px_24px_rgba(16,24,40,0.08)]"
+                      >
+                        <span className="flex min-w-0 items-center gap-3">
+                          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)] group-data-[state=active]:bg-[#20b486] group-data-[state=active]:text-white">
+                            <Icon className="h-5 w-5" />
+                          </span>
+                          <span className="min-w-0">
+                            <span className="block truncate text-sm font-black text-[#101828]">
+                              {item.label}
+                            </span>
+                            <span className="mt-0.5 block truncate text-xs font-semibold text-[#667085]">
+                              {item.detail}
+                            </span>
+                          </span>
+                        </span>
+                      </TabsTrigger>
+                    );
+                  })}
+                </TabsList>
+              </CardContent>
+            </Card>
 
-              <div className="flex items-center justify-between p-4 bg-white border border-slate-100 rounded-xl shadow-sm hover:border-primary/30 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center">
-                    <span
-                      className="material-symbols-outlined text-secondary"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      description
-                    </span>
+            <TabsContent value="ask" className="m-0">
+              <Card className="rounded-lg border-[#c9efe4] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+                <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+                  <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                    Instructor support
+                  </CardDescription>
+                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                    Ask about a specific step
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-5 pt-5 sm:p-6 sm:pt-5">
+                  <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4">
+                    <textarea
+                      rows={4}
+                      placeholder="Type your question here..."
+                      className="min-h-[112px] w-full resize-none rounded-lg border border-[#d0d5dd] bg-white p-4 text-sm font-semibold text-[#101828] outline-none transition placeholder:text-[#98a2b3] focus:border-[#20b486] focus:ring-2 focus:ring-[#20b486]/20"
+                    />
+                    <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          className="h-10 w-10 rounded-md border-[#d0d5dd] bg-white text-[#667085] hover:border-[#20b486] hover:bg-[#f2fffb] hover:text-[#20b486]"
+                          aria-label="Attach image"
+                        >
+                          <Image className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          className="h-10 w-10 rounded-md border-[#d0d5dd] bg-white text-[#667085] hover:border-[#20b486] hover:bg-[#f2fffb] hover:text-[#20b486]"
+                          aria-label="Attach timestamp"
+                        >
+                          <Clock3 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <Button
+                        asChild
+                        className="h-10 rounded-md bg-[#20b486] px-4 font-extrabold text-white hover:bg-[#1a906b]"
+                      >
+                        <Link href="/student/lessons/ask">
+                          Post question
+                          <Send className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-sm">Practice_Problems.pdf</h4>
-                    <p className="text-xs text-slate-400">1.8 MB • Updated 2 days ago</p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="comments" className="m-0">
+              <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+                <CardContent className="space-y-4 p-5 sm:p-6">
+                  <Comment
+                    name="Maliha"
+                    time="12 min ago"
+                    body="The chain-rule shortcut at 36:10 helped. Please add one more example with tan x."
+                  />
+                  <Comment
+                    name="Rafi"
+                    time="1 hour ago"
+                    body="At 12:45, why is the limit written before substituting h = 0?"
+                  />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="resources" className="m-0">
+              <ResourcesList />
+            </TabsContent>
+
+            <TabsContent value="notes" className="m-0">
+              <Card className="rounded-lg border-[#c9efe4] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+                <CardHeader className="p-5 pb-0 sm:p-6 sm:pb-0">
+                  <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                    Timestamp notes
+                  </CardDescription>
+                  <CardTitle className="mt-1 text-2xl font-black text-[#101828]">
+                    Take a note at 12:45
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="grid gap-5 p-5 pt-5 sm:p-6 sm:pt-5 lg:grid-cols-[minmax(0,1fr)_280px]">
+                  <div className="rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4">
+                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                      <Badge className="rounded-md border-0 bg-white font-mono text-[#1a906b] hover:bg-white">
+                        12:45
+                      </Badge>
+                      <span className="text-xs font-bold text-[#667085]">
+                        Linked to current playback time
+                      </span>
+                    </div>
+                    <textarea
+                      rows={5}
+                      placeholder="Write the exact point you want to remember from this timestamp..."
+                      className="min-h-[132px] w-full resize-none rounded-lg border border-[#d0d5dd] bg-white p-4 text-sm font-semibold text-[#101828] outline-none transition placeholder:text-[#98a2b3] focus:border-[#20b486] focus:ring-2 focus:ring-[#20b486]/20"
+                    />
+                    <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-10 rounded-md border-[#d0d5dd] bg-white px-4 font-extrabold text-[#101828] hover:border-[#20b486] hover:bg-[#f2fffb]"
+                      >
+                        <Clock3 className="h-4 w-4" />
+                        Add another stamp
+                      </Button>
+                      <Button className="h-10 rounded-md bg-[#20b486] px-4 font-extrabold text-white hover:bg-[#1a906b]">
+                        <NotebookPen className="h-4 w-4" />
+                        Save note
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className="text-xs font-extrabold uppercase text-[#667085]">
+                      Saved stamps
+                    </p>
+                    {savedNotes.map((note) => (
+                      <div
+                        key={`${note.time}-${note.body}`}
+                        className="rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-4"
+                      >
+                        <div className="mb-2 flex items-center justify-between gap-3">
+                          <span className="font-mono text-xs font-black text-[#20b486]">
+                            {note.time}
+                          </span>
+                          <CheckCircle2 className="h-4 w-4 text-[#20b486]" />
+                        </div>
+                        <p className="text-sm font-semibold leading-5 text-[#667085]">
+                          {note.body}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        <aside className="space-y-5">
+          <Card className="rounded-lg border-[#ffe1bd] bg-[#fff9f3] shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardContent className="p-5 sm:p-6">
+              <div className="mb-5 flex items-start gap-3">
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[#101828] text-[#f5c542]">
+                  <Sparkles className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-extrabold uppercase text-[#b25b00]">
+                    Lesson progress
+                  </p>
+                  <h2 className="mt-1 text-xl font-black text-[#101828]">
+                    35% complete
+                  </h2>
+                </div>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-white">
+                <div className="h-full w-[35%] rounded-full bg-[#20b486]" />
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="rounded-lg bg-white p-4">
+                  <p className="text-2xl font-black text-[#101828]">12:45</p>
+                  <p className="mt-1 text-xs font-bold text-[#667085]">current time</p>
+                </div>
+                <div className="rounded-lg bg-white p-4">
+                  <p className="text-2xl font-black text-[#101828]">32m</p>
+                  <p className="mt-1 text-xs font-bold text-[#667085]">remaining</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="p-5 pb-0">
+              <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                Playlist
+              </CardDescription>
+              <CardTitle className="mt-1 text-xl font-black text-[#101828]">
+                Calculus sequence
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 p-5">
+              {playlist.map((item, index) => (
+                <div
+                  key={item.title}
+                  className={
+                    item.status === "Playing"
+                      ? "rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-4"
+                      : "rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-4"
+                  }
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                      {item.status === "Done" ? (
+                        <CheckCircle2 className="h-4 w-4" />
+                      ) : item.status === "Playing" ? (
+                        <Play className="h-4 w-4 fill-current" />
+                      ) : (
+                        <span className="text-xs font-black">{index + 1}</span>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="line-clamp-2 text-sm font-black leading-snug text-[#101828]">
+                        {item.title}
+                      </p>
+                      <div className="mt-2 flex items-center justify-between gap-2">
+                        <span className="text-xs font-bold text-[#667085]">{item.time}</span>
+                        <Badge
+                          className={
+                            item.status === "Playing"
+                              ? "rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]"
+                              : "rounded-md border-0 bg-white text-[#667085] hover:bg-white"
+                          }
+                        >
+                          {item.status}
+                        </Badge>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button className="text-primary active:scale-90 transition-transform">
-                  <span className="material-symbols-outlined">download</span>
+              ))}
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+            <CardHeader className="p-5 pb-0">
+              <CardDescription className="text-xs font-extrabold uppercase text-[#20b486]">
+                Timestamps
+              </CardDescription>
+              <CardTitle className="mt-1 text-xl font-black text-[#101828]">
+                Jump points
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 p-5">
+              {timestamps.map(([time, label]) => (
+                <button
+                  key={time}
+                  type="button"
+                  className="flex w-full items-center justify-between rounded-lg bg-[#f9fafb] px-3 py-2 text-left transition hover:bg-[#f2fffb]"
+                >
+                  <span className="text-sm font-black text-[#101828]">{label}</span>
+                  <span className="font-mono text-xs font-bold text-[#20b486]">{time}</span>
                 </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+              ))}
+            </CardContent>
+          </Card>
+        </aside>
+      </div>
 
       {feedbackOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-container-margin bg-black/40 backdrop-blur-sm">
-          <div className="bg-white w-full max-w-sm rounded-xl overflow-hidden shadow-2xl">
-            <div className="p-card-padding border-b border-slate-100 flex justify-between items-center">
-              <h3 className="font-bold text-primary">Help us improve</h3>
-              <button
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm">
+          <Card className="w-full max-w-md rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-2xl">
+            <CardHeader className="flex-row items-start justify-between gap-4 space-y-0 p-5 pb-0">
+              <div>
+                <CardDescription className="text-xs font-extrabold uppercase text-[#ba1a1a]">
+                  Help us improve
+                </CardDescription>
+                <CardTitle className="mt-1 text-xl font-black text-[#101828]">
+                  What was unclear?
+                </CardTitle>
+              </div>
+              <Button
                 type="button"
+                variant="ghost"
+                size="icon"
                 onClick={() => setFeedbackOpen(false)}
-                className="text-slate-400 hover:text-slate-600"
+                className="h-9 w-9 rounded-md text-[#667085] hover:bg-[#f8fbfa]"
+                aria-label="Close feedback"
               >
-                <span className="material-symbols-outlined">close</span>
-              </button>
-            </div>
-            <div className="p-card-padding">
-              <p className="text-on-surface-variant mb-6 text-sm">
-                We&apos;re sorry this lesson didn&apos;t meet your expectations. What was unclear?
-              </p>
-              <div className="space-y-3 mb-6">
-                {FEEDBACK_OPTIONS.map((opt) => (
+                <Flag className="h-4 w-4" />
+              </Button>
+            </CardHeader>
+            <CardContent className="p-5">
+              <div className="space-y-3">
+                {feedbackOptions.map((option) => (
                   <label
-                    key={opt}
-                    className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 hover:border-primary/50 cursor-pointer group"
+                    key={option}
+                    className={
+                      feedback === option
+                        ? "flex cursor-pointer items-center gap-3 rounded-lg border border-[#c9efe4] bg-[#f2fffb] p-3"
+                        : "flex cursor-pointer items-center gap-3 rounded-lg border border-[rgba(216,216,216,0.65)] bg-white p-3 hover:bg-[#f8fbfa]"
+                    }
                   >
                     <input
                       type="radio"
                       name="feedback"
-                      checked={feedback === opt}
-                      onChange={() => setFeedback(opt)}
-                      className="w-4 h-4 text-primary focus:ring-primary border-slate-300"
+                      checked={feedback === option}
+                      onChange={() => setFeedback(option)}
+                      className="h-4 w-4 border-[#d0d5dd] text-[#20b486] focus:ring-[#20b486]"
                     />
-                    <span className="text-sm font-medium">{opt}</span>
+                    <span className="text-sm font-semibold text-[#101828]">{option}</span>
                   </label>
                 ))}
               </div>
-              <div className="flex flex-col gap-2">
-                <button
+              <div className="mt-5 flex flex-col gap-2">
+                <Button
                   type="button"
                   onClick={() => setFeedbackOpen(false)}
-                  className="w-full py-3 bg-primary text-on-primary rounded-xl font-bold active:opacity-90 transition-opacity"
+                  className="h-11 rounded-md bg-[#20b486] font-extrabold text-white hover:bg-[#1a906b]"
                 >
-                  Submit Feedback
-                </button>
-                <button
+                  Submit feedback
+                </Button>
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={() => setFeedbackOpen(false)}
-                  className="w-full py-3 text-slate-500 font-medium active:opacity-70"
+                  className="h-11 rounded-md font-extrabold text-[#667085] hover:bg-[#f8fbfa]"
                 >
                   Cancel
-                </button>
+                </Button>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       )}
+    </main>
+  );
+}
+
+function Comment({ name, time, body }: { name: string; time: string; body: string }) {
+  return (
+    <div className="flex gap-3 rounded-lg bg-[#f9fafb] p-4">
+      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#edfff9] text-sm font-black text-[#1a906b]">
+        {name.slice(0, 1)}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-sm font-black text-[#101828]">{name}</p>
+          <span className="text-xs font-semibold text-[#98a2b3]">{time}</span>
+        </div>
+        <p className="mt-1 text-sm leading-6 text-[#667085]">{body}</p>
+      </div>
     </div>
+  );
+}
+
+function ResourcesList() {
+  return (
+    <Card className="rounded-lg border-[rgba(216,216,216,0.65)] bg-white shadow-[0_12px_28px_rgba(16,24,40,0.05)]">
+      <CardContent className="grid gap-4 p-5 sm:grid-cols-2 sm:p-6">
+        {resources.map((resource) => (
+          <article
+            key={resource.title}
+            className="rounded-lg border border-[rgba(216,216,216,0.65)] bg-[#f9fafb] p-4 transition hover:border-[#20b486] hover:bg-white"
+          >
+            <div className="mb-5 flex items-center justify-between gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-lg bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+                <FileText className="h-5 w-5" />
+              </div>
+              <Badge className="rounded-md border-0 bg-[#edfff9] text-[#1a906b] hover:bg-[#edfff9]">
+                {resource.tone}
+              </Badge>
+            </div>
+            <h3 className="truncate text-base font-black text-[#101828]">{resource.title}</h3>
+            <p className="mt-2 text-sm font-semibold text-[#667085]">{resource.detail}</p>
+            <Button
+              variant="ghost"
+              className="mt-4 h-9 rounded-md px-0 text-sm font-extrabold text-[#1a906b] hover:bg-transparent hover:text-[#1a906b]"
+            >
+              <Download className="h-4 w-4" />
+              Download
+            </Button>
+          </article>
+        ))}
+        <Link
+          href="/student/lessons/notes"
+          className="flex min-h-[156px] flex-col justify-between rounded-lg border border-dashed border-[#c9efe4] bg-[#f2fffb] p-4 transition hover:bg-[#edfff9]"
+        >
+          <div>
+            <div className="mb-4 grid h-11 w-11 place-items-center rounded-lg bg-white text-[#20b486] shadow-[0_1px_2px_rgba(16,24,40,0.05)]">
+              <MessageCircle className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-black text-[#101828]">Open timestamp notes</h3>
+            <p className="mt-2 text-sm font-semibold text-[#667085]">
+              Save notes while watching and review them by timestamp.
+            </p>
+          </div>
+          <span className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a906b]">
+            View notes
+            <ArrowRight className="h-4 w-4" />
+          </span>
+        </Link>
+      </CardContent>
+    </Card>
   );
 }
