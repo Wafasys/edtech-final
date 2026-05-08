@@ -207,6 +207,16 @@ export default function SiteFooter() {
                 />
               </div>
             </div>
+            <div className="footer-powered-by">
+              Powered by{" "}
+              <a
+                href="https://wafasys.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wafa Systems
+              </a>
+            </div>
           </div>
         </div>
       </div>

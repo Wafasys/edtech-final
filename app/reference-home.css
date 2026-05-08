@@ -1775,6 +1775,7 @@
 .container13 {
   align-items: flex-start;
   padding: var(--padding-0) var(--padding-32);
+  gap: var(--gap-16);
 }
 .content13 {
   align-self: stretch;
@@ -1790,6 +1791,21 @@
   line-height: var(--lh-24);
   display: inline-block;
   min-width: 225px;
+}
+.footer-powered-by {
+  align-self: stretch;
+  color: var(--color-darkgray-100);
+  font-size: var(--fs-14);
+  line-height: 20px;
+  text-align: center;
+}
+.footer-powered-by a {
+  color: var(--Gray-200);
+  font-weight: 600;
+  text-decoration: none;
+}
+.footer-powered-by a:hover {
+  color: var(--color-mediumseagreen);
 }
 .social-icons5 {
   display: flex;
